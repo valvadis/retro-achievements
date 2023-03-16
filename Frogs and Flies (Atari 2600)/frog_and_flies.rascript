@@ -1,6 +1,7 @@
 // Frogs and Flies
 // #ID = 20375
 
+// -----------------------------------------------------------------------------
 // VARIABLES
 
 // Frog points in BCD
@@ -15,14 +16,19 @@ RedFrogDifficultLevel = bit7(0x0044)
 GrayFrogControlledByAI = bit6(0x0043)
 RedFrogControlledByAI = bit6(0x0044)
 
-// Time of the day
+GrayFrogPosition = byte(0x002a)
+RedFrogPosition = byte(0x002c)
+
+GrayFrogFellIntoThePond = bit1(0x0043)
+RedFrogFellIntoThePond = bit1(0x0044)
+
 TimeOfDayPeriod = byte(0x0037)
 TimeOfDayTimer = byte(0x0038)
 
-// Difficult levels
 EasyMode = 1
 HardMode = 0
 
+// -----------------------------------------------------------------------------
 // FUNCTIONS
 
 function resetGameWhenStarts() {
@@ -55,6 +61,14 @@ function checkFrogDifficultLevelChanged(frogDifficultLevel, difficultLevel) {
     )
 }
 
+function checkFrogFellIntoThePond(frogFellIntoThePond) {
+    return disable_when(
+        unless(once(frogFellIntoThePond == 1)),
+        resetGameWhenStarts()
+    )
+}
+
+// -----------------------------------------------------------------------------
 // ACHIEVEMENTS
 
 function addHitPointsAchievement(difficult, title, points, reward) {
@@ -98,8 +112,8 @@ function addWinTheGameAchievement(difficult, reward) {
             && (
                 GrayFrogPoints > RedFrogPoints 
                 && checkFrogIsControlledByAI(GrayFrogControlledByAI)
-                && checkFrogDifficultLevelChanged(GrayFrogDifficultLevel, difficult)
                 && checkFrogIsControlledByPlayer(RedFrogControlledByAI)
+                && checkFrogDifficultLevelChanged(GrayFrogDifficultLevel, difficult)
                 || RedFrogPoints > GrayFrogPoints
                 && checkFrogIsControlledByAI(RedFrogControlledByAI)
                 && checkFrogIsControlledByPlayer(GrayFrogControlledByAI)
@@ -110,3 +124,47 @@ function addWinTheGameAchievement(difficult, reward) {
 
 addWinTheGameAchievement(EasyMode, 2)
 addWinTheGameAchievement(HardMode, 3)
+
+achievement(
+    title = "[Hard] Sugar Frog",
+    description = "Win the game without touching the right lily pad",
+    points = 10,
+    trigger = resetGameWhenStarts() 
+        && isGameEnded() 
+        && (
+            GrayFrogPoints > RedFrogPoints 
+            && checkFrogIsControlledByAI(GrayFrogControlledByAI)
+            && checkFrogDifficultLevelChanged(GrayFrogDifficultLevel, HardMode)
+            && checkFrogIsControlledByPlayer(RedFrogControlledByAI)
+            && checkFrogFellIntoThePond(GrayFrogFellIntoThePond)
+            || RedFrogPoints > GrayFrogPoints
+            && checkFrogIsControlledByAI(RedFrogControlledByAI)
+            && checkFrogIsControlledByPlayer(GrayFrogControlledByAI)
+            && checkFrogDifficultLevelChanged(RedFrogDifficultLevel, HardMode)
+            && checkFrogFellIntoThePond(RedFrogFellIntoThePond)
+        )
+)
+
+function addEatTwoFliesInSingleJumpAchievement(difficult, reward) {
+    label = "Easy"
+    if (difficult == HardMode) {
+        label = "Hard"
+    }
+
+    achievement(
+        title = format("[{0}] Fly devourer", label),
+        description = "Eat two flies in a single jump",
+        points = reward,
+        trigger = repeated(2, GrayFrogPoints > prev(GrayFrogPoints))
+            && never(GrayFrogPosition == 0xa9)
+            && checkFrogIsControlledByAI(GrayFrogControlledByAI)
+            && checkFrogDifficultLevelChanged(GrayFrogDifficultLevel, difficult)
+            || repeated(2, RedFrogPoints > prev(RedFrogPoints))
+            && never(RedFrogPosition == 0xa9)
+            && checkFrogIsControlledByAI(RedFrogControlledByAI)
+            && checkFrogDifficultLevelChanged(RedFrogDifficultLevel, difficult)
+    )
+}
+
+addEatTwoFliesInSingleJumpAchievement(EasyMode, 3)
+addEatTwoFliesInSingleJumpAchievement(HardMode, 5)
