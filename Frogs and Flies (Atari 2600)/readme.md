@@ -18,15 +18,14 @@ at this point is the winner. Of additional things the game offers two difficulty
 | [Hard] Flies Catcher II   | Hit at least 60 points                           | easy      | 3      |
 | [Hard] Flies Catcher III  | Hit at least 90 points                           | medium    | 5      |
 | [Hard] The Frog King      | Win the game                                     | easy      | 3      |
-| [Hard] The Little Mermaid | Win the game without falling in pond             | hard      | 10     |
-| [Hard] Prince In Disguise | Win the game without touching the right lily pad | hard      | 10     |
 | [Easy] Fly devourer       | Eat two flies in a single jump                   | medium    | 3      |
 | [Hard] Fly devourer       | Eat two flies in a single jump                   | medium    | 5      |
+| [Hard] The Little Mermaid | Win the game without falling in pond             | hard      | 10     |
 
 # ATTENTION #
 
 > Achievements will be paused:
 > 
 > 1. When you change the difficulty level during the game.
-> 2. AI will take control your frog (after 15 second of inactive).
+> 2. AI will take control your frog (after 10 second of inactive).
 > 3. You will play in two-player mode (don't move the opponent frog).
