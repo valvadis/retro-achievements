@@ -41,13 +41,12 @@ HardMode = 0
 // -----------------------------------------------------------------------------
 // FUNCTIONS
 
+function isGameEnded() => bit7(0x0034) == 1
+
+function isGameStarted() => TimeOfDayCurrentPeriod == 0x07 && TimeOfDayTimer == 0x1a
+
 function resetGameWhenStarts() {
-    return never(
-        GrayFrogPoints == 0
-        && RedFrogPoints == 0
-        && TimeOfDayCurrentPeriod == 0x07
-        && TimeOfDayTimer == 0x1a
-    )
+    return never(isGameStarted())
 }
 
 function checkFrogIsControlledByAI(frogControlledFlag) {
@@ -101,10 +100,6 @@ addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher III", 99, 4)
 addHitPointsAchievement(HardMode, "[Hard] Flies Catcher I", 30, 2)
 addHitPointsAchievement(HardMode, "[Hard] Flies Catcher II", 60, 3)
 addHitPointsAchievement(HardMode, "[Hard] Flies Catcher III", 99, 5)
-
-function isGameEnded() {
-    return once(TimeOfDayCurrentPeriod == 0x01 && TimeOfDayTimer == 0x01)
-}
 
 function addWinTheGameAchievement(difficult, reward) {
     label = "Easy"
@@ -190,4 +185,16 @@ rich_presence_display(
     rich_presence_value("Gray Frog", GrayFrogPoints, "VALUE"),
     rich_presence_value("Red Frog", RedFrogPoints, "VALUE"),
     rich_presence_lookup("Period", TimeOfDayCurrentPeriod, TimeOfDayPeriods)
+)
+
+
+leaderboard(
+    title = "Perfect Team Play",
+    description = "Play with a friend and collect as many points as possible",
+    start = resetGameWhenStarts() && repeated(600, always_true()),
+    cancel = GrayFrogControlledByAI == 1 || RedFrogControlledByAI == 1,
+    submit = isGameEnded(),
+    value = GrayFrogPoints + RedFrogPoints,
+    format= "VALUE",
+    lower_is_better = false
 )
