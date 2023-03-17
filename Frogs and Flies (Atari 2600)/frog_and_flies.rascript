@@ -22,8 +22,18 @@ RedFrogPosition = byte(0x002c)
 GrayFrogFellIntoThePond = bit1(0x0043)
 RedFrogFellIntoThePond = bit1(0x0044)
 
-TimeOfDayPeriod = byte(0x0037)
+TimeOfDayCurrentPeriod = byte(0x0037)
 TimeOfDayTimer = byte(0x0038)
+
+TimeOfDayPeriods = {
+    7: "Dawn",
+    6: "Morning",
+    5: "Midday",
+    4: "Afternoon",
+    3: "Twilight",
+    2: "Evening",
+    1: "Night"
+}
 
 EasyMode = 1
 HardMode = 0
@@ -35,7 +45,7 @@ function resetGameWhenStarts() {
     return never(
         GrayFrogPoints == 0
         && RedFrogPoints == 0
-        && TimeOfDayPeriod == 0x07
+        && TimeOfDayCurrentPeriod == 0x07
         && TimeOfDayTimer == 0x1a
     )
 }
@@ -93,8 +103,7 @@ addHitPointsAchievement(HardMode, "[Hard] Flies Catcher II", 60, 3)
 addHitPointsAchievement(HardMode, "[Hard] Flies Catcher III", 99, 5)
 
 function isGameEnded() {
-    return TimeOfDayPeriod == 0x01
-        && TimeOfDayTimer == 0x01
+    return once(TimeOfDayCurrentPeriod == 0x01 && TimeOfDayTimer == 0x01)
 }
 
 function addWinTheGameAchievement(difficult, reward) {
@@ -168,3 +177,17 @@ function addEatTwoFliesInSingleJumpAchievement(difficult, reward) {
 
 addEatTwoFliesInSingleJumpAchievement(EasyMode, 3)
 addEatTwoFliesInSingleJumpAchievement(HardMode, 5)
+
+// -----------------------------------------------------------------------------
+// RICH PRESENCE
+
+rich_presence_conditional_display(isGameEnded() && GrayFrogPoints == 0 && RedFrogPoints == 0, "The End | There is no winner here")
+rich_presence_conditional_display(isGameEnded() && GrayFrogPoints == RedFrogPoints, "The End | The game ended in a tie")
+rich_presence_conditional_display(isGameEnded() && GrayFrogPoints > RedFrogPoints, "The End | Gray Frog wins")
+rich_presence_conditional_display(isGameEnded() && RedFrogPoints > GrayFrogPoints, "The End | Red Frog wins")
+rich_presence_display(
+    "Gray Frog {0} - Red Frog {1} | {2}",
+    rich_presence_value("Gray Frog", GrayFrogPoints, "VALUE"),
+    rich_presence_value("Red Frog", RedFrogPoints, "VALUE"),
+    rich_presence_lookup("Period", TimeOfDayCurrentPeriod, TimeOfDayPeriods)
+)
