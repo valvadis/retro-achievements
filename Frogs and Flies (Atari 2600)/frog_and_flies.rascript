@@ -16,8 +16,8 @@ RedFrogDifficultLevel = bit7(0x0044)
 GrayFrogControlledByAI = bit6(0x0043)
 RedFrogControlledByAI = bit6(0x0044)
 
-GrayFrogPosition = byte(0x002a)
-RedFrogPosition = byte(0x002c)
+GrayFrogJumping = byte(0x005b)
+RedFrogJumping = byte(0x005c)
 
 GrayFrogFellIntoThePond = bit1(0x0043)
 RedFrogFellIntoThePond = bit1(0x0044)
@@ -41,7 +41,7 @@ HardMode = 0
 // -----------------------------------------------------------------------------
 // FUNCTIONS
 
-function isGameEnded() => bit7(0x0034) == 1
+function isGameEnded() => bit0(0x0034) == 1 || bit7(0x0034) == 1
 
 function isGameStarted() => TimeOfDayCurrentPeriod == 0x07 && TimeOfDayTimer == 0x1a
 
@@ -157,16 +157,12 @@ function addEatTwoFliesInSingleJumpAchievement(difficult, reward) {
 
     achievement(
         title = format("[{0}] Fly devourer", label),
-        description = "Eat two flies in a single jump",
+        description = "As a Gray Frog Eat two flies in a single jump",
         points = reward,
         trigger = repeated(2, GrayFrogPoints > prev(GrayFrogPoints))
-            && never(GrayFrogPosition == 0xa9)
+            && never(GrayFrogJumping == 0xb7)
             && checkFrogIsControlledByAI(GrayFrogControlledByAI)
             && checkFrogDifficultLevelChanged(GrayFrogDifficultLevel, difficult)
-            || repeated(2, RedFrogPoints > prev(RedFrogPoints))
-            && never(RedFrogPosition == 0xa9)
-            && checkFrogIsControlledByAI(RedFrogControlledByAI)
-            && checkFrogDifficultLevelChanged(RedFrogDifficultLevel, difficult)
     )
 }
 
@@ -191,7 +187,7 @@ rich_presence_display(
 leaderboard(
     title = "Perfect Team Play",
     description = "Play with a friend and collect as many points as possible",
-    start = resetGameWhenStarts() && repeated(600, always_true()),
+    start = isGameStarted(),
     cancel = GrayFrogControlledByAI == 1 || RedFrogControlledByAI == 1,
     submit = isGameEnded(),
     value = GrayFrogPoints + RedFrogPoints,
