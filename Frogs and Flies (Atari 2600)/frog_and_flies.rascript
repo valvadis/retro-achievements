@@ -187,7 +187,6 @@ rich_presence_display(
     rich_presence_lookup("Period", TimeOfDayCurrentPeriod, TimeOfDayPeriods)
 )
 
-
 leaderboard(
     id = 61706,
     title = "Perfect Team Play",
