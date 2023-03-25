@@ -80,8 +80,9 @@ function checkFrogFellIntoThePond(frogFellIntoThePond) {
 // -----------------------------------------------------------------------------
 // ACHIEVEMENTS
 
-function addHitPointsAchievement(difficult, title, points, reward) {
+function addHitPointsAchievement(difficult, title, points, reward, id) {
     achievement(
+        id = id,
         title = title,
         description = format("Hit at least {0} points", points),
         points = reward,
@@ -94,20 +95,21 @@ function addHitPointsAchievement(difficult, title, points, reward) {
     )
 }
 
-addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher I", 30, 1)
-addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher II", 60, 2)
-addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher III", 99, 4)
-addHitPointsAchievement(HardMode, "[Hard] Flies Catcher I", 30, 2)
-addHitPointsAchievement(HardMode, "[Hard] Flies Catcher II", 60, 3)
-addHitPointsAchievement(HardMode, "[Hard] Flies Catcher III", 99, 5)
+addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher I", 30, 1, 302713)
+addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher II", 60, 2, 302714)
+addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher III", 99, 4, 302715)
+addHitPointsAchievement(HardMode, "[Hard] Flies Catcher I", 30, 2, 302716)
+addHitPointsAchievement(HardMode, "[Hard] Flies Catcher II", 60, 3, 302717)
+addHitPointsAchievement(HardMode, "[Hard] Flies Catcher III", 99, 5, 302718)
 
-function addWinTheGameAchievement(difficult, reward) {
+function addWinTheGameAchievement(difficult, reward, id) {
     label = "Easy"
     if (difficult == HardMode) {
         label = "Hard"
     }
 
     achievement(
+        id = id,
         title = format("[{0}] The Frog King", label),
         description = "Win the game",
         points = reward,
@@ -126,10 +128,11 @@ function addWinTheGameAchievement(difficult, reward) {
     )
 }
 
-addWinTheGameAchievement(EasyMode, 2)
-addWinTheGameAchievement(HardMode, 3)
+addWinTheGameAchievement(EasyMode, 2, 302719)
+addWinTheGameAchievement(HardMode, 3, 302720)
 
 achievement(
+    id = 302721,
     title = "[Hard] Sugar Frog",
     description = "Win the game without touching the right lily pad",
     points = 10,
@@ -149,25 +152,26 @@ achievement(
         )
 )
 
-function addEatTwoFliesInSingleJumpAchievement(difficult, reward) {
+function addEatTwoFliesInSingleJumpAchievement(difficult, reward, id) {
     label = "Easy"
     if (difficult == HardMode) {
         label = "Hard"
     }
 
     achievement(
+        id = id,
         title = format("[{0}] Fly devourer", label),
         description = "As a Gray Frog Eat two flies in a single jump",
         points = reward,
-        trigger = repeated(2, GrayFrogPoints > prev(GrayFrogPoints))
+        trigger = measured(repeated(2, GrayFrogPoints > prev(GrayFrogPoints)))
             && never(GrayFrogJumping == 0xb7)
             && checkFrogIsControlledByAI(GrayFrogControlledByAI)
             && checkFrogDifficultLevelChanged(GrayFrogDifficultLevel, difficult)
     )
 }
 
-addEatTwoFliesInSingleJumpAchievement(EasyMode, 3)
-addEatTwoFliesInSingleJumpAchievement(HardMode, 5)
+addEatTwoFliesInSingleJumpAchievement(EasyMode, 3, 302722)
+addEatTwoFliesInSingleJumpAchievement(HardMode, 5, 302712)
 
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
@@ -185,6 +189,7 @@ rich_presence_display(
 
 
 leaderboard(
+    id = 61706,
     title = "Perfect Team Play",
     description = "Play with a friend and collect as many points as possible",
     start = isGameStarted(),
