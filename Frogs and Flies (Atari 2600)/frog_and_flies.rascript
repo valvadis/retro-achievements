@@ -95,12 +95,12 @@ function addHitPointsAchievement(difficult, title, points, reward, id) {
     )
 }
 
-addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher I", 30, 1, 302713)
-addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher II", 60, 2, 302714)
-addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher III", 99, 4, 302715)
-addHitPointsAchievement(HardMode, "[Hard] Flies Catcher I", 30, 2, 302716)
-addHitPointsAchievement(HardMode, "[Hard] Flies Catcher II", 60, 3, 302717)
-addHitPointsAchievement(HardMode, "[Hard] Flies Catcher III", 99, 5, 302718)
+addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher I", 30, 2, 302713)
+addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher II", 60, 3, 302714)
+addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher III", 99, 5, 302715)
+addHitPointsAchievement(HardMode, "[Hard] Flies Catcher I", 30, 3, 302716)
+addHitPointsAchievement(HardMode, "[Hard] Flies Catcher II", 60, 5, 302717)
+addHitPointsAchievement(HardMode, "[Hard] Flies Catcher III", 99, 10, 302718)
 
 function addWinTheGameAchievement(difficult, reward, id) {
     label = "Easy"
@@ -128,13 +128,13 @@ function addWinTheGameAchievement(difficult, reward, id) {
     )
 }
 
-addWinTheGameAchievement(EasyMode, 2, 302719)
-addWinTheGameAchievement(HardMode, 3, 302720)
+addWinTheGameAchievement(EasyMode, 3, 302719)
+addWinTheGameAchievement(HardMode, 5, 302720)
 
 achievement(
     id = 302721,
     title = "[Hard] Sugar Frog",
-    description = "Win the game without touching the right lily pad",
+    description = "Win the game without falling in pond",
     points = 10,
     trigger = resetGameWhenStarts() 
         && isGameEnded() 
@@ -170,8 +170,8 @@ function addEatTwoFliesInSingleJumpAchievement(difficult, reward, id) {
     )
 }
 
-addEatTwoFliesInSingleJumpAchievement(EasyMode, 3, 302722)
-addEatTwoFliesInSingleJumpAchievement(HardMode, 5, 302712)
+addEatTwoFliesInSingleJumpAchievement(EasyMode, 5, 302722)
+addEatTwoFliesInSingleJumpAchievement(HardMode, 10, 302712)
 
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
@@ -186,6 +186,7 @@ rich_presence_display(
     rich_presence_value("Red Frog", RedFrogPoints, "VALUE"),
     rich_presence_lookup("Period", TimeOfDayCurrentPeriod, TimeOfDayPeriods)
 )
+
 
 leaderboard(
     id = 61706,
