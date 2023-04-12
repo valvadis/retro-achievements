@@ -8,19 +8,19 @@ at this point is the winner. Of additional things the game offers two difficulty
 
 # ACHIEVEMENTS #
 
-| NAME                      | DESCRIPTION                                      | DIFFICULT | POINTS |
-|---------------------------|--------------------------------------------------|-----------|--------|
-| [Easy] Flies Catcher I    | Hit at least 30 points                           | very easy | 2      |
-| [Easy] Flies Catcher II   | Hit at least 60 points                           | easy      | 3      |
-| [Easy] Flies Catcher III  | Hit at least 99 points                           | medium    | 5      |
-| [Easy] The Frog King      | Win the game                                     | easy      | 3      |
-| [Hard] Flies Catcher I    | Hit at least 30 points                           | very easy | 3      |
-| [Hard] Flies Catcher II   | Hit at least 60 points                           | easy      | 5      |
-| [Hard] Flies Catcher III  | Hit at least 99 points                           | medium    | 10     |
-| [Hard] The Frog King      | Win the game                                     | easy      | 5      |
-| [Easy] Fly devourer       | Eat two flies in a single jump                   | medium    | 5      |
-| [Hard] Fly devourer       | Eat two flies in a single jump                   | medium    | 10     |
-| [Hard] The Little Mermaid | Win the game without falling in pond             | hard      | 10     |
+| NAME                      | DESCRIPTION                          | DIFFICULT | POINTS |
+|---------------------------|--------------------------------------|-----------|--------|
+| [Easy] Flies Catcher I    | Hit at least 25 points               | very easy | 2      |
+| [Easy] Flies Catcher II   | Hit at least 50 points               | easy      | 3      |
+| [Easy] Flies Catcher III  | Hit at least 75 points               | medium    | 5      |
+| [Easy] The Frog King      | Win the game                         | easy      | 3      |
+| [Hard] Flies Catcher I    | Hit at least 25 points               | very easy | 3      |
+| [Hard] Flies Catcher II   | Hit at least 50 points               | easy      | 5      |
+| [Hard] Flies Catcher III  | Hit at least 75 points               | medium    | 10     |
+| [Hard] The Frog King      | Win the game                         | easy      | 5      |
+| [Easy] Fly devourer       | Eat two flies in a single jump       | medium    | 5      |
+| [Hard] Fly devourer       | Eat two flies in a single jump       | medium    | 10     |
+| [Hard] The Little Mermaid | Win the game without falling in pond | hard      | 10     |
 
 # ATTENTION #
 

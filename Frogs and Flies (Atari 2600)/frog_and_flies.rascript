@@ -95,12 +95,12 @@ function addHitPointsAchievement(difficult, title, points, reward, id) {
     )
 }
 
-addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher I", 30, 2, 302713)
-addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher II", 60, 3, 302714)
-addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher III", 99, 5, 302715)
-addHitPointsAchievement(HardMode, "[Hard] Flies Catcher I", 30, 3, 302716)
-addHitPointsAchievement(HardMode, "[Hard] Flies Catcher II", 60, 5, 302717)
-addHitPointsAchievement(HardMode, "[Hard] Flies Catcher III", 99, 10, 302718)
+addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher I", 25, 2, 302713)
+addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher II", 50, 3, 302714)
+addHitPointsAchievement(EasyMode, "[Easy] Flies Catcher III", 75, 5, 302715)
+addHitPointsAchievement(HardMode, "[Hard] Flies Catcher I", 25, 3, 302716)
+addHitPointsAchievement(HardMode, "[Hard] Flies Catcher II", 50, 5, 302717)
+addHitPointsAchievement(HardMode, "[Hard] Flies Catcher III", 75, 10, 302718)
 
 function addWinTheGameAchievement(difficult, reward, id) {
     label = "Easy"
