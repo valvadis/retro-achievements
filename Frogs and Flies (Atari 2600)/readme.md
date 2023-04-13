@@ -1,7 +1,9 @@
 # GAME SITE #
+
 https://retroachievements.org/game/20375
 
 # OVERVIEW #
+
 In the game, the player takes control of a frog and tries to eat flies. He gets two points for each insect he catches. 
 Each game starts in the morning and progresses through the day until night. The frog that has caught the most flies 
 at this point is the winner. Of additional things the game offers two difficulty levels and a two-player mode.
