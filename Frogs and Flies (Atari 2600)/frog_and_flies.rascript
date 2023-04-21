@@ -187,6 +187,8 @@ rich_presence_display(
     rich_presence_lookup("Period", TimeOfDayCurrentPeriod, TimeOfDayPeriods)
 )
 
+// -----------------------------------------------------------------------------
+// LEADERBOARDS
 
 leaderboard(
     id = 61706,
