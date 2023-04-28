@@ -31,11 +31,11 @@ https://retroachievements.org/game/5441
 | [Experience] Apprentice             | Reach level 10                                     | 5      |
 | [Experience] Advanced               | Reach level 20                                     | 10     |
 | [Experience] Expert                 | Reach level 40                                     | 25     |
-| [Gold] Peasant                      | Collect 50 000 gold                                | 3      |
+| [Gold] Freeman                      | Collect 50 000 gold                                | 3      |
 | [Gold] Townsman                     | Collect 100 000 gold                               | 5      |
 | [Gold] Craftsman                    | Collect 200 000 gold                               | 10     |
 | [Gold] Nobleman                     | Collect 400 000 gold                               | 25     |
 | [Monster] Hunter                    | Kill 50 enemies in one session                     | 3      |
-| [Monster] Hunter                    | Kill 100 enemies in one session                    | 5      |
-| [Monster] Killer                    | Kill 200 enemies in one session                    | 10     |
+| [Monster] Killer                    | Kill 100 enemies in one session                    | 5      |
+| [Monster] Butcher                   | Kill 200 enemies in one session                    | 10     |
 | [Monster] Slayer                    | Kill 400 enemies in one session                    | 25     |
