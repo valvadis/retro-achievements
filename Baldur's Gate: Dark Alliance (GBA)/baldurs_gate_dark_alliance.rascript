@@ -4,14 +4,38 @@
 // -----------------------------------------------------------------------------
 // VARIABLES
 
-AmountOfGold = dword(0x0994)
-CurrentLevel = byte(0x0b5d)
-
-// During the game, the character's position is always greater than (1,1)
+CharacterLevel = byte(0x0b5d)
+CharacterExperience = dword(0x0b50)
+CharacterGold = dword(0x0994)
+CharacterLocation = byte(0x01f0)
 CharacterPositionX = word(0x1521)
 CharacterPositionY = word(0x1525)
+CharacterClass = low4(0x157c)
 
-CurrentLocation = byte(0x01f0)
+ARCHER = 0
+FIGHTER = 1
+WIZARD = 2
+ELVEN_FIGHTER = 3
+
+Classes = {
+    ARCHER: "Archer",
+    FIGHTER: "Fighter",
+    WIZARD: "Wizard",
+    ELVEN_FIGHTER: "Elven Fighter",
+}
+
+KARNE = 65570
+XANTHAM = 65572
+ILIVARRA = 65554
+SESS = 65553
+
+Bosses = {
+    KARNE: "Karne",
+    XANTHAM: "Xantham",
+    ILIVARRA: "Ilivarra",
+    SESS: "Sess'sth",
+}
+
 Locations = {
     1: "Baldur's Gate",
     2: "Tavern's Cellar",
@@ -36,20 +60,22 @@ Locations = {
     25: "Eldirth's Watch",
     27: "Mount Burning Eye Summit",
     124: "Store",
+    125: "Quite Game",
     126: "Game Over 💀",
     127: "End Game 🚩",
     255: "Store",              
 }
 
-CharacterClass = low4(0x157c)
-Classes = {
-    0: "Archer",
-    1: "Fighter",
-    2: "Wizard",
-    3: "Elven Fighter",
-}
+// [bit0] 0 - DIALOG MODE OFF, 1 - DIALOG MODE ON
+DialogMode = bit0(0x09b0)
 
-// Quests are stored in logs between 0x8b0 and 0x988
+// [bit7] 1 - ELEVEN FIGHTER ENABLED, 0 - ELVEN FIGHTER DISABLED
+ScreenMode = bitcount(0x01f1) - bit7(0x01f1)
+
+// [8 bit] Skills are stored in logs between 0x0b71 and 0x0b78
+SkillSlots = [byte(0x0b71), byte(0x0b72), byte(0x0b73), byte(0x0b74), byte(0x0b75), byte(0x0b76), byte(0x0b77), byte(0x0b78)]
+
+// [32 bit] Quests are stored in logs between 0x8b0 and 0x988 
 QuestSlots = []
 for questSlot in range(0x8b0, 0x988) {
     array_push(QuestSlots, dword(questSlot))
@@ -58,42 +84,100 @@ for questSlot in range(0x8b0, 0x988) {
 // -----------------------------------------------------------------------------
 // FUNCTIONS
 
-function isTitleScreen() => CharacterPositionX == 0 && CharacterPositionY == 0
+function isGameMode() => CharacterLocation == 124 || ScreenMode != 0
 
-function isGameMode() => CharacterPositionX != 0 && CharacterPositionY != 0
+function isGameRestarted() => CharacterLocation == 0 || CharacterLocation == 125 || CharacterLocation == 126
 
 // -----------------------------------------------------------------------------
 // ACHIEVEMENTS
 
-function addSpecificLocationAchievement(points, locationFrom, locationTo, title, description, id) {
+function defeatBossAchievement(points, class, boss, location, id) {
     achievement(
         id = id,
-        title = format("[Story] {0}", title),
-        description = description,
+        title = format("[{0}] {1}", Classes[class], Bosses[boss]),
+        description = format("Defeat {0}", boss),
         points = points,
-        trigger = isGameMode() && prev(CurrentLocation) == locationFrom && CurrentLocation == locationTo
+        trigger = isGameMode() && CharacterLocation == location && any_of(QuestSlots, questSlot => questSlot == boss)
     )
 }
 
-addSpecificLocationAchievement(1, 1, 2, "Cellar", "Go down to the Tavern's Cellar", 0)
-addSpecificLocationAchievement(10, 3, 4, "Sewers", "Find the entrance to the Sewers", 0)
-addSpecificLocationAchievement(10, 5, 6, "Guild", "Make it to the Thieves' Guild", 0)
-addSpecificLocationAchievement(10, 18, 9, "Baldur's Gate", "Complete Act I", 0)
-addSpecificLocationAchievement(5, 9, 11, "Dark Forest", "Enter the Dark Forest", 0)
-addSpecificLocationAchievement(10, 9, 12, "Mountain", "Get to the Mount Burning Eye", 0)
-addSpecificLocationAchievement(10, 9, 14, "Mines", "Go down to the Dwarven Mines", 0)
-//addSpecificLocationAchievement(10, 0, 17, "The Sunset Mountain", "Complete Act II", 0)
-//addSpecificLocationAchievement(10, 0, 21, "Dungeon", "Enter the Dungeon", 0)
-//addSpecificLocationAchievement(10, 0, 21, "Tower", "Get into the Onyx Tower", 0)
-addSpecificLocationAchievement(10, 25, 127, "The Marsh of Chelimber", "Complete Act III", 0)
+function defeatFinalBossAchievement(class, id) {
+    achievement(
+        id = id,
+        title = format("[{0}] Eldrith", Classes[class]),
+        description = "Defeat Eldrith and complete the game",
+        points = 25,
+        trigger = prev(CharacterLocation) == 25 && CharacterLocation == 127 && CharacterClass == class
+    )
+}
+
+defeatBossAchievement(5, ARCHER, KARNE, 7, 0)
+defeatBossAchievement(10, ARCHER, XANTHAM, 18, 0)
+defeatBossAchievement(10, ARCHER, ILIVARRA, 15, 0)
+defeatBossAchievement(5, ARCHER, SESS, 19, 0)
+defeatFinalBossAchievement(ARCHER, 0)
 
 achievement(
     id = 0,
-    title = "[Quest] Hero Of Baldur's Gate",
+    title = "[Archer] Archery Master",
+    description = "Master all active Archer skills",
+    points = 10,
+    trigger = isGameMode() && CharacterClass == ARCHER && SkillSlots[0] == 5 && SkillSlots[1] == 13 && SkillSlots[2] == 21 
+        && SkillSlots[3] == 26 && SkillSlots[4] == 37
+)
+
+defeatBossAchievement(5, FIGHTER, KARNE, 7, 0)
+defeatBossAchievement(10, FIGHTER, XANTHAM, 18, 0)
+defeatBossAchievement(10, FIGHTER, ILIVARRA, 15, 0)
+defeatBossAchievement(5, FIGHTER, SESS, 19, 0)
+defeatFinalBossAchievement(FIGHTER, 0)
+
+achievement(
+    id = 0,
+    title = "[Fighter] Combat Master",
+    description = "Master all active Fighter skills",
+    points = 10,
+    trigger = isGameMode() && CharacterClass == FIGHTER && SkillSlots[0] == 101 && SkillSlots[1] == 109
+)
+
+defeatBossAchievement(5, WIZARD, KARNE, 7, 0)
+defeatBossAchievement(10, WIZARD, XANTHAM, 18, 0)
+defeatBossAchievement(10, WIZARD, ILIVARRA, 15, 0)
+defeatBossAchievement(5, WIZARD, SESS, 19, 0)
+defeatFinalBossAchievement(WIZARD, 0)
+
+achievement(
+    id = 0,
+    title = "[Wizard] Spell Master",
+    description = "Master all Wizard spells",
+    points = 10,
+    trigger = isGameMode() && CharacterClass == WIZARD && SkillSlots[0] == 43 && SkillSlots[1] == 53 && SkillSlots[2] == 61 
+        && SkillSlots[3] == 69 && SkillSlots[4] == 77 && SkillSlots[5] == 82 && SkillSlots[6] == 93
+)
+
+defeatBossAchievement(5, ELVEN_FIGHTER, KARNE, 7, 0)
+defeatBossAchievement(10, ELVEN_FIGHTER, XANTHAM, 18, 0)
+defeatBossAchievement(10, ELVEN_FIGHTER, ILIVARRA, 15, 0)
+defeatBossAchievement(5, ELVEN_FIGHTER, SESS, 19, 0)
+defeatFinalBossAchievement(ELVEN_FIGHTER, 0)
+
+achievement(
+    id = 0,
+    title = "[Elven Fighter] Elven Master",
+    description = "Master all Elven Fighter skills and spells",
+    points = 10,
+    trigger = isGameMode() && CharacterClass == ELVEN_FIGHTER && SkillSlots[0] == 13 && SkillSlots[1] == 21 
+        && SkillSlots[2] == 26 && SkillSlots[3] == 43 && SkillSlots[4] == 53 && SkillSlots[5] == 69 && SkillSlots[6] == 101
+        && SkillSlots[7] == 109
+)
+
+achievement(
+    id = 0,
+    title = "[Quest] Defender Of Baldur's Gate [m]",
     description = "Complete all side quests in Baldur's Gate",
-    points = 25,
+    points = 10,
     trigger = isGameMode()
-        && (CurrentLocation == 1 || CurrentLocation == 3)
+        && (CharacterLocation == 1 || CharacterLocation == 3)
         && any_of(QuestSlots, questSlot => questSlot == 65545) // Old Woman & Spiders
         && any_of(QuestSlots, questSlot => questSlot == 65565) // Rat Cleaner
         && any_of(QuestSlots, questSlot => questSlot == 65569) // Ring of Intellect
@@ -101,68 +185,24 @@ achievement(
         && any_of(QuestSlots, questSlot => questSlot == 65558) // Widow Charm
 )
 
-// ====================== TODO ======================
 achievement(
     id = 0,
-    title = "[Quest] Hero Of The Marsh Chelimber",
+    title = "[Quest] Liberator Of The Marsh Chelimber [m]",
     description = "Complete all side quests in The Marsh Of Chelimber",
-    points = 25,
+    points = 10,
     trigger = isGameMode() 
-        && any_of(QuestSlots, questSlot => questSlot == 0)
-)
-// ====================== TODO ======================
-
-function addCompleteGameAchievement(points, class, id) {
-    achievement(
-        id = id,
-        title = format("[Class] {0}", Classes[class]),
-        description = format("Complete the game as {0}", Classes[class]),
-        points = points,
-        trigger = prev(CurrentLocation) == 25 && CurrentLocation == 127 && CharacterClass == class
-    )
-}
-
-addCompleteGameAchievement(25, 0, 0)
-addCompleteGameAchievement(25, 1, 0)
-addCompleteGameAchievement(25, 2, 0)
-addCompleteGameAchievement(25, 3, 0)
-
-achievement(
-    id = 0,
-    title = "[Class] Combat Champion",
-    description = "Master all active Fighter skills",
-    points = 10,
-    trigger = isGameMode() && byte(0x0b71) == 101 && byte(0x0b72) == 109
+        && any_of(QuestSlots, questSlot => questSlot == 65542) // Kill lizardmen in house
+        && any_of(QuestSlots, questSlot => questSlot == 65546) // Free inprisoned people
+        && any_of(QuestSlots, questSlot => questSlot == 65549) // Wipe out lizardmen from village
 )
 
 achievement(
     id = 0,
-    title = "[Class] Spell Master",
-    description = "Master all Wizard's spells",
+    title = "[Quest] King Midas' doom",
+    description = "Find room with golden equipment",
     points = 10,
-    trigger = isGameMode() && byte(0x0b71) == 43 && byte(0x0b72) == 53 && byte(0x0b73) == 61 
-        && byte(0x0b74) == 69 && byte(0x0b75) == 77 && byte(0x0b76) == 82 && byte(0x0b77) == 93
+    trigger = isGameMode() && CharacterLocation == 23 && CharacterPositionX == 392 && CharacterPositionY == 1983
 )
-
-achievement(
-    id = 0,
-    title = "[Class] Archery Champion",
-    description = "Master all active Archer skills",
-    points = 10,
-    trigger = isGameMode() && byte(0x0b71) == 5 && byte(0x0b72) == 13 && byte(0x0b73) == 21 
-        && byte(0x0b74) == 26 && byte(0x0b75) == 37
-)
-
-achievement(
-    id = 0,
-    title = "[Class] Elven Master",
-    description = "Master all Elven Fighter's skills and spells",
-    points = 10,
-    trigger = isGameMode() && byte(0x0b71) == 13 && byte(0x0b72) == 21 && byte(0x0b73) == 26 && byte(0x0b74) == 43 
-        && byte(0x0b75) == 53 && byte(0x0b76) == 69 && byte(0x0b77) == 101 && byte(0x0b78) == 109
-)
-
-// Class skills
 
 function addReachLevelAchievement(points, level, title, id) {
     achievement(
@@ -170,7 +210,7 @@ function addReachLevelAchievement(points, level, title, id) {
         title = format("[Experience] {0}", title),
         description = format("Reach {0} level", level),
         points = points,
-        trigger = isGameMode() && measured(CurrentLevel == level)
+        trigger = isGameMode() && measured(CharacterLevel == level)
     )
 }
 
@@ -185,23 +225,39 @@ function addCollectGoldAchievement(points, gold, title, id) {
         title = format("[Gold] {0}", title),
         description = format("Collect {0} 000 gold", gold / 1000),
         points = points,
-        trigger = isGameMode() && measured(AmountOfGold >= gold)
+        trigger = isGameMode() && measured(CharacterGold >= gold)
     )
 }
 
-addCollectGoldAchievement(3, 50000, "Peasant", 0)
-addCollectGoldAchievement(5, 100000, "Townsman", 0)
-addCollectGoldAchievement(10, 200000, "Craftsman", 0)
-addCollectGoldAchievement(25, 400000, "Nobleman", 0)
+addCollectGoldAchievement(3, 50000, "Tiny Fortune", 0)
+addCollectGoldAchievement(5, 100000, "Small Fortune", 0)
+addCollectGoldAchievement(10, 200000, "Big Fortune", 0)
+addCollectGoldAchievement(25, 400000, "Huge Fortune", 0)
+
+function addKillEnemiesAchievement(points, enemies, title, id) {
+    achievement(
+        id = id,
+        title = format("[Kill] {0}", title),
+        description = format("Kill {0} enemies", enemies),
+        points = points,
+        trigger = never(isGameRestarted()) && unless(!isGameMode()) && unless(DialogMode == 1) 
+            && measured(repeated(enemies, CharacterExperience > prev(CharacterExperience)))
+    )
+}
+
+addKillEnemiesAchievement(3, 50, "Hunter", 0)
+addKillEnemiesAchievement(5, 100, "Killer", 0)
+addKillEnemiesAchievement(10, 200, "Butcher", 0)
+addKillEnemiesAchievement(25, 400, "Slayer", 0)
 
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
  
-rich_presence_conditional_display(isTitleScreen(), "Starting the Game")
+rich_presence_conditional_display(!isGameMode(), "Starting the Game")
 rich_presence_display(
     "{0} Lvl {1} 💰 {2} | {3}",
     rich_presence_lookup("Class", CharacterClass, Classes),
-    rich_presence_value("Level", CurrentLevel, "VALUE"),
-    rich_presence_value("Gold", AmountOfGold, "VALUE"),
-    rich_presence_lookup("Location", CurrentLocation, Locations)
+    rich_presence_value("Level", CharacterLevel, "VALUE"),
+    rich_presence_value("Gold", CharacterGold, "VALUE"),
+    rich_presence_lookup("Location", CharacterLocation, Locations)
 )
