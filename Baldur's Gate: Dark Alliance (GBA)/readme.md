@@ -6,36 +6,42 @@ https://retroachievements.org/game/5441
 
 | NAME                                | DESCRIPTION                                        | POINTS |
 |-------------------------------------|----------------------------------------------------|--------|
-| [Story] Cellar                      | Go down to the Tavern's Cellar                     | 1      |
-| [Story] Sewers                      | Find the entrance to the Sewers                    | 10     |
-| [Story] Guild                       | Make it to the Thieves' Guild                      | 10     |
-| [Story] Baldur's Gate               | Complete Act I                                     | 10     |
-| [Story] Dark Forest                 | Enter the Dark Forest                              | 5      |
-| [Story] Mountain                    | Get to the Mount Burning Eye                       | 10     |
-| [Story] Mines                       | Go down to the Dwarven Mines                       | 10     |
-| [Story] The Sunset Mountains        | Complete Act II                                    | 10     |
-| [Story] Dungeon                     | Enter the Dungeon                                  | 10     |
-| [Story] Tower                       | Get into the Onyx Tower                            | 10     |
-| [Story] The Marsh of Chelimber      | Complete Act III                                   | 10     |
-| [Quest] Hero Of Baldur's Gate       | Complete all side quests in Baldur's Gate          | 10     |
-| [Quest] Hero Of The Marsh Chelimber | Complete all side quests in The Marsh Of Chelimber | 10     |
-| [Class] Fighter                     | Complete game as a Fighter                         | 25     |
-| [Class] Combat Champion             | Master all active Fighter skills                   | 10     |
-| [Class] Wizard                      | Complete game as a Wizard                          | 25     |
-| [Class] Spell Master                | Master all Wizard's spells                         | 10     |
-| [Class] Archer                      | Complete game as an Archer                         | 25     |
-| [Class] Archery Champion            | Master all active Archer skills                    | 10     |
-| [Class] Elven Fighter               | Complete game as an Elven Fighter                  | 25     |
-| [Class] Elven Master                | Master all Elven Fighter's skills and spells       | 10     |
+| [Archer] Karne                      | Defeat Karne                                       | 5      |
+| [Archer] Xantham                    | Defeat Xantham                                     | 10     |
+| [Archer] Ilivarra                   | Defeat Ilivarra                                    | 10     |
+| [Archer] Sess'sth                   | Defeat Sess'sth                                    | 5      |
+| [Archer] Eldrith                    | Defeat Eldrith and complete the game               | 25     |
+| [Archer] Archery Master             | Master all active Archer skills                    | 10     |
+| [Fighter] Karne                     | Defeat Karne                                       | 5      |
+| [Fighter] Xantham                   | Defeat Xantham                                     | 10     |
+| [Fighter] Ilivarra                  | Defeat Ilivarra                                    | 10     |
+| [Fighter] Sess'sth                  | Defeat Sess'sth                                    | 5      |
+| [Fighter] Eldrith                   | Defeat Eldrith and complete the game               | 25     |
+| [Fighter] Combat Master             | Master all active Fighter skills                   | 10     |
+| [Wizard] Karne                      | Defeat Karne                                       | 5      |
+| [Wizard] Xantham                    | Defeat Xantham                                     | 10     |
+| [Wizard] Ilivarra                   | Defeat Ilivarra                                    | 10     |
+| [Wizard] Sess'sth                   | Defeat Sess'sth                                    | 5      |
+| [Wizard] Eldrith                    | Defeat Eldrith and complete the game               | 25     |
+| [Wizard] Spell Master               | Master all Wizard spells                           | 10     |
+| [Elven Fighter] Karne               | Defeat Karne                                       | 5      |
+| [Elven Fighter] Xantham             | Defeat Xantham                                     | 10     |
+| [Elven Fighter] Ilivarra            | Defeat Ilivarra                                    | 10     |
+| [Elven Fighter] Sess'sth            | Defeat Sess'sth                                    | 5      |
+| [Elven Fighter] Eldrith             | Defeat Eldrith and complete the game               | 25     |
+| [Elven Fighter] Elven Master        | Master all Elven Fighter skills and spells         | 10     |
+| [Quest] Baldur's Gate               | Complete all side quests in Baldur's Gate          | 10     |
+| [Quest] The Marsh Chelimber         | Complete all side quests in The Marsh Of Chelimber | 10     |
+| [Quest] King Midas' Heritage        | Find room with golden equipment                    | 10     |
 | [Experience] Beginner               | Reach level 5                                      | 3      |
 | [Experience] Apprentice             | Reach level 10                                     | 5      |
 | [Experience] Advanced               | Reach level 20                                     | 10     |
 | [Experience] Expert                 | Reach level 40                                     | 25     |
-| [Gold] Freeman                      | Collect 50 000 gold                                | 3      |
-| [Gold] Townsman                     | Collect 100 000 gold                               | 5      |
-| [Gold] Craftsman                    | Collect 200 000 gold                               | 10     |
-| [Gold] Nobleman                     | Collect 400 000 gold                               | 25     |
-| [Monster] Hunter                    | Kill 50 enemies in one session                     | 3      |
-| [Monster] Killer                    | Kill 100 enemies in one session                    | 5      |
-| [Monster] Butcher                   | Kill 200 enemies in one session                    | 10     |
-| [Monster] Slayer                    | Kill 400 enemies in one session                    | 25     |
+| [Gold] Tiny Fortune                 | Collect 50 000 gold                                | 3      |
+| [Gold] Small Fortune                | Collect 100 000 gold                               | 5      |
+| [Gold] Big Fortune                  | Collect 200 000 gold                               | 10     |
+| [Gold] Huge Fortune                 | Collect 400 000 gold                               | 25     |
+| [Kill] Hunter                       | Kill 50 enemies in one session without dying       | 3      |
+| [Kill] Killer                       | Kill 100 enemies in one session without dying      | 5      |
+| [Kill] Butcher                      | Kill 200 enemies in one session without dying      | 10     |
+| [Kill] Slayer                       | Kill 400 enemies in one session without dying      | 25     |
