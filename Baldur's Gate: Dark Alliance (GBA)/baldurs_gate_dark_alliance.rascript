@@ -97,7 +97,7 @@ function defeatBossAchievement(points, class, boss, location, id) {
     achievement(
         id = id,
         title = format("[{0}] {1}", Classes[class], Bosses[boss]),
-        description = format("Defeat {0}", boss),
+        description = format("Defeat {0}", Bosses[boss]),
         points = points,
         trigger = isGameMode() && CharacterClass == class && CharacterLocation == location 
             && any_of(QuestSlots, questSlot => questSlot == boss)
@@ -176,7 +176,7 @@ achievement(
 
 achievement(
     id = 0,
-    title = "[Quest] Defender Of Baldur's Gate [m]",
+    title = "[Quest] Baldur's Gate [m]",
     description = "Complete all side quests in Baldur's Gate",
     points = 10,
     trigger = isGameMode()
@@ -190,7 +190,7 @@ achievement(
 
 achievement(
     id = 0,
-    title = "[Quest] Liberator Of The Marsh Chelimber [m]",
+    title = "[Quest] The Marsh Chelimber [m]",
     description = "Complete all side quests in The Marsh Of Chelimber",
     points = 10,
     trigger = isGameMode() 
