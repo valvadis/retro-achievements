@@ -12,6 +12,7 @@ CharacterPositionX = word(0x1521)
 CharacterPositionY = word(0x1525)
 CharacterClass = low4(0x157c)
 
+// Class ID
 ARCHER = 0
 FIGHTER = 1
 WIZARD = 2
@@ -24,6 +25,7 @@ Classes = {
     ELVEN_FIGHTER: "Elven Fighter",
 }
 
+// Quest ID
 KARNE = 65570
 XANTHAM = 65572
 ILIVARRA = 65554
@@ -86,7 +88,7 @@ for questSlot in range(0x8b0, 0x988) {
 
 function isGameMode() => CharacterLocation == 124 || ScreenMode != 0
 
-function isGameRestarted() => CharacterLocation == 0 || CharacterLocation == 125 || CharacterLocation == 126
+function isGameRestarted() => CharacterLocation == 0 || CharacterLocation == 125 || CharacterLocation == 126 || CharacterLocation == 127
 
 // -----------------------------------------------------------------------------
 // ACHIEVEMENTS
@@ -97,16 +99,17 @@ function defeatBossAchievement(points, class, boss, location, id) {
         title = format("[{0}] {1}", Classes[class], Bosses[boss]),
         description = format("Defeat {0}", boss),
         points = points,
-        trigger = isGameMode() && CharacterLocation == location && any_of(QuestSlots, questSlot => questSlot == boss)
+        trigger = isGameMode() && CharacterClass == class && CharacterLocation == location 
+            && any_of(QuestSlots, questSlot => questSlot == boss)
     )
 }
 
-function defeatFinalBossAchievement(class, id) {
+function defeatFinalBossAchievement(points, class, id) {
     achievement(
         id = id,
         title = format("[{0}] Eldrith", Classes[class]),
         description = "Defeat Eldrith and complete the game",
-        points = 25,
+        points = points,
         trigger = prev(CharacterLocation) == 25 && CharacterLocation == 127 && CharacterClass == class
     )
 }
@@ -115,7 +118,7 @@ defeatBossAchievement(5, ARCHER, KARNE, 7, 0)
 defeatBossAchievement(10, ARCHER, XANTHAM, 18, 0)
 defeatBossAchievement(10, ARCHER, ILIVARRA, 15, 0)
 defeatBossAchievement(5, ARCHER, SESS, 19, 0)
-defeatFinalBossAchievement(ARCHER, 0)
+defeatFinalBossAchievement(25, ARCHER, 0)
 
 achievement(
     id = 0,
@@ -130,7 +133,7 @@ defeatBossAchievement(5, FIGHTER, KARNE, 7, 0)
 defeatBossAchievement(10, FIGHTER, XANTHAM, 18, 0)
 defeatBossAchievement(10, FIGHTER, ILIVARRA, 15, 0)
 defeatBossAchievement(5, FIGHTER, SESS, 19, 0)
-defeatFinalBossAchievement(FIGHTER, 0)
+defeatFinalBossAchievement(25, FIGHTER, 0)
 
 achievement(
     id = 0,
@@ -144,7 +147,7 @@ defeatBossAchievement(5, WIZARD, KARNE, 7, 0)
 defeatBossAchievement(10, WIZARD, XANTHAM, 18, 0)
 defeatBossAchievement(10, WIZARD, ILIVARRA, 15, 0)
 defeatBossAchievement(5, WIZARD, SESS, 19, 0)
-defeatFinalBossAchievement(WIZARD, 0)
+defeatFinalBossAchievement(25, WIZARD, 0)
 
 achievement(
     id = 0,
@@ -159,7 +162,7 @@ defeatBossAchievement(5, ELVEN_FIGHTER, KARNE, 7, 0)
 defeatBossAchievement(10, ELVEN_FIGHTER, XANTHAM, 18, 0)
 defeatBossAchievement(10, ELVEN_FIGHTER, ILIVARRA, 15, 0)
 defeatBossAchievement(5, ELVEN_FIGHTER, SESS, 19, 0)
-defeatFinalBossAchievement(ELVEN_FIGHTER, 0)
+defeatFinalBossAchievement(25, ELVEN_FIGHTER, 0)
 
 achievement(
     id = 0,
@@ -178,10 +181,10 @@ achievement(
     points = 10,
     trigger = isGameMode()
         && (CharacterLocation == 1 || CharacterLocation == 3)
-        && any_of(QuestSlots, questSlot => questSlot == 65545) // Old Woman & Spiders
+        && any_of(QuestSlots, questSlot => questSlot == 65545) // Spiders
         && any_of(QuestSlots, questSlot => questSlot == 65565) // Rat Cleaner
-        && any_of(QuestSlots, questSlot => questSlot == 65569) // Ring of Intellect
-        && any_of(QuestSlots, questSlot => questSlot == 65554) // Key to the South Door
+        && any_of(QuestSlots, questSlot => questSlot == 65569) // Stolen Purse
+        && any_of(QuestSlots, questSlot => questSlot == 65554) // South Gate Key
         && any_of(QuestSlots, questSlot => questSlot == 65558) // Widow Charm
 )
 
@@ -191,14 +194,14 @@ achievement(
     description = "Complete all side quests in The Marsh Of Chelimber",
     points = 10,
     trigger = isGameMode() 
-        && any_of(QuestSlots, questSlot => questSlot == 65542) // Kill lizardmen in house
-        && any_of(QuestSlots, questSlot => questSlot == 65546) // Free inprisoned people
-        && any_of(QuestSlots, questSlot => questSlot == 65549) // Wipe out lizardmen from village
+        && any_of(QuestSlots, questSlot => questSlot == 65542) // House Cleaning
+        && any_of(QuestSlots, questSlot => questSlot == 65546) // Rescue the Camp People
+        && any_of(QuestSlots, questSlot => questSlot == 65549) // Revenge
 )
 
 achievement(
     id = 0,
-    title = "[Quest] King Midas' doom",
+    title = "[Quest] King Midas' Heritage",
     description = "Find room with golden equipment",
     points = 10,
     trigger = isGameMode() && CharacterLocation == 23 && CharacterPositionX == 392 && CharacterPositionY == 1983
@@ -238,7 +241,7 @@ function addKillEnemiesAchievement(points, enemies, title, id) {
     achievement(
         id = id,
         title = format("[Kill] {0}", title),
-        description = format("Kill {0} enemies", enemies),
+        description = format("Kill {0} enemies in one session without dying", enemies),
         points = points,
         trigger = never(isGameRestarted()) && unless(!isGameMode()) && unless(DialogMode == 1) 
             && measured(repeated(enemies, CharacterExperience > prev(CharacterExperience)))
