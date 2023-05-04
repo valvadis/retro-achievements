@@ -30,12 +30,14 @@ KARNE = 65570
 XANTHAM = 65572
 ILIVARRA = 65554
 SESS = 65553
+ELDRITH = 0
 
 Bosses = {
     KARNE: "Karne",
     XANTHAM: "Xantham",
     ILIVARRA: "Ilivarra",
     SESS: "Sess'sth",
+    ELDRITH: "Eldrith",
 }
 
 Locations = {
@@ -71,22 +73,21 @@ Locations = {
 // [bit0] 0 - DIALOG MODE OFF, 1 - DIALOG MODE ON
 DialogMode = bit0(0x09b0)
 
-// [bit7] 1 - ELEVEN FIGHTER ENABLED, 0 - ELVEN FIGHTER DISABLED
-ScreenMode = bitcount(0x01f1) - bit7(0x01f1)
+ScreenMode = bitcount(0x01f1)
 
 // [8 bit] Skills are stored in logs between 0x0b71 and 0x0b78
 SkillSlots = [byte(0x0b71), byte(0x0b72), byte(0x0b73), byte(0x0b74), byte(0x0b75), byte(0x0b76), byte(0x0b77), byte(0x0b78)]
 
 // [32 bit] Quests are stored in logs between 0x8b0 and 0x988 
 QuestSlots = []
-for questSlot in range(0x8b0, 0x988) {
+for questSlot in range(0x8b0, 0x940) {
     array_push(QuestSlots, dword(questSlot))
 }
 
 // -----------------------------------------------------------------------------
 // FUNCTIONS
 
-function isGameMode() => CharacterLocation == 124 || ScreenMode != 0
+function isGameMode() => CharacterLocation == 124 || CharacterLocation == 255 || ScreenMode >= 2
 
 function isGameRestarted() => CharacterLocation == 0 || CharacterLocation == 125 || CharacterLocation == 126 || CharacterLocation == 127
 
@@ -104,21 +105,11 @@ function defeatBossAchievement(points, class, boss, location, id) {
     )
 }
 
-function defeatFinalBossAchievement(points, class, id) {
-    achievement(
-        id = id,
-        title = format("[{0}] Eldrith", Classes[class]),
-        description = "Defeat Eldrith and complete the game",
-        points = points,
-        trigger = prev(CharacterLocation) == 25 && CharacterLocation == 127 && CharacterClass == class
-    )
-}
-
 defeatBossAchievement(5, ARCHER, KARNE, 7, 0)
 defeatBossAchievement(10, ARCHER, XANTHAM, 18, 0)
 defeatBossAchievement(10, ARCHER, ILIVARRA, 15, 0)
 defeatBossAchievement(5, ARCHER, SESS, 19, 0)
-defeatFinalBossAchievement(25, ARCHER, 0)
+defeatBossAchievement(25, ARCHER, ELDRITH, 127, 0)
 
 achievement(
     id = 0,
@@ -133,7 +124,7 @@ defeatBossAchievement(5, FIGHTER, KARNE, 7, 0)
 defeatBossAchievement(10, FIGHTER, XANTHAM, 18, 0)
 defeatBossAchievement(10, FIGHTER, ILIVARRA, 15, 0)
 defeatBossAchievement(5, FIGHTER, SESS, 19, 0)
-defeatFinalBossAchievement(25, FIGHTER, 0)
+defeatBossAchievement(25, FIGHTER, ELDRITH, 127, 0)
 
 achievement(
     id = 0,
@@ -147,7 +138,7 @@ defeatBossAchievement(5, WIZARD, KARNE, 7, 0)
 defeatBossAchievement(10, WIZARD, XANTHAM, 18, 0)
 defeatBossAchievement(10, WIZARD, ILIVARRA, 15, 0)
 defeatBossAchievement(5, WIZARD, SESS, 19, 0)
-defeatFinalBossAchievement(25, WIZARD, 0)
+defeatBossAchievement(25, WIZARD, ELDRITH, 127, 0)
 
 achievement(
     id = 0,
@@ -162,12 +153,12 @@ defeatBossAchievement(5, ELVEN_FIGHTER, KARNE, 7, 0)
 defeatBossAchievement(10, ELVEN_FIGHTER, XANTHAM, 18, 0)
 defeatBossAchievement(10, ELVEN_FIGHTER, ILIVARRA, 15, 0)
 defeatBossAchievement(5, ELVEN_FIGHTER, SESS, 19, 0)
-defeatFinalBossAchievement(25, ELVEN_FIGHTER, 0)
+defeatBossAchievement(25, ELVEN_FIGHTER, ELDRITH, 127, 0)
 
 achievement(
     id = 0,
     title = "[Elven Fighter] Elven Master",
-    description = "Master all Elven Fighter skills and spells",
+    description = "Master all Elven Fighter active skills and spells",
     points = 10,
     trigger = isGameMode() && CharacterClass == ELVEN_FIGHTER && SkillSlots[0] == 13 && SkillSlots[1] == 21 
         && SkillSlots[2] == 26 && SkillSlots[3] == 43 && SkillSlots[4] == 53 && SkillSlots[5] == 69 && SkillSlots[6] == 101
