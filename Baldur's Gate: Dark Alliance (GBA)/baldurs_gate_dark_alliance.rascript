@@ -105,14 +105,14 @@ function defeatBossAchievement(points, class, boss, location, id) {
     )
 }
 
-defeatBossAchievement(5, ARCHER, KARNE, 7, 0)
-defeatBossAchievement(10, ARCHER, XANTHAM, 18, 0)
-defeatBossAchievement(10, ARCHER, ILIVARRA, 15, 0)
-defeatBossAchievement(5, ARCHER, SESS, 19, 0)
-defeatBossAchievement(25, ARCHER, ELDRITH, 127, 0)
+defeatBossAchievement(5, ARCHER, KARNE, 7, 315620)
+defeatBossAchievement(10, ARCHER, XANTHAM, 18, 315621)
+defeatBossAchievement(10, ARCHER, ILIVARRA, 15, 315622)
+defeatBossAchievement(5, ARCHER, SESS, 19, 315623)
+defeatBossAchievement(25, ARCHER, ELDRITH, 127, 315624)
 
 achievement(
-    id = 0,
+    id = 315625,
     title = "[Archer] Archery Master",
     description = "Master all active Archer skills",
     points = 10,
@@ -120,28 +120,28 @@ achievement(
         && SkillSlots[3] == 26 && SkillSlots[4] == 37
 )
 
-defeatBossAchievement(5, FIGHTER, KARNE, 7, 0)
-defeatBossAchievement(10, FIGHTER, XANTHAM, 18, 0)
-defeatBossAchievement(10, FIGHTER, ILIVARRA, 15, 0)
-defeatBossAchievement(5, FIGHTER, SESS, 19, 0)
-defeatBossAchievement(25, FIGHTER, ELDRITH, 127, 0)
+defeatBossAchievement(5, FIGHTER, KARNE, 7, 315626)
+defeatBossAchievement(10, FIGHTER, XANTHAM, 18, 315627)
+defeatBossAchievement(10, FIGHTER, ILIVARRA, 15, 315628)
+defeatBossAchievement(5, FIGHTER, SESS, 19, 315629)
+defeatBossAchievement(25, FIGHTER, ELDRITH, 127, 315630)
 
 achievement(
-    id = 0,
+    id = 315631,
     title = "[Fighter] Combat Master",
     description = "Master all active Fighter skills",
     points = 10,
     trigger = isGameMode() && CharacterClass == FIGHTER && SkillSlots[0] == 101 && SkillSlots[1] == 109
 )
 
-defeatBossAchievement(5, WIZARD, KARNE, 7, 0)
-defeatBossAchievement(10, WIZARD, XANTHAM, 18, 0)
-defeatBossAchievement(10, WIZARD, ILIVARRA, 15, 0)
-defeatBossAchievement(5, WIZARD, SESS, 19, 0)
-defeatBossAchievement(25, WIZARD, ELDRITH, 127, 0)
+defeatBossAchievement(5, WIZARD, KARNE, 7, 315632)
+defeatBossAchievement(10, WIZARD, XANTHAM, 18, 315633)
+defeatBossAchievement(10, WIZARD, ILIVARRA, 15, 315634)
+defeatBossAchievement(5, WIZARD, SESS, 19, 315635)
+defeatBossAchievement(25, WIZARD, ELDRITH, 127, 315636)
 
 achievement(
-    id = 0,
+    id = 315637,
     title = "[Wizard] Spell Master",
     description = "Master all Wizard spells",
     points = 10,
@@ -149,14 +149,14 @@ achievement(
         && SkillSlots[3] == 69 && SkillSlots[4] == 77 && SkillSlots[5] == 82 && SkillSlots[6] == 93
 )
 
-defeatBossAchievement(5, ELVEN_FIGHTER, KARNE, 7, 0)
-defeatBossAchievement(10, ELVEN_FIGHTER, XANTHAM, 18, 0)
-defeatBossAchievement(10, ELVEN_FIGHTER, ILIVARRA, 15, 0)
-defeatBossAchievement(5, ELVEN_FIGHTER, SESS, 19, 0)
-defeatBossAchievement(25, ELVEN_FIGHTER, ELDRITH, 127, 0)
+defeatBossAchievement(5, ELVEN_FIGHTER, KARNE, 7, 315638)
+defeatBossAchievement(10, ELVEN_FIGHTER, XANTHAM, 18, 315639)
+defeatBossAchievement(10, ELVEN_FIGHTER, ILIVARRA, 15, 315640)
+defeatBossAchievement(5, ELVEN_FIGHTER, SESS, 19, 315641)
+defeatBossAchievement(25, ELVEN_FIGHTER, ELDRITH, 127, 315642)
 
 achievement(
-    id = 0,
+    id = 315643,
     title = "[Elven Fighter] Elven Master",
     description = "Master all Elven Fighter active skills and spells",
     points = 10,
@@ -166,7 +166,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 315644,
     title = "[Quest] Baldur's Gate [m]",
     description = "Complete all side quests in Baldur's Gate",
     points = 10,
@@ -180,7 +180,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 315645,
     title = "[Quest] The Marsh Chelimber [m]",
     description = "Complete all side quests in The Marsh Of Chelimber",
     points = 10,
@@ -191,7 +191,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 315646,
     title = "[Quest] King Midas' Heritage",
     description = "Find room with golden equipment",
     points = 10,
@@ -208,10 +208,10 @@ function addReachLevelAchievement(points, level, title, id) {
     )
 }
 
-addReachLevelAchievement(3, 5, "Beginner", 0)
-addReachLevelAchievement(5, 10, "Apprentice", 0)
-addReachLevelAchievement(10, 20, "Advanced", 0)
-addReachLevelAchievement(25, 40, "Expert", 0)
+addReachLevelAchievement(3, 5, "Beginner", 315647)
+addReachLevelAchievement(5, 10, "Apprentice", 315648)
+addReachLevelAchievement(10, 20, "Advanced", 315649)
+addReachLevelAchievement(25, 40, "Expert", 315650)
 
 function addCollectGoldAchievement(points, gold, title, id) {
     achievement(
@@ -223,10 +223,10 @@ function addCollectGoldAchievement(points, gold, title, id) {
     )
 }
 
-addCollectGoldAchievement(3, 50000, "Tiny Fortune", 0)
-addCollectGoldAchievement(5, 100000, "Small Fortune", 0)
-addCollectGoldAchievement(10, 200000, "Big Fortune", 0)
-addCollectGoldAchievement(25, 400000, "Huge Fortune", 0)
+addCollectGoldAchievement(3, 50000, "Tiny Fortune", 315651)
+addCollectGoldAchievement(5, 100000, "Small Fortune", 315652)
+addCollectGoldAchievement(10, 200000, "Big Fortune", 315653)
+addCollectGoldAchievement(25, 400000, "Huge Fortune", 315654)
 
 function addKillEnemiesAchievement(points, enemies, title, id) {
     achievement(
@@ -239,10 +239,10 @@ function addKillEnemiesAchievement(points, enemies, title, id) {
     )
 }
 
-addKillEnemiesAchievement(3, 50, "Hunter", 0)
-addKillEnemiesAchievement(5, 100, "Killer", 0)
-addKillEnemiesAchievement(10, 200, "Butcher", 0)
-addKillEnemiesAchievement(25, 400, "Slayer", 0)
+addKillEnemiesAchievement(3, 50, "Hunter", 315655)
+addKillEnemiesAchievement(5, 100, "Killer", 315656)
+addKillEnemiesAchievement(10, 200, "Butcher", 315657)
+addKillEnemiesAchievement(25, 400, "Slayer", 315658)
 
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
