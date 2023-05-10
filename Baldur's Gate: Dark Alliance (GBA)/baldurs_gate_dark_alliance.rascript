@@ -184,7 +184,8 @@ achievement(
     title = "[Quest] The Marsh Chelimber [m]",
     description = "Complete all side quests in The Marsh Of Chelimber",
     points = 10,
-    trigger = isGameMode() 
+    trigger = isGameMode()
+        && CharacterLocation == 17
         && any_of(QuestSlots, questSlot => questSlot == 65542) // House Cleaning
         && any_of(QuestSlots, questSlot => questSlot == 65546) // Rescue the Camp People
         && any_of(QuestSlots, questSlot => questSlot == 65549) // Revenge
@@ -204,14 +205,14 @@ function addReachLevelAchievement(points, level, title, id) {
         title = format("[Experience] {0}", title),
         description = format("Reach {0} level", level),
         points = points,
-        trigger = isGameMode() && measured(CharacterLevel == level)
+        trigger = unless(!isGameMode()) && measured(CharacterLevel == level)
     )
 }
 
 addReachLevelAchievement(3, 5, "Beginner", 315647)
 addReachLevelAchievement(5, 10, "Apprentice", 315648)
 addReachLevelAchievement(10, 20, "Advanced", 315649)
-addReachLevelAchievement(25, 40, "Expert", 315650)
+addReachLevelAchievement(25, 30, "Expert", 315650)
 
 function addCollectGoldAchievement(points, gold, title, id) {
     achievement(
@@ -219,14 +220,14 @@ function addCollectGoldAchievement(points, gold, title, id) {
         title = format("[Gold] {0}", title),
         description = format("Collect {0} 000 gold", gold / 1000),
         points = points,
-        trigger = isGameMode() && measured(CharacterGold >= gold)
+        trigger = unless(!isGameMode()) && measured(CharacterGold >= gold)
     )
 }
 
 addCollectGoldAchievement(3, 50000, "Tiny Fortune", 315651)
 addCollectGoldAchievement(5, 100000, "Small Fortune", 315652)
 addCollectGoldAchievement(10, 200000, "Big Fortune", 315653)
-addCollectGoldAchievement(25, 400000, "Huge Fortune", 315654)
+addCollectGoldAchievement(25, 300000, "Huge Fortune", 315654)
 
 function addKillEnemiesAchievement(points, enemies, title, id) {
     achievement(
@@ -242,12 +243,12 @@ function addKillEnemiesAchievement(points, enemies, title, id) {
 addKillEnemiesAchievement(3, 50, "Hunter", 315655)
 addKillEnemiesAchievement(5, 100, "Killer", 315656)
 addKillEnemiesAchievement(10, 200, "Butcher", 315657)
-addKillEnemiesAchievement(25, 400, "Slayer", 315658)
+addKillEnemiesAchievement(25, 300, "Slayer", 315658)
 
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
  
-rich_presence_conditional_display(!isGameMode(), "Starting the Game")
+rich_presence_conditional_display(!isGameMode(), "Title screen")
 rich_presence_display(
     "{0} Lvl {1} 💰 {2} | {3}",
     rich_presence_lookup("Class", CharacterClass, Classes),
