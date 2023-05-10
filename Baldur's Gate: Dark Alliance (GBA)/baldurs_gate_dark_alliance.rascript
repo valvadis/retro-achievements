@@ -181,7 +181,7 @@ achievement(
 
 achievement(
     id = 315645,
-    title = "[Quest] The Marsh Chelimber [m]",
+    title = "[Quest] The Marsh Of Chelimber [m]",
     description = "Complete all side quests in The Marsh Of Chelimber",
     points = 10,
     trigger = isGameMode()
