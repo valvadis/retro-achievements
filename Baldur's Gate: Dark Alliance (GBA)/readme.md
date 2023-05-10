@@ -36,12 +36,12 @@ https://retroachievements.org/game/5441
 | [Experience] Beginner               | Reach level 5                                      | 3      |
 | [Experience] Apprentice             | Reach level 10                                     | 5      |
 | [Experience] Advanced               | Reach level 20                                     | 10     |
-| [Experience] Expert                 | Reach level 40                                     | 25     |
+| [Experience] Expert                 | Reach level 30                                     | 25     |
 | [Gold] Tiny Fortune                 | Collect 50 000 gold                                | 3      |
 | [Gold] Small Fortune                | Collect 100 000 gold                               | 5      |
 | [Gold] Big Fortune                  | Collect 200 000 gold                               | 10     |
-| [Gold] Huge Fortune                 | Collect 400 000 gold                               | 25     |
+| [Gold] Huge Fortune                 | Collect 300 000 gold                               | 25     |
 | [Kill] Hunter                       | Kill 50 enemies in one session without dying       | 3      |
 | [Kill] Killer                       | Kill 100 enemies in one session without dying      | 5      |
 | [Kill] Butcher                      | Kill 200 enemies in one session without dying      | 10     |
-| [Kill] Slayer                       | Kill 400 enemies in one session without dying      | 25     |
+| [Kill] Slayer                       | Kill 300 enemies in one session without dying      | 25     |
