@@ -31,7 +31,7 @@ https://retroachievements.org/game/5441
 | [Elven Fighter] Eldrith             | Defeat Eldrith and complete the game               | 25     |
 | [Elven Fighter] Elven Master        | Master all Elven Fighter skills and spells         | 10     |
 | [Quest] Baldur's Gate               | Complete all side quests in Baldur's Gate          | 10     |
-| [Quest] The Marsh Chelimber         | Complete all side quests in The Marsh Of Chelimber | 10     |
+| [Quest] The Marsh Of Chelimber      | Complete all side quests in The Marsh Of Chelimber | 10     |
 | [Quest] King Midas' Heritage        | Find room with golden equipment                    | 10     |
 | [Experience] Beginner               | Reach level 5                                      | 3      |
 | [Experience] Apprentice             | Reach level 10                                     | 5      |
