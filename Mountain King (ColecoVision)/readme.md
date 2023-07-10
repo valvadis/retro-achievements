@@ -18,9 +18,9 @@ https://retroachievements.org/game/24996
 | Amateur Explorer          | Collect 20 000 diamonds                       | 5      |
 | Advanced Explorer         | Collect 40 000 diamonds                       | 10     |
 | Veteran Explorer          | Collect 80 000 diamonds                       | 25     |
-| Giant Spider              | Release from the Giant Spider's web 5 times   | 10     |
-| Flame Spirit              | Collect 5 Flame Spirits in one level          | 10     |
 | Golden Crown              | Collect 5 Golden Crowns in one level          | 10     |
-| Treasure Chest            | Collect 10 Treasure Chests in one level       | 10     |
-| Cave Bat                  | Complete any level without losing the crown   | 25     |
-| Flashlight                | Complete any level without using a flashlight | 25     |
+| Small Treasure Chest      | Collect 10 Treasure Chests in one level       | 10     |
+| Large Treasure Chest      | Collect 20 Treasure Chests in one level       | 25     |
+| Giant Spider              | Release from the Giant Spider's web 5 times   | 10     |
+| Cave Bat                  | Complete any level without losing the crown   | 10     |
+| Flashlight                | Complete any level without using a flashlight | 10     |
