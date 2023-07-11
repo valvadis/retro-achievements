@@ -83,13 +83,13 @@ function addCollectDiamondsAchievement(points, title, diamonds, id) {
     )
 }
 
-addCollectDiamondsAchievement(3, "Beginner Explorer", 10000, 0)
-addCollectDiamondsAchievement(5, "Amateur Explorer", 20000, 0)
-addCollectDiamondsAchievement(10, "Advanced Explorer", 40000, 0)
-addCollectDiamondsAchievement(25, "Veteran Explorer", 80000, 0)
+addCollectDiamondsAchievement(3, "Beginner Explorer", 10000, 335604)
+addCollectDiamondsAchievement(5, "Amateur Explorer", 20000, 335605)
+addCollectDiamondsAchievement(10, "Advanced Explorer", 40000, 335606)
+addCollectDiamondsAchievement(25, "Veteran Explorer", 80000, 335607)
 
 achievement(
-    id = 0,
+    id = 335588,
     title = "Giant Spider",
     description = "Release from the Giant Spider's web 5 times",
     points = 10,
@@ -97,7 +97,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 335609,
     title = "Golden Crown",
     description = "Collect 5 Golden Crowns in one level",
     points = 10,
@@ -105,23 +105,23 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 335608,
     title = "Small Treasure Chest",
-    description = "Collect 10 Treasure Chests",
+    description = "Collect 10 Treasure Chests (only scored ones count)",
     points = 10,
     trigger = isGameActive() && measured(repeated(10, isTreasureChestTaken())) && never(isPlayerKilled())
 )
 
 achievement(
-    id = 0,
+    id = 335610,
     title = "Large Treasure Chest",
-    description = "Collect 20 Treasure Chests",
+    description = "Collect 20 Treasure Chests (only scored ones count)",
     points = 25,
     trigger = isGameActive() && measured(repeated(20, isTreasureChestTaken())) && never(isPlayerKilled())
 )
 
 achievement(
-    id = 0,
+    id = 335611,
     title = "Cave Bat",
     description = "Complete any level without losing the crown",
     points = 10,
@@ -129,7 +129,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 335612,
     title = "Flashlight",
     description = "Complete any level without using a flashlight",
     points = 10,
