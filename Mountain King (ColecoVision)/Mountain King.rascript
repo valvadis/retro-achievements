@@ -34,15 +34,19 @@ function getScore() {
         high4(0x0155)  * 100000
 }
 
-function isTreasureChestTaken() => prev(getScore()) + 260 == getScore()
+function isTreasureChestTaken() => prev(getScore()) - getScore() == 260
 
 function isPlayerKilled() => bit0(0x03b8) == 1 && bit1(0x03b8) == 1
 
+function isPlayerAlive() => bit0(0x03b8) == 0 && bit1(0x03b8) == 0
+
 function isGameStarted() => tbyte(0x0153) == 0
 
-function isGameActive() => CharacterPosition["y"] > 0 && !isPlayerKilled()
+function isGameActive() => CharacterPosition["y"] > 0
 
 function isFlashlightUsed() => bit5(0x017a) == 1
+
+function isFlameSpiritIsActive() => bit6(0x017a) == 1
 
 function hasGoldenCrown() => bit6(0x00e3) == 1 && bit2(0x00e3) == 1 && bit0(0x00e3) == 1
 
@@ -59,8 +63,8 @@ function addCompleteLevelAchievement(points, level, id) {
         title = format("King Of The Mountain {0}", RomanNumeralsConverter[level]),
         description = format("Complete level {0}", level),
         points = points,
-        trigger = isGameActive() && bit2(0x03b8) != 1 && CurrentLevel + 1 == level 
-                    && trigger_when(hasGoldenCrown()) && reachMountainTop()
+        trigger = isGameActive() && isPlayerAlive() && bit2(0x03b8) != 1 && CurrentLevel + 1 == level 
+                    && hasGoldenCrown() && trigger_when(reachMountainTop())
     )
 }
 
@@ -79,7 +83,7 @@ function addCollectDiamondsAchievement(points, title, diamonds, id) {
         title = title,
         description = format("Collect {0} 000 diamonds", diamonds / 1000),
         points = points,
-        trigger = isGameActive() && measured(getScore() >= diamonds)
+        trigger = isGameActive() && isPlayerAlive() && measured(getScore() >= diamonds)
     )
 }
 
@@ -93,7 +97,7 @@ achievement(
     title = "Giant Spider",
     description = "Release from the Giant Spider's web 5 times",
     points = 10,
-    trigger = isGameActive() && repeated(5, releaseFromGiantSpider())
+    trigger = isGameActive() && measured(repeated(5, releaseFromGiantSpider())) && never(isPlayerKilled())
 )
 
 achievement(
@@ -101,7 +105,7 @@ achievement(
     title = "Golden Crown",
     description = "Collect 5 Golden Crowns in one level",
     points = 10,
-    trigger = isGameActive() && measured(GoldenCrowns >= 5)
+    trigger = isGameActive() && measured(repeated(5, GoldenCrowns > prev(GoldenCrowns))) && never(isPlayerKilled())
 )
 
 achievement(
@@ -125,7 +129,7 @@ achievement(
     title = "Cave Bat",
     description = "Complete any level without losing the crown",
     points = 10,
-    trigger = isGameActive() && trigger_when(hasGoldenCrown() && GoldenCrowns == 1) && reachMountainTop()
+    trigger = isGameActive() && isPlayerAlive() && hasGoldenCrown() && GoldenCrowns == 1 && trigger_when(reachMountainTop())
 )
 
 achievement(
@@ -133,8 +137,40 @@ achievement(
     title = "Flashlight",
     description = "Complete any level without using a flashlight",
     points = 10,
-    trigger = isGameActive() && disable_when(once(isFlashlightUsed()), isGameStarted()) 
-                && trigger_when(hasGoldenCrown()) && reachMountainTop()
+    trigger = isGameActive() && never(isPlayerKilled()) && disable_when(once(isFlashlightUsed()), isGameStarted()) 
+                && hasGoldenCrown() && trigger_when(reachMountainTop())
+)
+
+achievement(
+    id = 346814,
+    title = "[Tutorial] Diamond Fever",
+    description = "Get 1000 points (now you can find the Flame Spirit)",
+    points = 1,
+    trigger = isGameActive() && isPlayerAlive() && measured(getScore() >= 1000)
+)
+    
+achievement(
+    id = 346815,
+    title = "[Tutorial] I Am On Fire",
+    description = "Get Flame Spirit (now you can go to the temple and put flame between columns)",
+    points = 1,
+    trigger = isGameActive() && isPlayerAlive() && once(isFlameSpiritIsActive())
+)
+
+achievement(
+    id = 346816,
+    title = "[Tutorial] Open Sesame",
+    description = "Give Flame Spirit to Skull Spirit (now you can take your first crown)",
+    points = 1,
+    trigger = isGameActive() && isPlayerAlive() && once(FlameSpirits > 0)
+)
+
+achievement(
+    id = 346817,
+    title = "[Tutorial] Great Escape",
+    description = "Get the Crown (now you can go to the top of the mountain, be aware of bats)",
+    points = 1,
+    trigger = isGameActive() && isPlayerAlive() && once(GoldenCrowns > 0)
 )
 
 // -----------------------------------------------------------------------------
@@ -157,7 +193,7 @@ rich_presence_display(
 leaderboard(
     id = 70542,
     title = "Diamond Rush",
-    description = "Get as many diamonds as you can",
+    description = "Get as many diamonds as you can before you die",
     start = getScore() > 0,
     cancel = isGameStarted(),
     submit = isPlayerKilled(),
@@ -169,7 +205,7 @@ leaderboard(
 leaderboard(
     id = 70541,
     title = "Treasure Hunter",
-    description = "Get as many treasure chests as you can",
+    description = "Get as many treasure chests as you can before you die",
     start = isTreasureChestTaken(),
     cancel = isGameStarted(),
     submit = isPlayerKilled(),
