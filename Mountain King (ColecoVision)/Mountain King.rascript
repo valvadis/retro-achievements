@@ -34,7 +34,7 @@ function getScore() {
         high4(0x0155)  * 100000
 }
 
-function isTreasureChestTaken() => prev(getScore()) - getScore() == 260
+function isTreasureChestTaken() => getScore() - prev(getScore()) == 260
 
 function isPlayerKilled() => bit0(0x03b8) == 1 && bit1(0x03b8) == 1
 
@@ -83,7 +83,7 @@ function addCollectDiamondsAchievement(points, title, diamonds, id) {
         title = title,
         description = format("Collect {0} 000 diamonds", diamonds / 1000),
         points = points,
-        trigger = isGameActive() && isPlayerAlive() && measured(getScore() >= diamonds)
+        trigger = isGameActive() && isPlayerAlive() && getScore() >= diamonds
     )
 }
 
@@ -146,7 +146,7 @@ achievement(
     title = "[Tutorial] Diamond Fever",
     description = "Get 1000 points (now you can find the Flame Spirit)",
     points = 1,
-    trigger = isGameActive() && isPlayerAlive() && measured(getScore() >= 1000)
+    trigger = isGameActive() && getScore() >= 1000 && isPlayerAlive()
 )
     
 achievement(
@@ -154,7 +154,7 @@ achievement(
     title = "[Tutorial] I Am On Fire",
     description = "Get Flame Spirit (now you can go to the temple and put flame between columns)",
     points = 1,
-    trigger = isGameActive() && isPlayerAlive() && once(isFlameSpiritIsActive())
+    trigger = isGameActive() && once(isFlameSpiritIsActive()) && isPlayerAlive()
 )
 
 achievement(
@@ -162,7 +162,7 @@ achievement(
     title = "[Tutorial] Open Sesame",
     description = "Give Flame Spirit to Skull Spirit (now you can take your first crown)",
     points = 1,
-    trigger = isGameActive() && isPlayerAlive() && once(FlameSpirits > 0)
+    trigger = isGameActive() && once(FlameSpirits > 0) && isPlayerAlive() 
 )
 
 achievement(
@@ -170,7 +170,7 @@ achievement(
     title = "[Tutorial] Great Escape",
     description = "Get the Crown (now you can go to the top of the mountain, be aware of bats)",
     points = 1,
-    trigger = isGameActive() && isPlayerAlive() && once(GoldenCrowns > 0)
+    trigger = isGameActive() && once(GoldenCrowns > 0) && isPlayerAlive()
 )
 
 // -----------------------------------------------------------------------------
@@ -178,11 +178,10 @@ achievement(
 
 rich_presence_conditional_display(getScore() == 0, "Starting the exploration...")
 rich_presence_display(
-    "⛰️ {0} • 🔥 {1} • 👑 {2} • 🎁 {3} • 💎{4}",
+    "⛰ {0} • 🔥 {1} • 👑 {2} • 💎 {3}",
     rich_presence_value("Level", CurrentLevel + 1, "VALUE"),
-    rich_presence_value("Golden Crowns", GoldenCrowns, "VALUE"),
     rich_presence_value("Flame Spirits", FlameSpirits, "VALUE"),
-    rich_presence_value("Treasure Chests", isTreasureChestTaken() && never(isGameStarted()), "VALUE"),
+    rich_presence_value("Golden Crowns", GoldenCrowns, "VALUE"),
     rich_presence_value("Diamonds", getScore(), "VALUE")
 
 )
