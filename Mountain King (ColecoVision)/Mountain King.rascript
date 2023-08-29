@@ -208,7 +208,7 @@ leaderboard(
     start = isTreasureChestTaken(),
     cancel = isGameStarted(),
     submit = isPlayerKilled(),
-    value = isTreasureChestTaken(),
+    value =  prev(getScore()) + 260 == getScore(),
     format= "VALUE",
     lower_is_better = false
 )
