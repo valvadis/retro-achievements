@@ -36,6 +36,8 @@ function getScore() {
 
 function isTreasureChestTaken() => getScore() - prev(getScore()) == 260
 
+function countTreasureChestTaken() => measured(prev(getScore()) + 260 == getScore())
+
 function isPlayerKilled() => bit0(0x03b8) == 1 && bit1(0x03b8) == 1
 
 function isPlayerAlive() => bit0(0x03b8) == 0 && bit1(0x03b8) == 0
@@ -178,10 +180,11 @@ achievement(
 
 rich_presence_conditional_display(getScore() == 0, "Starting the exploration...")
 rich_presence_display(
-    "⛰ {0} • 🔥 {1} • 👑 {2} • 💎 {3}",
+    "⛰️ {0} • 🔥 {1} • 👑 {2} • 🎁 {3} • 💎{4}",
     rich_presence_value("Level", CurrentLevel + 1, "VALUE"),
     rich_presence_value("Flame Spirits", FlameSpirits, "VALUE"),
     rich_presence_value("Golden Crowns", GoldenCrowns, "VALUE"),
+    rich_presence_value("Treasures", countTreasureChestTaken(), "VALUE"),
     rich_presence_value("Diamonds", getScore(), "VALUE")
 
 )
@@ -208,7 +211,7 @@ leaderboard(
     start = isTreasureChestTaken(),
     cancel = isGameStarted(),
     submit = isPlayerKilled(),
-    value =  prev(getScore()) + 260 == getScore(),
+    value =  countTreasureChestTaken(),
     format= "VALUE",
     lower_is_better = false
 )
