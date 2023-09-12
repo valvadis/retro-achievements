@@ -11,6 +11,7 @@ CharacterLocation = byte(0x01f0)
 CharacterPositionX = word(0x1521)
 CharacterPositionY = word(0x1525)
 CharacterClass = low4(0x157c)
+CharacterSkillPoints = byte(0x0ba9)
 
 // Class ID
 ARCHER = 0
@@ -116,8 +117,8 @@ achievement(
     title = "[Archer] Archery Master",
     description = "Master all active Archer skills",
     points = 10,
-    trigger = __ornext(isGameMode()) && CharacterClass == ARCHER && SkillSlots[0] == 5 && SkillSlots[1] == 13 && SkillSlots[2] == 21 
-        && SkillSlots[3] == 26 && SkillSlots[4] == 37
+    trigger = __ornext(isGameMode()) && CharacterSkillPoints < prev(CharacterSkillPoints) && CharacterClass == ARCHER
+        && SkillSlots[0] == 5 && SkillSlots[1] == 13 && SkillSlots[2] == 21 && SkillSlots[3] == 26 && SkillSlots[4] == 37
 )
 
 defeatBossAchievement(5, FIGHTER, KARNE, 7, 315626)
@@ -131,7 +132,8 @@ achievement(
     title = "[Fighter] Combat Master",
     description = "Master all active Fighter skills",
     points = 10,
-    trigger = __ornext(isGameMode()) && CharacterClass == FIGHTER && SkillSlots[0] == 101 && SkillSlots[1] == 109
+    trigger = __ornext(isGameMode()) && CharacterSkillPoints < prev(CharacterSkillPoints) && CharacterClass == FIGHTER
+        && SkillSlots[0] == 101 && SkillSlots[1] == 109
 )
 
 defeatBossAchievement(5, WIZARD, KARNE, 7, 315632)
@@ -145,8 +147,9 @@ achievement(
     title = "[Wizard] Spell Master",
     description = "Master all Wizard spells",
     points = 10,
-    trigger = __ornext(isGameMode()) && CharacterClass == WIZARD && SkillSlots[0] == 43 && SkillSlots[1] == 53 && SkillSlots[2] == 61 
-        && SkillSlots[3] == 69 && SkillSlots[4] == 77 && SkillSlots[5] == 82 && SkillSlots[6] == 93
+    trigger = __ornext(isGameMode()) && CharacterSkillPoints < prev(CharacterSkillPoints) && CharacterClass == WIZARD
+        && SkillSlots[0] == 43 && SkillSlots[1] == 53 && SkillSlots[2] == 61 && SkillSlots[3] == 69 && SkillSlots[4] == 77 
+        && SkillSlots[5] == 82 && SkillSlots[6] == 93
 )
 
 defeatBossAchievement(5, ELVEN_FIGHTER, KARNE, 7, 315638)
@@ -160,9 +163,9 @@ achievement(
     title = "[Elven Fighter] Elven Master",
     description = "Master all Elven Fighter active skills and spells",
     points = 10,
-    trigger = __ornext(isGameMode()) && CharacterClass == ELVEN_FIGHTER && SkillSlots[0] == 13 && SkillSlots[1] == 21 
-        && SkillSlots[2] == 26 && SkillSlots[3] == 43 && SkillSlots[4] == 53 && SkillSlots[5] == 69 && SkillSlots[6] == 101
-        && SkillSlots[7] == 109
+    trigger = __ornext(isGameMode()) && CharacterSkillPoints < prev(CharacterSkillPoints) && CharacterClass == ELVEN_FIGHTER
+        && SkillSlots[0] == 13 && SkillSlots[1] == 21 && SkillSlots[2] == 26 && SkillSlots[3] == 43 && SkillSlots[4] == 53
+        && SkillSlots[5] == 69 && SkillSlots[6] == 101 && SkillSlots[7] == 109
 )
 
 achievement(
@@ -196,7 +199,7 @@ achievement(
     title = "[Quest] King Midas' Heritage",
     description = "Find room with golden equipment",
     points = 10,
-    trigger = isGameMode() && CharacterLocation == 23 && CharacterPositionX == 392 && CharacterPositionY == 1983
+    trigger = __ornext(isGameMode()) && CharacterLocation == 23 && CharacterPositionX == 392 && CharacterPositionY == 1983
 )
 
 function addReachLevelAchievement(points, level, title, id) {
@@ -205,7 +208,7 @@ function addReachLevelAchievement(points, level, title, id) {
         title = format("[Experience] {0}", title),
         description = format("Reach {0} level", level),
         points = points,
-        trigger = unless(!isGameMode()) && measured(CharacterLevel == level)
+        trigger = unless(!isGameMode()) && (CharacterLevel - 1) == prev(CharacterLevel) && measured(CharacterLevel == level)
     )
 }
 
@@ -220,7 +223,7 @@ function addCollectGoldAchievement(points, gold, title, id) {
         title = format("[Gold] {0}", title),
         description = format("Collect {0} 000 gold", gold / 1000),
         points = points,
-        trigger = unless(!isGameMode()) && measured(CharacterGold >= gold)
+        trigger = __ornext(isGameMode()) && measured(CharacterGold >= gold) && prior(CharacterGold) != 0 && prev(CharacterGold) < gold
     )
 }
 
@@ -235,8 +238,12 @@ function addKillEnemiesAchievement(points, enemies, title, id) {
         title = format("[Kill] {0}", title),
         description = format("Kill {0} enemies in one session without dying", enemies),
         points = points,
-        trigger = never(isGameRestarted()) && unless(!isGameMode()) && unless(DialogMode == 1) 
-            && measured(repeated(enemies, CharacterExperience > prev(CharacterExperience)))
+        trigger = never(isGameRestarted()) && __ornext(isGameMode()) && unless(DialogMode == 1) 
+            && measured(
+                repeated(enemies, CharacterExperience > prev(CharacterExperience) 
+                    && (prev(CharacterExperience) > 0 || CharacterExperience < 120)
+                )
+            )
     )
 }
 
