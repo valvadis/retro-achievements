@@ -49,12 +49,12 @@ https://retroachievements.org/game/17526
 | NAME                   | DESCRIPTION                            | POINTS |
 |------------------------|----------------------------------------|--------|
 | Odin                   | Defeat Odin                            | 5      |
-| The Captain Odin [m]   | Defeat Odin in one minute              | 10     |
 | Asura                  | Defeat Asura                           | 5      |
-| The Queen Asura [m]    | Defeat Asura without using magic       | 10     |
 | Leviathan              | Defeat Leviathan                       | 5      |
-| The King Leviathan [m] | Defeat Leviathan with only Rydia alive | 10     |
 | Bahamut                | Defeat Bahamut                         | 5      |
+| The Captain Odin [m]   | Defeat Odin in one minute              | 10     |
+| The Queen Asura [m]    | Defeat Asura without using magic       | 10     |
+| The King Leviathan [m] | Defeat Leviathan with only Rydia alive | 10     |
 | The God Bahamut [m]    | Defeat Bahamut without using item      | 10     |
 
 ## COLLECTION ##
@@ -92,7 +92,6 @@ https://retroachievements.org/game/17526
 | Cave of Bahamut         | Open every treasure chest inside the Cave of Bahamut  | 2      |
 | Lunar Subterrane        | Open every treasure chest inside the Lunar Subterrane | 10     |
 | Chocobo Forests         | Find all carrots in each Chocobo Forest               | 10     |
-| - - - - - - - - - - - - | - - - - - - - - - - - - - - - - - - - - - - - - - -   | - - -  |
 | Excalibur               | Obtain the Excalibur                                  | 5      |
 | Crystal Sword           | Obtain the Crystal Sword                              | 5      |
 | Murasame                | Obtain the Murasame                                   | 5      |
@@ -101,7 +100,7 @@ https://retroachievements.org/game/17526
 | White Spear             | Obtain the Holy Lance                                 | 5      |
 | Ribbon                  | Obtain the Ribbon                                     | 5      |
 | Knife [m]               | Obtain the Knife (from Yang's wife)                   | 5      |
-| Sylph                   | Find Sylph summon                                     | 5      |
+| Sylph                   | Find Sylph summon                                     | 10     |
 
 ## FOR-FUN ##
 | NAME             | DESCRIPTION                             | POINTS |
