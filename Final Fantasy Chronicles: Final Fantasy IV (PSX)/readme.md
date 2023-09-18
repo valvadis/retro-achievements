@@ -7,7 +7,6 @@ https://retroachievements.org/game/17526
 ## PROGRESSION ##
 | NAME                    | DESCRIPTION                                               | POINTS |
 |-------------------------|-----------------------------------------------------------|--------|
-| - - - - - - - - - - - - | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - | - - -  |
 | Unwanted Parcel         | Bring a parcel to the village of Mist                     | 10     |
 | Kingdom In Ruins        | Reach the Damcyan castle to rescue Anna                   | 10     |
 | Panacea                 | Find the Sand Ruby, the cure for your beloved             | 10     |
@@ -26,7 +25,6 @@ https://retroachievements.org/game/17526
 ## CHALLENGES ##
 | NAME                    | DESCRIPTION                                               | POINTS |
 |-------------------------|-----------------------------------------------------------|--------|
-| - - - - - - - - - - - - | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - | - - -  |
 | Mist Dragon [m]         | Defeat Mist Dragon (Active Mode, Speed 1)                 | 10     |
 | Octomammoth [m]         | Defeat Octomammoth (Active Mode, Speed 1)                 | 10     |
 | Antlion [m]             | Defeat Antlion (Active Mode, Speed 1)                     | 10     |
@@ -50,7 +48,6 @@ https://retroachievements.org/game/17526
 ## SIDEQUEST ##
 | NAME                    | DESCRIPTION                                               | POINTS |
 |-------------------------|-----------------------------------------------------------|--------|
-| - - - - - - - - - - - - | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - | - - -  |
 | Odin                    | Defeat Odin                                               | 5      |
 | Asura                   | Defeat Asura                                              | 5      |
 | Leviathan               | Defeat Leviathan                                          | 5      |
@@ -63,7 +60,6 @@ https://retroachievements.org/game/17526
 ## COLLECTION ##
 | NAME                    | DESCRIPTION                                               | POINTS |
 |-------------------------|-----------------------------------------------------------|--------|
-| - - - - - - - - - - - - | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - | - - -  |
 | Baron Castle            | Open every treasure chest in the Baron Castle             | 10     |
 | Baron                   | Open every treasure chest in the Baron                    | 10     |
 | Mist Cave               | Open every treasure chest in the Mist Cave                | 2      |
@@ -109,7 +105,6 @@ https://retroachievements.org/game/17526
 ## FOR-FUN ##
 | NAME                    | DESCRIPTION                                               | POINTS |
 |-------------------------|-----------------------------------------------------------|--------|
-| - - - - - - - - - - - - | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - | - - -  |
 | The Summoner            | Kill 10 summoned monsters in one battle                   | 5      |
 | The Egg                 | Kill egg before it hatches                                | 5      |
 | Dark Matter             | Steal the Dark Matter from Zeromus                        | 5      |
@@ -121,7 +116,6 @@ https://retroachievements.org/game/17526
 ## SUBSET ##
 | NAME                    | DESCRIPTION                                               | POINTS |
 |-------------------------|-----------------------------------------------------------|--------|
-| - - - - - - - - - - - - | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - | - - -  |
 | Adamant Armor           | Find Adamant Armor                                        | 25     |
 | Goblin                  | Find Goblin summon                                        | 10     |
 | Bomb                    | Find Bomb summon                                          | 10     |
