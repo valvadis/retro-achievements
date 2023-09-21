@@ -52,11 +52,11 @@ https://retroachievements.org/game/17526
 ## SIDEQUEST ##
 | NAME                   | DESCRIPTION                                                | POINTS |
 |------------------------|------------------------------------------------------------|--------|
-| Odin                   | Defeat Odin                                                | 5      |
-| Asura                  | Defeat Asura                                               | 5      |
-| Leviathan              | Defeat Leviathan                                           | 5      |
-| Bahamut                | Defeat Bahamut                                             | 5      |
-| Sylph                  | Find Sylph                                                 | 5      |
+| Odin                   | Defeat Odin                                                | 10     |
+| Asura                  | Defeat Asura                                               | 10     |
+| Leviathan              | Defeat Leviathan                                           | 10     |
+| Bahamut                | Defeat Bahamut                                             | 10     |
+| Sylph                  | Find Sylph                                                 | 10     |
 
 ## COLLECTION ##
 | NAME                   | DESCRIPTION                                                | POINTS |
@@ -93,44 +93,40 @@ https://retroachievements.org/game/17526
 | Cave of Bahamut        | Open every treasure chest inside the Cave of Bahamut       | 2      |
 | Lunar Subterrane       | Open every treasure chest inside the Lunar Subterrane      | 10     |
 | Chocobo Forests        | Find all carrots in each Chocobo Forest                    | 10     |
-| Excalibur              | Obtain the Excalibur                                       | 5      |
-| Crystal Sword          | Obtain the Crystal Sword                                   | 5      |
-| Murasame               | Obtain the Murasame                                        | 5      |
-| Masamune               | Obtain the Masamune                                        | 5      |
-| Stardust               | Obtain the Stardust                                        | 5      |
-| White Spear            | Obtain the Holy Lance                                      | 5      |
-| Ribbon                 | Obtain the Ribbon                                          | 5      |
-| Knife [m]              | Obtain the Knife (from Yang's wife)                        | 5      |
-| White Mage             | Learn all white magic spells as Rosa                       | 10     |
-| Black Mage             | Learn all black magic spells as Rydia                      | 10     |
-| Ninja                  | Learn all ninja spells as Edge                             | 5      |
+| Excalibur              | Obtain the Excalibur                                       | 10     |
+| Crystal Sword          | Obtain the Crystal Sword                                   | 10     |
+| Murasame               | Obtain the Murasame                                        | 10     |
+| Masamune               | Obtain the Masamune                                        | 10     |
+| White Spear            | Obtain the Holy Lance                                      | 10     |
 
 ## FOR-FUN ##
-| NAME                    | DESCRIPTION                                               | POINTS |
-|-------------------------|-----------------------------------------------------------|--------|
-| The Summoner            | Kill 10 summoned monsters in one battle                   | 5      |
-| The Egg                 | Kill egg before it hatches                                | 5      |
-| Dark Matter             | Steal the Dark Matter from Zeromus                        | 5      |
-| Astronomer              | Look at the Moon through a telescope                      | 1      |
-| Developer's Room        | Find the hidden developer's room                          | 1      |
-| The Magazine            | Obtain the (adult) magazine                               | 1      |
-| Membership Pass         | Obtain the Membership Pass                                | 1      |
+| NAME                  | DESCRIPTION                                                 | POINTS |
+|-----------------------|-------------------------------------------------------------|--------|
+| The Summoner          | Kill 10 summoned monsters in one battle                     | 5      |
+| The Egg               | Kill egg before it hatches                                  | 5      |
+| Dark Matter           | Steal the Dark Matter from Zeromus                          | 5      |
+| Astronomer            | Look at the Moon through a telescope                        | 1      |
+| Developer's Room      | Find the hidden developer's room                            | 1      |
+| The Magazine          | Obtain the (adult) magazine                                 | 1      |
+| Membership Pass       | Obtain the Membership Pass                                  | 1      |
+| Knife [m]             | Obtain the Knife (from Yang's wife)                         | 10     |
 
 ## SUBSET ##
-| NAME                    | DESCRIPTION                                               | POINTS |
-|-------------------------|-----------------------------------------------------------|--------|
-| Adamant Armor           | Find Adamant Armor                                        | 25     |
-| Goblin                  | Find Goblin summon                                        | 10     |
-| Bomb                    | Find Bomb summon                                          | 10     |
-| Mindflayer              | Find Mindflayer summon                                    | 10     |
-| Cockatrice              | Find Cockatrice summon                                    | 10     |
-| Medusa Sword            | Find Medusa Sword                                         | 10     |
-| Artemis Bow             | Obtain the Artemis Bow                                    | 10     |
-| Zeus Gauntlets          | Find Zeus Gauntlets                                       | 10     |
-| Glass Mask              | Find Glass Mask                                           | 10     |
-| Lilith Rod              | Find Lilith Rod                                           | 10     |
-| Rune Axe                | Find Rune Axe                                             | 10     |
-| Crystal Ring            | Find Crystal Ring                                         | 10     |
-| Cursed Ring             | Find Cursed Ring                                          | 10     |
-| Protect Ring            | Find Protect Ring                                         | 10     |
-| Knowledge Book          | Find Knowledge Book                                       | 10     |
+| NAME                   | DESCRIPTION                                                | POINTS |
+|------------------------|------------------------------------------------------------|--------|
+| Adamant Armor          | Find Adamant Armor                                         | 25     |
+| Goblin                 | Find Goblin summon                                         | 10     |
+| Bomb                   | Find Bomb summon                                           | 10     |
+| Mindflayer             | Find Mindflayer summon                                     | 10     |
+| Cockatrice             | Find Cockatrice summon                                     | 10     |
+| Medusa Sword           | Find Medusa Sword                                          | 10     |
+| Artemis Bow            | Obtain the Artemis Bow                                     | 10     |
+| Zeus Gauntlets         | Find Zeus Gauntlets                                        | 10     |
+| Glass Mask             | Find Glass Mask                                            | 10     |
+| Lilith Rod             | Find Lilith Rod                                            | 10     |
+| Rune Axe               | Find Rune Axe                                              | 10     |
+| Crystal Ring           | Find Crystal Ring                                          | 10     |
+| Cursed Ring            | Find Cursed Ring                                           | 10     |
+| Protect Ring           | Find Protect Ring                                          | 10     |
+| Knowledge Book         | Find Knowledge Book                                        | 10     |
+| Stardust               | Find Stardust                                              | 5      |
