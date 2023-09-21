@@ -44,66 +44,66 @@ https://retroachievements.org/game/17526
 | Demon Wall [m]          | Defeat Demon Wall (Active Mode, Speed 1)                  | 10     |
 | CPU [m]                 | Defeat CPU (Active Mode, Speed 1)                         | 10     |
 | Zeromus                 | Defeat Zeromus (Active Mode, Speed 1)                     | 10     |
-
-## SIDEQUEST ##
-| NAME                    | DESCRIPTION                                               | POINTS |
-|-------------------------|-----------------------------------------------------------|--------|
-| Odin                    | Defeat Odin                                               | 5      |
-| Asura                   | Defeat Asura                                              | 5      |
-| Leviathan               | Defeat Leviathan                                          | 5      |
-| Bahamut                 | Defeat Bahamut                                            | 5      |
 | The Captain Odin [m]    | Defeat Odin in one minute                                 | 10     |
 | The Queen Asura [m]     | Defeat Asura without using magic                          | 10     |
 | The King Leviathan [m]  | Defeat Leviathan with only Rydia alive                    | 10     |
 | The God Bahamut [m]     | Defeat Bahamut without using item                         | 10     |
 
+## SIDEQUEST ##
+| NAME                   | DESCRIPTION                                                | POINTS |
+|------------------------|------------------------------------------------------------|--------|
+| Odin                   | Defeat Odin                                                | 5      |
+| Asura                  | Defeat Asura                                               | 5      |
+| Leviathan              | Defeat Leviathan                                           | 5      |
+| Bahamut                | Defeat Bahamut                                             | 5      |
+| Sylph                  | Find Sylph                                                 | 5      |
+
 ## COLLECTION ##
-| NAME                   | DESCRIPTION                                           | POINTS |
-|------------------------|-------------------------------------------------------|--------|
-| Baron Castle           | Open every treasure chest in the Baron Castle         | 10     |
-| Baron                  | Open every treasure chest in the Baron                | 10     |
-| Mist Cave              | Open every treasure chest in the Mist Cave            | 2      |
-| Kaipo                  | Open every treasure chest in the Kaipo                | 1      |
-| Underground Waterway   | Open every treasure chest in the Underground Waterway | 10     |
-| Damcyan                | Open every treasure chest in the Damcyan              | 5      |
-| Antlion's Cave         | Open every treasure chest in the Antlion's Cave       | 3      |
-| Mt. Hobs               | Open every treasure chest in the Mt. Hobs             | 2      |
-| Fabul                  | Open every treasure chest in the Fabul                | 5      |
-| Mt. Ordeals            | Open every treasure chest in the Mt. Ordeals          | 2      |
-| Ancient Waterway       | Open every treasure chest in the Ancient Waterway     | 5      |
-| Mist Village           | Open every treasure chest in the Mist Village         | 10     |
-| Mythril Village        | Open every treasure chest in the Mythril Village      | 3      |
-| Toroia                 | Open every treasure chest in the Toroia               | 2      |
-| Toroia Castle          | Open every treasure chest in the Toroia Castle        | 5      |
-| Magnetic Cave          | Open every treasure chest in the Magnetic Cave        | 5      |
-| The Tower of Zot [m]   | Open every treasure chest in the Tower of Zot         | 5      |
-| Eblan Castle           | Open every treasure chest in the Eblan Castle         | 10     |
-| Agart                  | Open every treasure chest in the Agart                | 1      |
-| Dwarven Castle         | Open every treasure chest in the Dwarven Castle       | 5      |
-| Tower of Babil  [m]    | Open every treasure chest in the Tower of Babil       | 10     |
-| Cave Eblan             | Open every treasure chest in the Cave Eblan           | 5      |
-| Kokkol's Forge         | Open every treasure chest in the Kokkol's Forge       | 2      |
-| Tomra                  | Open every treasure chest in the Tomra                | 3      |
-| Eidolon's Cave         | Open every treasure chest in the Eidolon's Cave       | 5      |
-| Sylph Cave             | Open every treasure chest in the Sylph Cave           | 10     |
-| Sealed Cave            | Open every treasure chest in the Sealed Cave          | 5      |
-| Lunar Path             | Open every treasure chest in the Lunar Path           | 1      |
-| The Giant of Babil [m] | Open every treasure chest inside the Giant of Babil   | 3      |
-| Cave of Bahamut        | Open every treasure chest inside the Cave of Bahamut  | 2      |
-| Lunar Subterrane       | Open every treasure chest inside the Lunar Subterrane | 10     |
-| Chocobo Forests        | Find all carrots in each Chocobo Forest               | 10     |
-| Excalibur              | Obtain the Excalibur                                  | 5      |
-| Crystal Sword          | Obtain the Crystal Sword                              | 5      |
-| Murasame               | Obtain the Murasame                                   | 5      |
-| Masamune               | Obtain the Masamune                                   | 5      |
-| Stardust               | Obtain the Stardust                                   | 5      |
-| White Spear            | Obtain the Holy Lance                                 | 5      |
-| Ribbon                 | Obtain the Ribbon                                     | 5      |
-| Knife [m]              | Obtain the Knife (from Yang's wife)                   | 5      |
-| Sylph                  | Find Sylph                                            | 5      |
-| White Mage             | Learn all white magic spells as Rosa                  | 10     |
-| Black Mage             | Learn all black magic spells as Rydia                 | 10     |
-| Ninja                  | Learn all ninja spells as Edge                        | 5      |
+| NAME                   | DESCRIPTION                                                | POINTS |
+|------------------------|------------------------------------------------------------|--------|
+| Baron Castle           | Open every treasure chest in the Baron Castle              | 10     |
+| Baron                  | Open every treasure chest in the Baron                     | 10     |
+| Mist Cave              | Open every treasure chest in the Mist Cave                 | 2      |
+| Kaipo                  | Open every treasure chest in the Kaipo                     | 1      |
+| Underground Waterway   | Open every treasure chest in the Underground Waterway      | 10     |
+| Damcyan                | Open every treasure chest in the Damcyan                   | 5      |
+| Antlion's Cave         | Open every treasure chest in the Antlion's Cave            | 3      |
+| Mt. Hobs               | Open every treasure chest in the Mt. Hobs                  | 2      |
+| Fabul                  | Open every treasure chest in the Fabul                     | 5      |
+| Mt. Ordeals            | Open every treasure chest in the Mt. Ordeals               | 2      |
+| Ancient Waterway       | Open every treasure chest in the Ancient Waterway          | 5      |
+| Mist Village           | Open every treasure chest in the Mist Village              | 10     |
+| Mythril Village        | Open every treasure chest in the Mythril Village           | 3      |
+| Toroia                 | Open every treasure chest in the Toroia                    | 2      |
+| Toroia Castle          | Open every treasure chest in the Toroia Castle             | 5      |
+| Magnetic Cave          | Open every treasure chest in the Magnetic Cave             | 5      |
+| The Tower of Zot [m]   | Open every treasure chest in the Tower of Zot              | 5      |
+| Eblan Castle           | Open every treasure chest in the Eblan Castle              | 10     |
+| Agart                  | Open every treasure chest in the Agart                     | 1      |
+| Dwarven Castle         | Open every treasure chest in the Dwarven Castle            | 5      |
+| Tower of Babil  [m]    | Open every treasure chest in the Tower of Babil            | 10     |
+| Cave Eblan             | Open every treasure chest in the Cave Eblan                | 5      |
+| Kokkol's Forge         | Open every treasure chest in the Kokkol's Forge            | 2      |
+| Tomra                  | Open every treasure chest in the Tomra                     | 3      |
+| Eidolon's Cave         | Open every treasure chest in the Eidolon's Cave            | 5      |
+| Sylph Cave             | Open every treasure chest in the Sylph Cave                | 10     |
+| Sealed Cave            | Open every treasure chest in the Sealed Cave               | 5      |
+| Lunar Path             | Open every treasure chest in the Lunar Path                | 1      |
+| The Giant of Babil [m] | Open every treasure chest inside the Giant of Babil        | 3      |
+| Cave of Bahamut        | Open every treasure chest inside the Cave of Bahamut       | 2      |
+| Lunar Subterrane       | Open every treasure chest inside the Lunar Subterrane      | 10     |
+| Chocobo Forests        | Find all carrots in each Chocobo Forest                    | 10     |
+| Excalibur              | Obtain the Excalibur                                       | 5      |
+| Crystal Sword          | Obtain the Crystal Sword                                   | 5      |
+| Murasame               | Obtain the Murasame                                        | 5      |
+| Masamune               | Obtain the Masamune                                        | 5      |
+| Stardust               | Obtain the Stardust                                        | 5      |
+| White Spear            | Obtain the Holy Lance                                      | 5      |
+| Ribbon                 | Obtain the Ribbon                                          | 5      |
+| Knife [m]              | Obtain the Knife (from Yang's wife)                        | 5      |
+| White Mage             | Learn all white magic spells as Rosa                       | 10     |
+| Black Mage             | Learn all black magic spells as Rydia                      | 10     |
+| Ninja                  | Learn all ninja spells as Edge                             | 5      |
 
 ## FOR-FUN ##
 | NAME                    | DESCRIPTION                                               | POINTS |
