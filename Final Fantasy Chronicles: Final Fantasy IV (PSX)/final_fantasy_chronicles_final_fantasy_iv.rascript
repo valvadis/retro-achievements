@@ -191,6 +191,235 @@ MountOrdealsChests = [
 
 addCollectChestsAchievement(0, "Mt. Ordeals", 2, MountOrdealsChests)
 
+// TODO - MUST BE TESTED
+
+BaronCastleChests = [
+    bit2(0xd12a4),
+    bit3(0xd12a4),
+    bit4(0xd12a4),
+    bit5(0xd12a4),
+    bit6(0xd12a4),
+    bit7(0xd12a4),
+    bit0(0xd12a5),
+    bit1(0xd12a5),
+    bit2(0xd12a5),
+    bit3(0xd12a5),
+    bit4(0xd12a5),
+    bit5(0xd12a5),
+    bit6(0xd12a5),
+    bit7(0xd12a5),
+    bit0(0xd12a6),
+    bit1(0xd12a6),
+    bit2(0xd12a6),
+    bit3(0xd12a6),
+    bit4(0xd12a6),
+    bit5(0xd12a6),
+    bit6(0xd12a6),
+]
+
+addCollectChestsAchievement(0, "Baron Castle", 10, BaronCastleChests)
+
+BaronChests = [
+    bit3(0xd12a2),
+    bit4(0xd12a2),
+    bit5(0xd12a2),
+    bit6(0xd12a2),
+    bit7(0xd12a2),
+    bit0(0xd12a3),
+    bit1(0xd12a3),
+    bit2(0xd12a3),
+    // TODO (14)
+]
+
+addCollectChestsAchievement(0, "Baron", 10, BaronChests)
+
+AncientWaterwayChests = [
+    bit7(0xd12a6),
+    bit0(0xd12a7),
+    bit1(0xd12a7),
+    bit2(0xd12a7),
+    bit3(0xd12a7),
+    bit4(0xd12a7),
+    bit5(0xd12a7),
+    bit6(0xd12a7),
+    bit4(0xd12a9),
+]
+
+addCollectChestsAchievement(0, "Ancient Waterway", 5, AncientWaterwayChests)
+
+MistVillageChests = [
+    bit0(0xd12a1),
+    bit1(0xd12a1),
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Mist Village", 10, MistVillageChests)
+
+MythrilChests = [
+    bit3(0xd12a1),
+    bit4(0xd12a1),
+    bit5(0xd12a1),
+]
+
+addCollectChestsAchievement(0, "Mythril", 3, MythrilChests)
+
+TroiaChests = [
+    bit6(0xd12a1),
+    bit7(0xd12a1),
+    bit0(0xd12a2),
+    bit1(0xd12a2),
+]
+
+addCollectChestsAchievement(0, "Troia", 2, TroiaChests)
+
+TroiaCastleChests = [
+    bit7(0xd12aa),
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Troia Castle", 5, TroiaCastleChests)
+
+MagneticCaveChests = [
+    bit1(0xd12b7),
+    bit2(0xd12b7),
+    bit3(0xd12b7),
+    bit4(0xd12b7),
+    bit5(0xd12b7),
+    bit6(0xd12b7),
+    bit7(0xd12b7),
+    bit0(0xd12b8),
+    bit1(0xd12b8),
+    bit2(0xd12b8),
+]
+
+addCollectChestsAchievement(0, "Magnetic Cave", 5, MagneticCaveChests)
+
+TowerOfZotChests = [
+    bit3(0xd12b8),
+    bit4(0xd12b8),
+    bit5(0xd12b8),
+    bit6(0xd12b8),
+    bit7(0xd12b8),
+    bit0(0xd12b9),
+]
+
+addCollectChestsAchievement(0, "Tower Of Zot [m]", 5, TowerOfZotChests)
+
+EblanCastleChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Eblan Castle", 10, EblanCastleChests)
+
+AgartChests = [
+    bit2(0xd12a2),
+]
+
+addCollectChestsAchievement(0, "Agart", 1, AgartChests)
+
+DwarvenCastleChests = [
+    bit2(0xd12c1),
+    bit3(0xd12c1),
+    bit4(0xd12c1),
+    bit5(0xd12c1),
+    bit6(0xd12c1),
+    bit7(0xd12c1),
+    bit0(0xd12c2),
+    bit1(0xd12c2),
+    bit6(0xd12c2),
+    bit7(0xd12c2),
+    bit0(0xd12c3),
+    bit1(0xd12c3),
+    bit2(0xd12c3),
+    bit3(0xd12c3),
+    bit4(0xd12c3),
+    bit5(0xd12c3),
+    bit6(0xd12c3),
+    bit7(0xd12c3),
+]
+
+addCollectChestsAchievement(0, "Dwarven Castle", 5, DwarvenCastleChests)
+
+TowerOfBabilChests = [
+    bit1(0xd12b9),
+    bit2(0xd12b9),
+    bit3(0xd12b9),
+    bit4(0xd12b9),
+    bit5(0xd12b9),
+    bit6(0xd12b9),
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Tower Of Babil [m]", 10, TowerOfBabilChests)
+
+CaveEblanChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Cave Eblan [m]", 5, CaveEblanChests)
+
+KokkolsForgeChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Kokkol's Forge", 2, KokkolsForgeChests)
+
+TomraChests = [
+    bit0(0xd12c1),
+    bit1(0xd12c1),
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Tomra", 3, TomraChests)
+
+EidolonsCaveChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Eidolon's Cave", 5, EidolonsCaveChests)
+
+SylphCaveChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Sylph Cave", 10, SylphCaveChests)
+
+SealedCaveChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Sealed Cave", 5, SealedCaveChests)
+
+LunarPathChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Lunar Path", 1, LunarPathChests)
+
+GiantOfBabilChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Giant of Babil [m]", 3, GiantOfBabilChests)
+
+CaveOfBahamutChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Cave of Bahamut", 2, CaveOfBahamutChests)
+
+LunarSubterraneChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Lunar Subterrane", 10, LunarSubterraneChests)
+
+ChocoboForestsChests = [
+    // TODO
+]
+
+addCollectChestsAchievement(0, "Chocobo Forests", 10, ChocoboForestsChests)
+
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
 
