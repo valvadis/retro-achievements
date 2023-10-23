@@ -9,6 +9,7 @@ PositionX = byte(0xd1706)
 PositionY = byte(0xd1707)
 MainLocation = byte(0xd1700)
 SubLocation = word_be(0xd1701)
+MenuIndicator = byte(0xd0650)
 
 Character1 = {
     "ID": low4(0xd1040),
@@ -36,7 +37,9 @@ ItemSlots = array_map(range(0xd1440, 0xd149e, 2), itemSlot => byte(itemSlot))
 // -----------------------------------------------------------------------------
 // FUNCTIONS
 
-function isActiveGame() => PositionX != 0 && PositionY != 0
+function isActiveGame() => PositionX != 0 && PositionY != 0 && MenuIndicator != 0x70
+
+function isDialogMode() => bit0(0xd06b1) == 1
 
 // -----------------------------------------------------------------------------
 // ACHIEVEMENTS
@@ -49,27 +52,26 @@ achievement(
     trigger = isActiveGame() && SubLocation == 0x001 && all_of(ItemSlots, itemSlot => itemSlot != 0xee)
 )
 
-achievement(
-    id = 0,
-    title = "Kingdom In Ruins",
-    description = "Reach the Damcyan Castle to rescue Anna",
-    points = 10,
-    trigger = isActiveGame() && prev(bit4(0xd1282)) == 0 && bit4(0xd1282) == 1 // Event Flag - Bombing of Damcyan
-)
+function addEventFlagAchievement(id, title, description, flag) {
+    achievement(
+        id = id,
+        title = title,
+        description = description,
+        points = 10,
+        trigger = isActiveGame() && isDialogMode() && prev(flag) == 0 && flag == 1
+    )
+}
 
-achievement(
-    id = 0,
-    title = "Panacea",
-    description = "Find the Sand Ruby, the cure for your beloved",
-    points = 10,
-    trigger = isActiveGame() && prev(bit2(0xd1282)) == 0 && bit2(0xd1282) == 1 // Event Flag - Find the Sand Ruby
-)
+addEventFlagAchievement(0, "Kingdom In Ruins", "Reach the Damcyan Castle to rescue Anna", bit4(0xd1282))
+addEventFlagAchievement(0, "Panacea", "Find the Sand Ruby, the cure for your beloved", bit2(0xd1282))
+addEventFlagAchievement(0, "A Monk Not From Shaolin", "Save the Captain of Fabul", bit6(0xd1282))
+addEventFlagAchievement(0, "The Dark Knight Departs", "Overcome your fear and become a paladin", bit3(0xd1281))
 
 function addCollectChestsAchievement(id, title, points, chests) {
     achievement(
         id = id,
         title = title,
-        description = format("Open every chests in the {0}", title),
+        description = format("Open every chests in {0}", title),
         points = points,
         trigger = isActiveGame() && sum_of(chests, chest => prev(chest)) != length(chests) 
             && sum_of(chests, chest => chest) == length(chests)
@@ -155,6 +157,40 @@ AntlionsCaveChests = [
 
 addCollectChestsAchievement(0, "Antlion's Cave", 3, AntlionsCaveChests)
 
+MountHobsChests = [
+    bit5(0xd12b5),
+    bit6(0xd12b5),
+    bit7(0xd12b5),
+    bit0(0xd12b6),
+    bit1(0xd12b6),
+]
+
+addCollectChestsAchievement(0, "Mt Hobs", 2, MountHobsChests)
+
+FabulChests = [
+    bit5(0xd12a9),
+    bit6(0xd12a9),
+    bit7(0xd12a9),
+    bit0(0xd12aa),
+    bit1(0xd12aa),
+    bit2(0xd12aa),
+    bit3(0xd12aa),
+    bit4(0xd12aa),
+    bit5(0xd12aa),
+    bit6(0xd12aa),
+]
+
+addCollectChestsAchievement(0, "Fabul", 5, FabulChests)
+
+MountOrdealsChests = [
+    bit5(0xd12b6),
+    bit6(0xd12b6),
+    bit7(0xd12b6),
+    bit0(0xd12b7),
+]
+
+addCollectChestsAchievement(0, "Mt. Ordeals", 2, MountOrdealsChests)
+
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
 
@@ -188,7 +224,8 @@ SubLocations = {
     0x013: "Mysidia",
     0x014: "Mysidia",
     0x015: "Paladin's Room",
-    0x017: "Tower of Prayer",
+    0x016: "Mysidia",
+    0x017: "Mysidia",
     0x018: "Troia",
     0x019: "Troia",
     0x01a: "Court of Kings",
@@ -200,7 +237,7 @@ SubLocations = {
     0x021: "Chocobo Village",
     0x024: "Baron Castle",
     0x025: "Damcyan Castle",
-    0x026: "Fabul Castle",
+    0x026: "Fabul",
     0x027: "Troia Castle",
     0x028: "Eblan Castle",
     0x02a: "Baron Castle",
@@ -261,7 +298,7 @@ SubLocations = {
     0x065: "Eblan",
     0x066: "Baron Castle",
     0x067: "Baron Castle",
-    0x068: "Mysidia's Beach",
+    0x068: "Mysidia",
     0x069: "Devil's Road",
     0x06a: "Water Cavern",
     0x06c: "Mist Cave",
@@ -275,7 +312,7 @@ SubLocations = {
     0x076: "Water Cavern",
     0x077: "Antlion's Cave",
     0x078: "Antlion's Cave",
-    //0x079: "Antlion's Cave",
+    0x079: "Antlion's Cave",
     0x07a: "Antlion's Cave",
     0x07b: "Antlion's Cave",
     0x07c: "Moon observation",
@@ -325,7 +362,7 @@ SubLocations = {
     0x0bd: "Giant of Babil",
     0x0c0: "Red Wings Airship",
     0x0c1: "Fabul",
-    0x0c2: "Fabul",
+    0x0c2: "Overworld",
     0x0c3: "Enterprise",
     0x0c7: "Cave Eblan",
     0x0c8: "Cave Eblan",
@@ -335,7 +372,7 @@ SubLocations = {
     0x0cc: "Eblan Cave",
     0x0cd: "Eblan Cave",
     0x0ce: "Eblan Cave",
-    0x0cf: "Fabul Cave",
+    0x0cf: "Fabul",
     0x0d1: "Chocobo Forest",
     0x0d2: "Chocobo Forest",
     0x0d3: "Chocobo Forest",
@@ -497,7 +534,7 @@ rich_presence_conditional_display(MainLocation == 0x03,
     rich_presence_value("Character4 LVL", Character4["LV"]),
     rich_presence_lookup("Character5 ID", Character5["ID"], Characters),
     rich_presence_value("Character5 LVL", Character5["LV"]),
-    rich_presence_lookup("SubLocation", SubLocation, SubLocations, "??????????????????????????????????????????????????????????????????"),
+    rich_presence_lookup("SubLocation", SubLocation, SubLocations, "???????????????????????????????????????????????????????????????????"),
     rich_presence_value("Time", TimeInSeconds, "SECS_AS_MINS")
 )
 
