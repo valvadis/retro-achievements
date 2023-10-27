@@ -11,46 +11,45 @@ MainLocation = byte(0xd1700)
 SubLocation = word_be(0xd1701)
 MenuIndicator = byte(0xd0650)
 
+function convertFiveBitsToDecimal(address) {
+    return bit0(address) * 1
+        + bit1(address) * 2
+        + bit2(address) * 4
+        + bit3(address) * 8
+        + bit4(address) * 16
+        + bit5(address) * 32
+}
+
 Character1 = {
-    "ID": low4(0xd1040),
+    "ID": convertFiveBitsToDecimal(0xd1040),
     "LV": byte(0xd1042),
 }
 Character2 = {
-    "ID": low4(0xd10c0),
+    "ID": convertFiveBitsToDecimal(0xd10c0),
     "LV": byte(0xd10c2),
 }
 Character3 = {
-    "ID": low4(0xd1000),
+    "ID": convertFiveBitsToDecimal(0xd1000),
     "LV": byte(0xd1002),
 }
 Character4 = {
-    "ID": low4(0xd1100),
+    "ID": convertFiveBitsToDecimal(0xd1100),
     "LV": byte(0xd1102),
 }
 Character5 = {
-    "ID": low4(0xd1080),
+    "ID": convertFiveBitsToDecimal(0xd1080),
     "LV": byte(0xd1082),
 }
-
-ItemSlots = array_map(range(0xd1440, 0xd149e, 2), itemSlot => byte(itemSlot))
 
 // -----------------------------------------------------------------------------
 // FUNCTIONS
 
-function isActiveGame() => PositionX != 0 && PositionY != 0 && MenuIndicator != 0x70
+function isActiveGame() => MenuIndicator == 0 && PositionX + PositionY > 0
 
 function isDialogMode() => bit0(0xd06b1) == 1
 
 // -----------------------------------------------------------------------------
 // ACHIEVEMENTS
-
-achievement(
-    id = 0,
-    title = "Unwanted Parcel",
-    description = "Bring a Bomb Ring to the Village of Mist",
-    points = 10,
-    trigger = isActiveGame() && SubLocation == 0x001 && all_of(ItemSlots, itemSlot => itemSlot != 0xee)
-)
 
 function addEventFlagAchievement(id, title, description, flag) {
     achievement(
@@ -58,14 +57,19 @@ function addEventFlagAchievement(id, title, description, flag) {
         title = title,
         description = description,
         points = 10,
-        trigger = isActiveGame() && isDialogMode() && prev(flag) == 0 && flag == 1
+        trigger = isDialogMode() && prev(flag) == 0 && flag == 1
     )
 }
 
+addEventFlagAchievement(0, "Unwanted Parcel", "Bring a Bomb Ring to the Village of Mist and save the child", bit6(0xd1281))
 addEventFlagAchievement(0, "Kingdom In Ruins", "Reach the Damcyan Castle to rescue Anna", bit4(0xd1282))
 addEventFlagAchievement(0, "Panacea", "Find the Sand Ruby, the cure for your beloved", bit2(0xd1282))
-addEventFlagAchievement(0, "A Monk Not From Shaolin", "Save the Captain of Fabul", bit6(0xd1282))
+addEventFlagAchievement(0, "A Monk Not From Shaolin", "Save the Captain of Fabul from monsters", bit6(0xd1282))
 addEventFlagAchievement(0, "The Dark Knight Departs", "Overcome your fear and become a paladin", bit3(0xd1281))
+addEventFlagAchievement(0, "The False King", "Expose the false king of Baron and meet again with Kain", bit6(0xd1280))
+addEventFlagAchievement(0, "Swan Song", "Reclaim the earth crystal with a little help", bit3(0xd1284))
+addEventFlagAchievement(0, "Where Am I?", "Save Rosa in Tower of Zot", bit4(0xd1281))
+addEventFlagAchievement(0, "Thing T. Thing", "Defeat Golbez in Dwarven Castle", bit7(0xd1280))
 
 function addCollectChestsAchievement(id, title, points, chests) {
     achievement(
@@ -191,7 +195,19 @@ MountOrdealsChests = [
 
 addCollectChestsAchievement(0, "Mt. Ordeals", 2, MountOrdealsChests)
 
-// TODO - MUST BE TESTED
+WaterwayChests = [
+    bit7(0xd12a6),
+    bit0(0xd12a7),
+    bit1(0xd12a7),
+    bit2(0xd12a7),
+    bit3(0xd12a7),
+    bit4(0xd12a7),
+    bit5(0xd12a7),
+    bit6(0xd12a7),
+    bit4(0xd12a9),
+]
+
+addCollectChestsAchievement(0, "Waterway", 5, WaterwayChests)
 
 BaronCastleChests = [
     bit2(0xd12a4),
@@ -209,7 +225,6 @@ BaronCastleChests = [
     bit6(0xd12a5),
     bit7(0xd12a5),
     bit0(0xd12a6),
-    bit1(0xd12a6),
     bit2(0xd12a6),
     bit3(0xd12a6),
     bit4(0xd12a6),
@@ -220,6 +235,13 @@ BaronCastleChests = [
 addCollectChestsAchievement(0, "Baron Castle", 10, BaronCastleChests)
 
 BaronChests = [
+    bit0(0xd12a0),
+    bit1(0xd12a0),
+    bit2(0xd12a0),
+    bit3(0xd12a0),
+    bit4(0xd12a0),
+    bit5(0xd12a0),
+    bit6(0xd12a0),
     bit3(0xd12a2),
     bit4(0xd12a2),
     bit5(0xd12a2),
@@ -228,32 +250,27 @@ BaronChests = [
     bit0(0xd12a3),
     bit1(0xd12a3),
     bit2(0xd12a3),
-    // TODO (14)
 ]
 
 addCollectChestsAchievement(0, "Baron", 10, BaronChests)
 
-AncientWaterwayChests = [
-    bit7(0xd12a6),
-    bit0(0xd12a7),
-    bit1(0xd12a7),
-    bit2(0xd12a7),
-    bit3(0xd12a7),
-    bit4(0xd12a7),
-    bit5(0xd12a7),
-    bit6(0xd12a7),
-    bit4(0xd12a9),
-]
-
-addCollectChestsAchievement(0, "Ancient Waterway", 5, AncientWaterwayChests)
-
 MistVillageChests = [
+    bit7(0xd12a0),
     bit0(0xd12a1),
     bit1(0xd12a1),
-    // TODO
+    bit3(0xd12a3),
+    bit4(0xd12a3),
+    bit5(0xd12a3),
+    bit6(0xd12a3),
 ]
 
 addCollectChestsAchievement(0, "Mist Village", 10, MistVillageChests)
+
+AgartChests = [
+    bit2(0xd12a2),
+]
+
+addCollectChestsAchievement(0, "Agart", 1, AgartChests)
 
 MythrilChests = [
     bit3(0xd12a1),
@@ -272,14 +289,20 @@ TroiaChests = [
 
 addCollectChestsAchievement(0, "Troia", 2, TroiaChests)
 
-TroiaCastleChests = [
-    bit7(0xd12aa),
-    // TODO
+ChocoboForestsChests = [
+    bit7(0xd12a3),
+    bit0(0xd12a4),
+    bit1(0xd12a4),
+    bit4(0xd12be),
+    bit5(0xd12be),
+    bit6(0xd12be),
+    bit7(0xd12be),
+    bit0(0xd12bf),
 ]
 
-addCollectChestsAchievement(0, "Troia Castle", 5, TroiaCastleChests)
+addCollectChestsAchievement(0, "Chocobo Forests", 10, ChocoboForestsChests)
 
-MagneticCaveChests = [
+MagneticCavernChests = [
     bit1(0xd12b7),
     bit2(0xd12b7),
     bit3(0xd12b7),
@@ -292,7 +315,66 @@ MagneticCaveChests = [
     bit2(0xd12b8),
 ]
 
-addCollectChestsAchievement(0, "Magnetic Cave", 5, MagneticCaveChests)
+addCollectChestsAchievement(0, "Magnetic Cavern", 5, MagneticCavernChests)
+
+EblanCastleChests = [
+    bit2(0xd12ae),
+    bit3(0xd12ae),
+    bit4(0xd12ae),
+    bit5(0xd12ae),
+    bit6(0xd12ae),
+    bit7(0xd12ae),
+    bit0(0xd12af),
+    bit1(0xd12af),
+    bit2(0xd12af),
+    bit3(0xd12af),
+    bit4(0xd12af),
+    bit5(0xd12af),
+    bit6(0xd12af),
+    bit7(0xd12af),
+    bit0(0xd12b0),
+    bit1(0xd12b0),
+    bit2(0xd12b0),
+    bit3(0xd12b0),
+    bit4(0xd12b0),
+    bit5(0xd12b0),
+    bit6(0xd12b0),
+    bit7(0xd12b0),
+]
+
+addCollectChestsAchievement(0, "Eblan Castle", 10, EblanCastleChests)
+
+TroiaCastleChests = [
+    bit7(0xd12aa),
+    bit0(0xd12ab),
+    bit1(0xd12ab),
+    bit2(0xd12ab),
+    bit3(0xd12ab),
+    bit4(0xd12ab),
+    bit5(0xd12ab),
+    bit6(0xd12ab),
+    bit7(0xd12ab),
+    bit0(0xd12ac),
+    bit1(0xd12ac),
+    bit2(0xd12ac),
+    bit3(0xd12ac),
+    bit4(0xd12ac),
+    bit5(0xd12ac),
+    bit6(0xd12ac),
+    bit7(0xd12ac),
+    bit0(0xd12ad),
+    bit1(0xd12ad),
+    bit2(0xd12ad),
+    bit3(0xd12ad),
+    bit4(0xd12ad),
+    bit5(0xd12ad),
+    bit6(0xd12ad),
+    bit7(0xd12ad),
+    bit0(0xd12ae),
+    bit1(0xd12ae),
+]
+
+addCollectChestsAchievement(0, "Troia Castle", 5, TroiaCastleChests)
 
 TowerOfZotChests = [
     bit3(0xd12b8),
@@ -304,18 +386,6 @@ TowerOfZotChests = [
 ]
 
 addCollectChestsAchievement(0, "Tower Of Zot [m]", 5, TowerOfZotChests)
-
-EblanCastleChests = [
-    // TODO
-]
-
-addCollectChestsAchievement(0, "Eblan Castle", 10, EblanCastleChests)
-
-AgartChests = [
-    bit2(0xd12a2),
-]
-
-addCollectChestsAchievement(0, "Agart", 1, AgartChests)
 
 DwarvenCastleChests = [
     bit2(0xd12c1),
@@ -341,28 +411,45 @@ DwarvenCastleChests = [
 addCollectChestsAchievement(0, "Dwarven Castle", 5, DwarvenCastleChests)
 
 TowerOfBabilChests = [
-    bit1(0xd12b9),
-    bit2(0xd12b9),
-    bit3(0xd12b9),
-    bit4(0xd12b9),
-    bit5(0xd12b9),
-    bit6(0xd12b9),
-    // TODO
+    bit2(0xd12c2),
+    bit3(0xd12c2),
+    bit4(0xd12c2),  
+    bit5(0xd12c2),
+    bit3(0xd12c4),
+    bit4(0xd12c4),
+    bit5(0xd12c4),
+    bit6(0xd12c4),
+    bit7(0xd12c4),
+    bit0(0xd12c5),
+    bit1(0xd12c5),
+    bit2(0xd12c5),
+    bit3(0xd12c5),
+    bit4(0xd12c5),
+    bit5(0xd12c5),
+    bit7(0xd12c5),
 ]
 
 addCollectChestsAchievement(0, "Tower Of Babil [m]", 10, TowerOfBabilChests)
+
+// TODO - MUST BE TESTED
 
 CaveEblanChests = [
     // TODO
 ]
 
-addCollectChestsAchievement(0, "Cave Eblan [m]", 5, CaveEblanChests)
+//addCollectChestsAchievement(0, "Cave Eblan [m]", 5, CaveEblanChests)
 
 KokkolsForgeChests = [
     // TODO
 ]
 
-addCollectChestsAchievement(0, "Kokkol's Forge", 2, KokkolsForgeChests)
+// TowerOfBablil2
+//    bit0(0xd12c4),
+//    bit1(0xd12c4),
+//    bit2(0xd12c4),
+//    bit6(0xd12c5),
+
+//addCollectChestsAchievement(0, "Kokkol's Forge", 2, KokkolsForgeChests)
 
 TomraChests = [
     bit0(0xd12c1),
@@ -376,49 +463,43 @@ EidolonsCaveChests = [
     // TODO
 ]
 
-addCollectChestsAchievement(0, "Eidolon's Cave", 5, EidolonsCaveChests)
+//addCollectChestsAchievement(0, "Eidolon's Cave", 5, EidolonsCaveChests)
 
 SylphCaveChests = [
     // TODO
 ]
 
-addCollectChestsAchievement(0, "Sylph Cave", 10, SylphCaveChests)
+//addCollectChestsAchievement(0, "Sylph Cave", 10, SylphCaveChests)
 
 SealedCaveChests = [
     // TODO
 ]
 
-addCollectChestsAchievement(0, "Sealed Cave", 5, SealedCaveChests)
+//addCollectChestsAchievement(0, "Sealed Cave", 5, SealedCaveChests)
 
 LunarPathChests = [
     // TODO
 ]
 
-addCollectChestsAchievement(0, "Lunar Path", 1, LunarPathChests)
+//addCollectChestsAchievement(0, "Lunar Path", 1, LunarPathChests)
 
 GiantOfBabilChests = [
     // TODO
 ]
 
-addCollectChestsAchievement(0, "Giant of Babil [m]", 3, GiantOfBabilChests)
+//addCollectChestsAchievement(0, "Giant of Babil [m]", 3, GiantOfBabilChests)
 
 CaveOfBahamutChests = [
     // TODO
 ]
 
-addCollectChestsAchievement(0, "Cave of Bahamut", 2, CaveOfBahamutChests)
+//addCollectChestsAchievement(0, "Cave of Bahamut", 2, CaveOfBahamutChests)
 
 LunarSubterraneChests = [
     // TODO
 ]
 
-addCollectChestsAchievement(0, "Lunar Subterrane", 10, LunarSubterraneChests)
-
-ChocoboForestsChests = [
-    // TODO
-]
-
-addCollectChestsAchievement(0, "Chocobo Forests", 10, ChocoboForestsChests)
+//addCollectChestsAchievement(0, "Lunar Subterrane", 10, LunarSubterraneChests)
 
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
@@ -452,7 +533,7 @@ SubLocations = {
     0x012: "Kaipo",
     0x013: "Mysidia",
     0x014: "Mysidia",
-    0x015: "Paladin's Room",
+    0x015: "Mt. Ordeals",
     0x016: "Mysidia",
     0x017: "Mysidia",
     0x018: "Troia",
@@ -460,7 +541,7 @@ SubLocations = {
     0x01a: "Court of Kings",
     0x01c: "Black Chocobo Ranch",
     0x01d: "Black Chocobo Ranch",
-    0x01e: "Astro Tower",
+    0x01e: "Agart",
     0x01f: "Agart",
     0x020: "Agart",
     0x021: "Chocobo Village",
@@ -484,17 +565,18 @@ SubLocations = {
     0x036: "Baron Castle",
     0x037: "Baron Castle",
     0x038: "Baron Castle",
-    0x03a: "Water Cavern",
-    0x03b: "Water Cavern",
-    0x03c: "Water Cavern",
-    0x03d: "Water Cavern",
-    0x03e: "Water Cavern",
+    0x039: "Baron Castle",
+    0x03a: "Waterway",
+    0x03b: "Waterway",
+    0x03c: "Waterway",
+    0x03d: "Waterway",
+    0x03e: "Waterway",
     0x03f: "Damcyan Castle",
     0x040: "Damcyan Castle",
     0x041: "Damcyan Castle",
     0x042: "Damcyan Castle",
     0x043: "Damcyan Castle",
-    0x044: "Ancient Waterway",
+    0x044: "Waterway",
     0x045: "Agart",
     0x046: "Agart",
     0x047: "Fabul",
@@ -511,24 +593,27 @@ SubLocations = {
     0x052: "Fabul",
     0x053: "Mist",
     0x054: "Water Cavern",
-    0x055: "Troia",
-    0x059: "Troia",
-    0x05a: "Troia",
-    0x05b: "Troia",
-    0x05c: "Troia",
-    0x05d: "Troia",
-    0x05e: "Eblan",
-    0x05f: "Eblan",
-    0x060: "Eblan",
-    0x061: "Eblan",
-    0x062: "Eblan",
-    0x063: "Eblan",
-    0x064: "Eblan",
-    0x065: "Eblan",
+    0x055: "Troia Castle",
+    0x056: "Troia Castle",
+    0x057: "Troia Castle",
+    0x058: "Troia Castle",
+    0x059: "Troia Castle",
+    0x05a: "Troia Castle",
+    0x05b: "Troia Castle",
+    0x05c: "Troia Castle",
+    0x05d: "Troia Castle",
+    0x05e: "Eblan Castle",
+    0x05f: "Eblan Castle",
+    0x060: "Eblan Castle",
+    0x061: "Eblan Castle",
+    0x062: "Eblan Castle",
+    0x063: "Eblan Castle",
+    0x064: "Eblan Castle",
+    0x065: "Eblan Castle",
     0x066: "Baron Castle",
     0x067: "Baron Castle",
     0x068: "Mysidia",
-    0x069: "Devil's Road",
+    0x069: "Baron",
     0x06a: "Water Cavern",
     0x06c: "Mist Cave",
     0x06f: "Water Cavern",
@@ -544,7 +629,7 @@ SubLocations = {
     0x079: "Antlion's Cave",
     0x07a: "Antlion's Cave",
     0x07b: "Antlion's Cave",
-    0x07c: "Moon observation",
+    0x07c: "Airship",
     0x07e: "Mt. Hobs",
     0x07f: "Mt. Hobs",
     0x080: "Mt. Hobs",
@@ -555,8 +640,9 @@ SubLocations = {
     0x086: "Mt. Ordeals",
     0x087: "Mt. Ordeals",
     0x088: "Mysidia",
-    0x089: "Baron Castle",
+    0x089: "Mysidia",
     0x08a: "Baron Castle",
+    0x08b: "Agart",
     0x08c: "Magnetic Cave",
     0x08d: "Magnetic Cave",
     0x08e: "Magnetic Cave",
@@ -565,7 +651,8 @@ SubLocations = {
     0x091: "Magnetic Cave",
     0x092: "Magnetic Cave",
     0x093: "Magnetic Cave",
-    0x097: "Devil's Road",
+    0x094: "Magnetic Cave",
+    0x097: "Baron",
     0x098: "Tower of Zot",
     0x099: "Tower of Zot",
     0x09a: "Tower of Zot",
@@ -591,8 +678,11 @@ SubLocations = {
     0x0bd: "Giant of Babil",
     0x0c0: "Red Wings Airship",
     0x0c1: "Fabul",
-    0x0c2: "Overworld",
-    0x0c3: "Enterprise",
+    0x0c2: "Airship",
+    0x0c3: "Airship",
+    0x0c4: "Airship",
+    0x0c5: "Airship",
+    0x0c6: "Airship",
     0x0c7: "Cave Eblan",
     0x0c8: "Cave Eblan",
     0x0c9: "Babil Passage",
@@ -602,11 +692,13 @@ SubLocations = {
     0x0cd: "Eblan Cave",
     0x0ce: "Eblan Cave",
     0x0cf: "Fabul",
+    0x0d0: "Airship",
     0x0d1: "Chocobo Forest",
     0x0d2: "Chocobo Forest",
     0x0d3: "Chocobo Forest",
     0x0d4: "Chocobo Forest",
     0x0d5: "Baron",
+    0x0d9: "Airship",
     0x0e0: "Mist",
     0x0e1: "Mist",
     0x0e2: "Mist",
@@ -731,25 +823,27 @@ SubLocations = {
 }
 
 Characters = {
-    0x00: "_ _ _",
-    0x01: "Cecil",
-    0x02: "Kain",
-    0x03: "Rydia",
-    0x04: "Tellah",
-    0x05: "Edward",
-    0x06: "Rosa",
-    0x07: "Yang",
-    0x08: "Palom",
-    0x09: "Porom",
-    0x0a: "Tellah",
-    0x0b: "Cecil",
-    0x0c: "Tellah",
-    0x0d: "Yang",
-    0x0e: "Cid",
-    0x0f: "Kain",
+    0: "_ _ _",
+    1: "Cecil",
+    2: "Kain",
+    3: "Rydia",
+    4: "Tellah",
+    5: "Edward",
+    6: "Rosa",
+    7: "Yang",
+    8: "Palom",
+    9: "Porom",
+    10: "Tellah",
+    11: "Cecil",
+    12: "Tellah",
+    13: "Yang",
+    14: "Cid",
+    15: "Kain",
+    16: "Rosa",
+    17: "Rydia",
 }
 
-rich_presence_conditional_display(!isActiveGame(), "Player is on title screen")
+rich_presence_conditional_display(MenuIndicator == 0x70 || PositionX + PositionY == 0, "Player is on title screen")
 
 rich_presence_conditional_display(MainLocation == 0x03,
     "Party of {0} LV: {1} • {2} LV: {3} • {4} LV: {5} • {6} LV: {7} • {8} LV: {9} is exploring {10} | {11}",
