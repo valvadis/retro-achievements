@@ -10,35 +10,59 @@ PositionY = byte(0xd1707)
 MainLocation = byte(0xd1700)
 SubLocation = word_be(0xd1701)
 MenuIndicator = byte(0xd0650)
+BattleMode = bit0(0xd16be)
+BattleSpeed = byte(0xd16ac)
 
-function convertFiveBitsToDecimal(address) {
-    return bit0(address) * 1
-        + bit1(address) * 2
-        + bit2(address) * 4
-        + bit3(address) * 8
-        + bit4(address) * 16
-        + bit5(address) * 32
-}
+// CHARACTER POINTERS
 
-Character1 = {
-    "ID": convertFiveBitsToDecimal(0xd1040),
-    "LV": byte(0xd1042),
-}
-Character2 = {
-    "ID": convertFiveBitsToDecimal(0xd10c0),
-    "LV": byte(0xd10c2),
-}
-Character3 = {
-    "ID": convertFiveBitsToDecimal(0xd1000),
-    "LV": byte(0xd1002),
-}
-Character4 = {
-    "ID": convertFiveBitsToDecimal(0xd1100),
-    "LV": byte(0xd1102),
-}
-Character5 = {
-    "ID": convertFiveBitsToDecimal(0xd1080),
-    "LV": byte(0xd1082),
+CHARACTER_POINTER_1 = 0xd4483
+CHARACTER_POINTER_2 = 0xd4583
+CHARACTER_POINTER_3 = 0xd4403
+CHARACTER_POINTER_4 = 0xd4603
+CHARACTER_POINTER_5 = 0xd4503
+
+// ENEMY FORMATIONS
+
+EnemyFormation = word(0xd1800)
+
+MIST_DRAGON = "Dragon Mist"
+OCTOMAMM = "Octomamm"
+ANTLION = "Antlion"
+MOM_BOMB = "Mom Bomb"
+MILON = "Milon"
+MILON_Z = "Milon Zombie"
+BAIGAN = "Captain Baigan"
+CAGNAZZO = "Cagnazzo"
+DARK_ELF = "Dark Elf"
+SISTERS = "Magus Sisters"
+VALVALIS = "Valvalis"
+CALBRINA = "Calbrina"
+LUGABORG = "Lugaborg"
+RUBICANT = "Rubicant"
+EVIL_WALL = "Evil Wall"
+FOUR_FIENDS = "Four Fiends"
+CPU = "CPU"
+ZEROMUS = "Zeromus"
+
+EnemyFormations = {
+    MIST_DRAGON: 0xde,
+    OCTOMAMM: 0xdf,
+    ANTLION: 0xe0,
+    MOM_BOMB: 0xe1,
+    MILON: 0xe2,
+    MILON_Z: 0xe3,
+    BAIGAN: 0xe4,
+    CAGNAZZO: 0xe5,
+    DARK_ELF: 0xe7,
+    SISTERS: 0xe8,
+    VALVALIS: 0xea,
+    CALBRINA: 0x1a7,
+    LUGABORG: 0x1b5,
+    RUBICANT: 0xff,
+    EVIL_WALL: 0x1af,
+    FOUR_FIENDS: 0xdc,
+    CPU: 0xdd,
+    ZEROMUS: 0x1b7
 }
 
 // -----------------------------------------------------------------------------
@@ -46,10 +70,25 @@ Character5 = {
 
 function isActiveGame() => MenuIndicator == 0 && PositionX + PositionY > 0
 
-function isDialogMode() => bit0(0xd06b1) == 1
+function isInDialog() => bit0(0xd06b1) == 1
+
+function isInBattle() => bit0(0xd0140) == 1
+
+function isBattleStarted() => prev(bit0(0xd0140)) == 0 && bit0(0xd0140) == 1
+
+function isBattleChallengeOn() => BattleMode == 1 && BattleSpeed == 0
+
+function isBattleWon() => prev(bit5(0xd00a8)) == 0 && bit5(0xd00a8) == 1
+
+function pauseWhenCharacterIsFainted(pointer) {
+    disable_when(
+        byte(pointer + 0x11) > 0 && (bit6(pointer) == 1 || bit7(pointer) == 1),
+        isBattleStarted()
+    )
+}
 
 // -----------------------------------------------------------------------------
-// ACHIEVEMENTS
+// PROGRESSION
 
 function addEventFlagAchievement(id, title, description, flag) {
     achievement(
@@ -57,19 +96,73 @@ function addEventFlagAchievement(id, title, description, flag) {
         title = title,
         description = description,
         points = 10,
-        trigger = isDialogMode() && prev(flag) == 0 && flag == 1
+        trigger = isInDialog() && prev(flag) == 0 && flag == 1
     )
 }
 
-addEventFlagAchievement(0, "Unwanted Parcel", "Bring a Bomb Ring to the Village of Mist and save the child", bit6(0xd1281))
+addEventFlagAchievement(0, "Unwanted Parcel", "Bring a parcel to the Village of Mist", bit6(0xd1281))
 addEventFlagAchievement(0, "Kingdom In Ruins", "Reach the Damcyan Castle to rescue Anna", bit4(0xd1282))
 addEventFlagAchievement(0, "Panacea", "Find the Sand Ruby, the cure for your beloved", bit2(0xd1282))
 addEventFlagAchievement(0, "A Monk Not From Shaolin", "Save the Captain of Fabul from monsters", bit6(0xd1282))
 addEventFlagAchievement(0, "The Dark Knight Departs", "Overcome your fear and become a paladin", bit3(0xd1281))
-addEventFlagAchievement(0, "The False King", "Expose the false king of Baron and meet again with Kain", bit6(0xd1280))
+addEventFlagAchievement(0, "The False King", "Expose the false king of Baron and escape from Baron", bit6(0xd1280))
 addEventFlagAchievement(0, "Swan Song", "Reclaim the earth crystal with a little help", bit3(0xd1284))
 addEventFlagAchievement(0, "Where Am I?", "Save Rosa in Tower of Zot", bit4(0xd1281))
 addEventFlagAchievement(0, "Thing T. Thing", "Defeat Golbez in Dwarven Castle", bit7(0xd1280))
+addEventFlagAchievement(0, "The Sacrifice", "Escape from the Tower of Babil", bit2(0xd1281))
+addEventFlagAchievement(0, "It Is A Trap", "Defeat Rubicant and try to take crystals", bit7(0xd1286))
+addEventFlagAchievement(0, "Betrayal", "Exit the Sealed Cave with the crystal", bit2(0xd1288))
+addEventFlagAchievement(0, "Fatal Error", "Return to the Moon after destroying the Giant of Babil", bit0(0xd1289))
+
+achievement(
+    id = 0,
+    title = "Eternal Dream",
+    description = "Defeat final boss and beat the game",
+    points = 25,
+    trigger = isInBattle() && SubLocation == 0x172 
+        && EnemyFormation == EnemyFormations[ZEROMUS] && trigger_when(isBattleWon())
+             
+)
+
+// -----------------------------------------------------------------------------
+// CHALLENGES
+
+function addDefeatBossAchievement(id, enemy, location) {
+    achievement(
+        id = id,
+        title = format("{0} [m]", enemy),
+        description = format("Defeat {0} (No deaths, Active Mode, Speed 1)", enemy),
+        points = 10,
+        trigger = isInBattle() && isBattleChallengeOn() && trigger_when(isBattleWon())
+            && SubLocation == location && EnemyFormation == EnemyFormations[enemy]
+            && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
+            && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
+            && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
+            && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
+            && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
+    )
+}
+
+addDefeatBossAchievement(0, MIST_DRAGON, 0x06c)
+addDefeatBossAchievement(0, OCTOMAMM, 0x076)
+addDefeatBossAchievement(0, ANTLION, 0x079)
+addDefeatBossAchievement(0, MOM_BOMB, 0x07f)
+addDefeatBossAchievement(0, MILON, 0x087)
+addDefeatBossAchievement(0, MILON_Z, 0x087)
+addDefeatBossAchievement(0, BAIGAN, 0x02a)
+addDefeatBossAchievement(0, CAGNAZZO, 0x02c)
+addDefeatBossAchievement(0, DARK_ELF, 0x094)
+addDefeatBossAchievement(0, SISTERS, 0x09d)
+addDefeatBossAchievement(0, VALVALIS, 0x09f)
+addDefeatBossAchievement(0, CALBRINA, 0x10d)
+addDefeatBossAchievement(0, LUGABORG, 0x128)
+addDefeatBossAchievement(0, RUBICANT, 0xac)
+addDefeatBossAchievement(0, EVIL_WALL, 0x157)
+addDefeatBossAchievement(0, FOUR_FIENDS, 0xbc)
+addDefeatBossAchievement(0, CPU, 0xbd)
+
+// -----------------------------------------------------------------------------
+// COLLECTION
 
 function addCollectChestsAchievement(id, title, points, chests) {
     achievement(
@@ -204,7 +297,6 @@ WaterwayChests = [
     bit4(0xd12a7),
     bit5(0xd12a7),
     bit6(0xd12a7),
-    bit4(0xd12a9),
 ]
 
 addCollectChestsAchievement(0, "Waterway", 5, WaterwayChests)
@@ -250,6 +342,7 @@ BaronChests = [
     bit0(0xd12a3),
     bit1(0xd12a3),
     bit2(0xd12a3),
+    bit4(0xd12a9),
 ]
 
 addCollectChestsAchievement(0, "Baron", 10, BaronChests)
@@ -410,7 +503,7 @@ DwarvenCastleChests = [
 
 addCollectChestsAchievement(0, "Dwarven Castle", 5, DwarvenCastleChests)
 
-TowerOfBabilChests = [
+TowerOfBabilOneChests = [
     bit2(0xd12c2),
     bit3(0xd12c2),
     bit4(0xd12c2),  
@@ -429,80 +522,269 @@ TowerOfBabilChests = [
     bit7(0xd12c5),
 ]
 
-addCollectChestsAchievement(0, "Tower Of Babil [m]", 10, TowerOfBabilChests)
+addCollectChestsAchievement(0, "Tower Of Babil I [m]", 5, TowerOfBabilOneChests)
 
-// TODO - MUST BE TESTED
-
-CaveEblanChests = [
-    // TODO
+EblanCaveChests = [
+    bit6(0xd12bb),
+    bit7(0xd12bb),
+    bit0(0xd12bc),
+    bit1(0xd12bc),
+    bit2(0xd12bc),
+    bit3(0xd12bc),
+    bit4(0xd12bc),
+    bit5(0xd12bc),
+    bit6(0xd12bc),
+    bit7(0xd12bc),
+    bit0(0xd12bd),
+    bit1(0xd12bd),
+    bit2(0xd12bd),
+    bit3(0xd12bd),
+    bit4(0xd12bd),
+    bit5(0xd12bd),
+    bit6(0xd12bd),
+    bit7(0xd12bd),
+    bit0(0xd12be),
+    bit1(0xd12be),
+    bit2(0xd12be),
+    bit3(0xd12be),
 ]
 
-//addCollectChestsAchievement(0, "Cave Eblan [m]", 5, CaveEblanChests)
+addCollectChestsAchievement(0, "Eblan Cave", 5, EblanCaveChests)
 
-KokkolsForgeChests = [
-    // TODO
+TowerOfBabilTwoChests = [
+    bit3(0xd12b9),
+    bit4(0xd12b9),
+    bit5(0xd12b9),
+    bit6(0xd12b9),
+    bit7(0xd12b9),
+    bit0(0xd12ba),
+    bit0(0xd12c4),
+    bit2(0xd12c4),
 ]
 
-// TowerOfBablil2
-//    bit0(0xd12c4),
-//    bit1(0xd12c4),
-//    bit2(0xd12c4),
-//    bit6(0xd12c5),
-
-//addCollectChestsAchievement(0, "Kokkol's Forge", 2, KokkolsForgeChests)
+addCollectChestsAchievement(0, "Tower Of Babil II [m]", 5, TowerOfBabilTwoChests)
 
 TomraChests = [
+    bit4(0xd12c0),
+    bit5(0xd12c0),
+    bit6(0xd12c0),
+    bit7(0xd12c0),
     bit0(0xd12c1),
     bit1(0xd12c1),
-    // TODO
 ]
 
 addCollectChestsAchievement(0, "Tomra", 3, TomraChests)
 
-EidolonsCaveChests = [
-    // TODO
+KokkolsForgeChests = [
+    bit0(0xd12c0),
+    bit1(0xd12c0),
+    bit2(0xd12c0),
+    bit3(0xd12c0),
 ]
 
-//addCollectChestsAchievement(0, "Eidolon's Cave", 5, EidolonsCaveChests)
-
-SylphCaveChests = [
-    // TODO
-]
-
-//addCollectChestsAchievement(0, "Sylph Cave", 10, SylphCaveChests)
+addCollectChestsAchievement(0, "Kokkol's Forge", 2, KokkolsForgeChests)
 
 SealedCaveChests = [
-    // TODO
+    bit0(0xd12cd),
+    bit1(0xd12cd),
+    bit2(0xd12cd),
+    bit3(0xd12cd),
+    bit4(0xd12cd),
+    bit5(0xd12cd),
+    bit6(0xd12cd),
+    bit7(0xd12cd),
+    bit0(0xd12ce),
+    bit1(0xd12ce),
+    bit2(0xd12ce),
+    bit3(0xd12ce),
+    bit4(0xd12ce),
+    bit5(0xd12ce),
+    bit6(0xd12ce),
+    bit7(0xd12ce),
+    bit0(0xd12cf),
+    bit1(0xd12cf),
+    bit2(0xd12cf),
 ]
 
-//addCollectChestsAchievement(0, "Sealed Cave", 5, SealedCaveChests)
+addCollectChestsAchievement(0, "Sealed Cave", 5, SealedCaveChests)
+
+CaveOfSummonsChests = [
+    bit1(0xd12c6),
+    bit2(0xd12c6),
+    bit3(0xd12c6),
+    bit4(0xd12c6),
+    bit5(0xd12c6),
+    bit6(0xd12c6),
+    bit7(0xd12c6),
+    bit0(0xd12c7),
+    bit1(0xd12c7),
+    bit2(0xd12c7),
+    bit3(0xd12c7),
+]
+
+addCollectChestsAchievement(0, "Cave Of Summons", 5, CaveOfSummonsChests)
+
+LandOfSummonsChests = [ 
+    bit5(0xd12c7),   
+    bit6(0xd12c7),       
+    bit7(0xd12c7),
+    bit0(0xd12c8),
+    bit1(0xd12c8),
+    bit2(0xd12c8),
+    bit3(0xd12c8),
+    bit4(0xd12c8),
+    bit5(0xd12c8),
+    bit6(0xd12c8),
+    bit7(0xd12c8),
+]
+
+addCollectChestsAchievement(0, "Land Of Summons", 5, LandOfSummonsChests)
+
+SylvanCaveChests = [
+    bit0(0xd12c9),
+    bit1(0xd12c9),
+    bit2(0xd12c9),
+    bit3(0xd12c9),
+    bit4(0xd12c9),
+    bit5(0xd12c9),
+    bit6(0xd12c9),
+    bit7(0xd12c9),
+    bit0(0xd12ca),
+    bit1(0xd12ca),
+    bit2(0xd12ca),
+    bit3(0xd12ca),
+    bit4(0xd12ca),
+    bit5(0xd12ca),
+    bit6(0xd12ca),
+    bit7(0xd12ca),
+    bit0(0xd12cb),
+    bit1(0xd12cb),
+    bit2(0xd12cb),
+    bit3(0xd12cb),
+    bit4(0xd12cb),
+    bit5(0xd12cb),
+    bit6(0xd12cb),
+    bit7(0xd12cb),
+    bit0(0xd12cc),
+    bit1(0xd12cc),
+    bit2(0xd12cc),
+    bit3(0xd12cc),
+    bit4(0xd12cc),
+    bit5(0xd12cc),
+    bit6(0xd12cc),
+    bit7(0xd12cc),
+]
+
+addCollectChestsAchievement(0, "Sylvan Cave", 10, SylvanCaveChests)
 
 LunarPathChests = [
-    // TODO
+    bit3(0xd12d0),
+    bit4(0xd12d0),
+    bit5(0xd12d0),
 ]
 
-//addCollectChestsAchievement(0, "Lunar Path", 1, LunarPathChests)
+addCollectChestsAchievement(0, "Lunar Path", 1, LunarPathChests)
+
+CaveBahamutChests = [
+    bit5(0xd12cf),
+    bit6(0xd12cf),
+    bit7(0xd12cf),
+    bit0(0xd12d0),
+]
+
+addCollectChestsAchievement(0, "Cave Bahamut", 2, CaveBahamutChests)
 
 GiantOfBabilChests = [
-    // TODO
+    bit6(0xd12ba),
+    bit7(0xd12ba),
+    bit0(0xd12bb),
+    bit1(0xd12bb),
+    bit2(0xd12bb),
+    bit3(0xd12bb),
+    bit4(0xd12bb),
+    bit5(0xd12bb),
 ]
 
-//addCollectChestsAchievement(0, "Giant of Babil [m]", 3, GiantOfBabilChests)
-
-CaveOfBahamutChests = [
-    // TODO
-]
-
-//addCollectChestsAchievement(0, "Cave of Bahamut", 2, CaveOfBahamutChests)
+addCollectChestsAchievement(0, "Giant of Babil [m]", 3, GiantOfBabilChests)
 
 LunarSubterraneChests = [
-    // TODO
+    bit6(0xd12d0),
+    bit7(0xd12d0),
+    bit0(0xd12d1),
+    bit1(0xd12d1),
+    bit2(0xd12d1),
+    bit3(0xd12d1),
+    bit4(0xd12d1),
+    bit6(0xd12d1),
+    bit7(0xd12d1),
+    bit0(0xd12d2),
+    bit1(0xd12d2),
+    bit2(0xd12d2),
+    bit3(0xd12d2),
+    bit4(0xd12d2),
+    bit6(0xd12d2),
+    bit7(0xd12d2),
+    bit0(0xd12d3),
+    bit1(0xd12d3),
+    bit2(0xd12d3),
+    bit4(0xd12d3),
+    bit5(0xd12d3),
+    bit6(0xd12d3),
+    bit7(0xd12d3),
+    bit0(0xd12d4),
+    bit1(0xd12d4),
+    bit2(0xd12d4),
+    bit3(0xd12d4),
+    bit4(0xd12d4),
+    bit5(0xd12d4),
+    bit6(0xd12d4),
+    bit0(0xd12d5),
+    bit1(0xd12d5),
 ]
 
-//addCollectChestsAchievement(0, "Lunar Subterrane", 10, LunarSubterraneChests)
+addCollectChestsAchievement(0, "Lunar Subterrane", 10, LunarSubterraneChests)
+
+addEventFlagAchievement(0, "Excalibur", "Obtain Excalibur", bit4(0xd1289))
+addEventFlagAchievement(0, "Knife [m]", "Obtain Knife (from Yang's wife)", bit7(0xd1289))
+
+function addCollectSpecialItemAchievement(id, name, flag, location) {
+    achievement(
+        id = id,
+        title = name,
+        description = format("Obtain {0}", name),
+        points = 10,
+        trigger = isInDialog() && prev(flag) == 1 && flag == 0 && SubLocation == location
+    )
+}
+
+addCollectSpecialItemAchievement(0, "Ragnarok", bit3(0xd131b), 0x16b)
+addCollectSpecialItemAchievement(0, "Masamune", bit4(0xd131b), 0x16e)
+addCollectSpecialItemAchievement(0, "Murasame", bit5(0xd131b), 0x169)
+addCollectSpecialItemAchievement(0, "Holy Lance", bit6(0xd131b), 0x17a)
+
+// -----------------------------------------------------------------------------
+// SIDEQUESTS
+
+// -----------------------------------------------------------------------------
+// FUN
 
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
+
+function convertFiveBitsToDecimal(address) {
+    return bit0(address) * 1
+        + bit1(address) * 2
+        + bit2(address) * 4
+        + bit3(address) * 8
+        + bit4(address) * 16
+        + bit5(address) * 32
+}
+
+Character1ID = convertFiveBitsToDecimal(0xd1040)
+Character2ID = convertFiveBitsToDecimal(0xd10c0)
+Character3ID = convertFiveBitsToDecimal(0xd1000)
+Character4ID = convertFiveBitsToDecimal(0xd1100)
+Character5ID = convertFiveBitsToDecimal(0xd1080)
 
 MainLocations = {
     0x00: "Overworld",
@@ -538,7 +820,7 @@ SubLocations = {
     0x017: "Mysidia",
     0x018: "Troia",
     0x019: "Troia",
-    0x01a: "Court of Kings",
+    0x01a: "Troia",
     0x01c: "Black Chocobo Ranch",
     0x01d: "Black Chocobo Ranch",
     0x01e: "Agart",
@@ -550,6 +832,7 @@ SubLocations = {
     0x026: "Fabul",
     0x027: "Troia Castle",
     0x028: "Eblan Castle",
+    0x029: "",
     0x02a: "Baron Castle",
     0x02b: "Baron Castle",
     0x02c: "Baron Castle",
@@ -615,6 +898,7 @@ SubLocations = {
     0x068: "Mysidia",
     0x069: "Baron",
     0x06a: "Water Cavern",
+    0x06b: "",
     0x06c: "Mist Cave",
     0x06f: "Water Cavern",
     0x070: "Water Cavern",
@@ -656,6 +940,7 @@ SubLocations = {
     0x098: "Tower of Zot",
     0x099: "Tower of Zot",
     0x09a: "Tower of Zot",
+    0x09b: "Giant of Babil",
     0x09c: "Tower of Zot",
     0x09d: "Tower of Zot",
     0x09e: "Tower od Zot",
@@ -663,11 +948,15 @@ SubLocations = {
     0x0a0: "Adamant Grotto",
     0x0a1: "Magnetic Cave",
     0x0a2: "Tower of Zot",
+    0x0a3: "Airship",
+    0x0a4: "Airship",
+    0x0a5: "Airship",
     0x0a6: "Tower of Babil",
     0x0a7: "Tower of Babil",
     0x0a8: "Tower of Babil",
     0x0a9: "Tower of Babil",
     0x0aa: "Tower of Babil",
+    0x0ab: "Tower of Babil",
     0x0ac: "Tower of Babil",
     0x0b5: "Giant of Babil",
     0x0b6: "Giant of Babil",
@@ -683,10 +972,10 @@ SubLocations = {
     0x0c4: "Airship",
     0x0c5: "Airship",
     0x0c6: "Airship",
-    0x0c7: "Cave Eblan",
-    0x0c8: "Cave Eblan",
-    0x0c9: "Babil Passage",
-    0x0ca: "Babil Passage",
+    0x0c7: "Eblan Cave",
+    0x0c8: "Eblan Cave",
+    0x0c9: "Eblan Cave",
+    0x0ca: "Eblan Cave",
     0x0cb: "Eblan Cae",
     0x0cc: "Eblan Cave",
     0x0cd: "Eblan Cave",
@@ -698,6 +987,7 @@ SubLocations = {
     0x0d3: "Chocobo Forest",
     0x0d4: "Chocobo Forest",
     0x0d5: "Baron",
+    0x0d7: "Airship",
     0x0d9: "Airship",
     0x0e0: "Mist",
     0x0e1: "Mist",
@@ -753,28 +1043,30 @@ SubLocations = {
     0x128: "Tower of Babil",
     0x129: "Developer's Room",
     0x12b: "Developer's Room",
-    0x12d: "Super Cannon Room",
+    0x12c: "Lunar Whale",
+    0x12d: "Tower of Babil",
+    0x12e: "Dwarven Tank",
     0x12f: "Lunar Whale",
     0x132: "Tomra",
-    0x136: "Eidolon Cave",
-    0x137: "Eidolon Cave",
-    0x138: "Eidolon Cave",
-    0x13a: "Eidolon Cave",
-    0x13b: "Eidolon Cave",
-    0x13c: "Feymarch",
-    0x13d: "Feymarch",
-    0x13e: "Feymarch",
-    0x13f: "Feymarch",
-    0x140: "Feymarch",
-    0x141: "Feymarch",
-    0x142: "Feymarch",
-    0x143: "Feymarch",
+    0x136: "Cave of Summons",
+    0x137: "Cave of Summons",
+    0x138: "Cave of Summons",
+    0x13a: "Cave of Summons",
+    0x13b: "Land of Summons",
+    0x13c: "Land of Summons",
+    0x13d: "Land of Summons",
+    0x13e: "Land of Summons",
+    0x13f: "Land of Summons",
+    0x140: "Land of Summons",
+    0x141: "Land of Summons",
+    0x142: "Land of Summons",
+    0x143: "Land of Summons",
     0x144: "Sealed Cave",
-    0x145: "Sylph Cave",
-    0x146: "Sylph Cave",
-    0x147: "Sylph Cave",
-    0x148: "Sylph Cave",
-    0x149: "Sylph House",
+    0x145: "Sylvan Cave",
+    0x146: "Sylvan Cave",
+    0x147: "Sylvan Cave",
+    0x148: "Sylvan Cave",
+    0x149: "Sylvan Cave",
     0x14a: "Sealed Cave",
     0x14b: "Sealed Cave",
     0x14c: "Sealed Cave",
@@ -816,6 +1108,7 @@ SubLocations = {
     0x175: "Lunar Subterrane",
     0x176: "Lunar Subterrane",
     0x177: "Lunar Subterrane",
+    0x178: "Lunar Subterrane",
     0x179: "Lunar Subterrane",
     0x17a: "Lunar Subterrane",
     0x17b: "Lunar Subterrane",
@@ -841,38 +1134,32 @@ Characters = {
     15: "Kain",
     16: "Rosa",
     17: "Rydia",
+    18: "Edge",
+    19: "FuSoYa",
+    20: "Kain",
+    21: "Golbez",
 }
 
 rich_presence_conditional_display(MenuIndicator == 0x70 || PositionX + PositionY == 0, "Player is on title screen")
 
 rich_presence_conditional_display(MainLocation == 0x03,
-    "Party of {0} LV: {1} • {2} LV: {3} • {4} LV: {5} • {6} LV: {7} • {8} LV: {9} is exploring {10} | {11}",
-    rich_presence_lookup("Character1 ID", Character1["ID"], Characters),
-    rich_presence_value("Character1 LVL", Character1["LV"]),
-    rich_presence_lookup("Character2 ID", Character2["ID"], Characters),
-    rich_presence_value("Character2 LVL", Character2["LV"]),
-    rich_presence_lookup("Character3 ID", Character3["ID"], Characters),
-    rich_presence_value("Character3 LVL", Character3["LV"]),
-    rich_presence_lookup("Character4 ID", Character4["ID"], Characters),
-    rich_presence_value("Character4 LVL", Character4["LV"]),
-    rich_presence_lookup("Character5 ID", Character5["ID"], Characters),
-    rich_presence_value("Character5 LVL", Character5["LV"]),
-    rich_presence_lookup("SubLocation", SubLocation, SubLocations, "???????????????????????????????????????????????????????????????????"),
+    "Party of {0} • {1} • {2} • {3} • {4} is exploring {5} | {6}",
+    rich_presence_lookup("Character1 ID", Character1ID, Characters),
+    rich_presence_lookup("Character2 ID", Character2ID, Characters),
+    rich_presence_lookup("Character3 ID", Character3ID, Characters),
+    rich_presence_lookup("Character4 ID", Character4ID, Characters),
+    rich_presence_lookup("Character5 ID", Character5ID, Characters),
+    rich_presence_lookup("SubLocation", SubLocation, SubLocations),
     rich_presence_value("Time", TimeInSeconds, "SECS_AS_MINS")
 )
 
 rich_presence_display(
-    "Party of {0} LV: {1} • {2} LV: {3} • {4} LV: {5} • {6} LV: {7} • {8} LV: {9} is exploring the {10} | {11}",
-    rich_presence_lookup("Character1 ID", Character1["ID"], Characters),
-    rich_presence_value("Character1 LVL", Character1["LV"]),
-    rich_presence_lookup("Character2 ID", Character2["ID"], Characters),
-    rich_presence_value("Character2 LVL", Character2["LV"]),
-    rich_presence_lookup("Character3 ID", Character3["ID"], Characters),
-    rich_presence_value("Character3 LVL", Character3["LV"]),
-    rich_presence_lookup("Character4 ID", Character4["ID"], Characters),
-    rich_presence_value("Character4 LVL", Character4["LV"]),
-    rich_presence_lookup("Character5 ID", Character5["ID"], Characters),
-    rich_presence_value("Character5 LVL", Character5["LV"]),
+    "Party of {0} • {1} • {2} • {3} • {4} is exploring {5} | {6}",
+    rich_presence_lookup("Character1 ID", Character1ID, Characters),
+    rich_presence_lookup("Character2 ID", Character2ID, Characters),
+    rich_presence_lookup("Character3 ID", Character3ID, Characters),
+    rich_presence_lookup("Character4 ID", Character4ID, Characters),
+    rich_presence_lookup("Character5 ID", Character5ID, Characters),
     rich_presence_lookup("MainLocation", MainLocation, MainLocations),
     rich_presence_value("Time", TimeInSeconds, "SECS_AS_MINS")
 )
