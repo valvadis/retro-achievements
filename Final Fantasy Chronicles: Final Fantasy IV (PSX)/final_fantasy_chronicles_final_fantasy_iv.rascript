@@ -65,6 +65,14 @@ EnemyFormations = {
     ZEROMUS: 0x1b7
 }
 
+SummonSlots = array_map(range(0xd15c0, 0xd15d7), summonSlot => byte(summonSlot))
+
+SYLPH = 0x3b
+ODIN = 0x3c
+LEVIATHAN = 0x3d
+ASURA = 0x3e
+BAHAMUT = 0x3f
+
 // -----------------------------------------------------------------------------
 // FUNCTIONS
 
@@ -120,7 +128,7 @@ achievement(
     description = "Defeat final boss and beat the game",
     points = 25,
     trigger = isInBattle() && SubLocation == 0x172 
-        && EnemyFormation == EnemyFormations[ZEROMUS] && trigger_when(isBattleWon())
+    && EnemyFormation == EnemyFormations[ZEROMUS] && trigger_when(isBattleWon())
              
 )
 
@@ -764,6 +772,22 @@ addCollectSpecialItemAchievement(0, "Holy Lance", bit6(0xd131b), 0x17a)
 
 // -----------------------------------------------------------------------------
 // SIDEQUESTS
+
+function addFindSummonAchievement(id, name, summon) {
+    achievement(
+        id = 0,
+        title = name,
+        description = format("Find {0}", name),
+        points = 10,
+        trigger = isActiveGame() && any_of(SummonSlots, summonSlot => summonSlot == summon && prev(summonSlot) != summon)
+    )
+}
+
+addFindSummonAchievement(0, "Sylph", SYLPH)
+addFindSummonAchievement(0, "Odin", ODIN)
+addFindSummonAchievement(0, "Asura", ASURA)
+addFindSummonAchievement(0, "Leviathan", LEVIATHAN)
+addFindSummonAchievement(0, "Bahamut", BAHAMUT)
 
 // -----------------------------------------------------------------------------
 // FUN
