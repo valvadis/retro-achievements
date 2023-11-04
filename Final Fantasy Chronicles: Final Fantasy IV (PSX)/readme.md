@@ -89,11 +89,11 @@ https://retroachievements.org/game/17526
 ## SIDEQUEST ##
 | NAME                   | DESCRIPTION                                                | POINTS |
 |------------------------|------------------------------------------------------------|--------|
-| Odin                   | Defeat Odin                                                | 10     |
-| Asura                  | Defeat Asura                                               | 10     |
-| Leviathan              | Defeat Leviathan                                           | 10     |
-| Bahamut                | Defeat Bahamut                                             | 10     |
-| Sylph                  | Find Sylph                                                 | 10     |
+| Odin                   | Learn Odin                                                 | 10     |
+| Asura                  | Learn Asura                                                | 10     |
+| Leviathan              | Learn Leviathan                                            | 10     |
+| Bahamut                | Learn Bahamut                                              | 10     |
+| Sylph                  | Learn Sylph                                                | 10     |
 
 ## FOR-FUN ##
 | NAME                 | DESCRIPTION                                              | POINTS |
