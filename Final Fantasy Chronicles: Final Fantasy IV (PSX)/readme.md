@@ -42,6 +42,7 @@ https://retroachievements.org/game/17526
 | Evil Wall [m]      | Defeat Evil Wall (No deaths, Active Mode, Speed 1)                   | 10     |
 | Four Fiends [m]    | Defeat Four Fiends (No deaths, Active Mode, Speed 1)                 | 10     |
 | CPU [m]            | Defeat CPU (No deaths, Active Mode, Speed 1)                         | 10     |
+| Zeromus            | Defeat Zeromus (all party members must be alive at the end)          | 10     |
 
 ## COLLECTION ##
 | NAME                 | DESCRIPTION                                       | POINTS |
