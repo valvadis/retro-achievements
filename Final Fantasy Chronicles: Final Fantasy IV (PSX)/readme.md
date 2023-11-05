@@ -97,11 +97,9 @@ https://retroachievements.org/game/17526
 
 ## FOR-FUN ##
 | NAME                 | DESCRIPTION                                              | POINTS |
-|----------------------|----------------------------------------------------------|--------|
-| Dark Matter          | Steal Dark Matter while fighting Zeromus                 | 10     |
-| The Magazine         | Obtain the (adult) magazine from secret Developer's Room | 5      |
-| Peninsula of Power   | Find Peninsula of Power                                  | 3      |
-| Three Step Peninsula | Find Three Step Peninsula                                | 3      |
-| Membership Pass      | Buy the Membership Pass                                  | 3      |
-| Frogs and Flies      | Talk with talking frog                                   | 1      |
-| Astronomer           | Look at the Moon through a telescope                     | 1      |
+|-----------------------|----------------------------------------------------------|--------|
+| Master Of Thieves     | Steal Dark Matter while fighting Zeromus                 | 10     |
+| Master Of Perversion  | Obtain the (adult) magazine from secret Developer's Room | 5      |
+| Master Of Exploration | Find Three Step Peninsula                                | 3      |
+| Master of Luxuries    | Buy a pass to the Court of Kings                         | 3      |
+| Master of Science     | Look at the Moon through a telescope                     | 1      |
