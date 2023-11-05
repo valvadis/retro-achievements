@@ -104,4 +104,4 @@ https://retroachievements.org/game/17526
 | Three Step Peninsula | Find Three Step Peninsula                                | 3      |
 | Membership Pass      | Buy the Membership Pass                                  | 3      |
 | Frogs and Flies      | Talk with talking frog                                   | 1      |
-| Astronomy            | Look through the telescope                               | 1      |
+| Astronomer           | Look at the Moon through a telescope                     | 1      |
