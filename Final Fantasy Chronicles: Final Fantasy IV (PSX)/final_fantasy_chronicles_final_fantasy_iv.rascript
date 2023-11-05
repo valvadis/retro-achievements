@@ -13,15 +13,11 @@ MenuIndicator = byte(0xd0650)
 BattleMode = bit0(0xd16be)
 BattleSpeed = byte(0xd16ac)
 
-// CHARACTER POINTERS
-
 CHARACTER_POINTER_1 = 0xd4483
 CHARACTER_POINTER_2 = 0xd4583
 CHARACTER_POINTER_3 = 0xd4403
 CHARACTER_POINTER_4 = 0xd4603
 CHARACTER_POINTER_5 = 0xd4503
-
-// ENEMY FORMATIONS
 
 EnemyFormation = word(0xd1800)
 
@@ -65,13 +61,26 @@ EnemyFormations = {
     ZEROMUS: 0x1b7
 }
 
-SummonSlots = array_map(range(0xd15c0, 0xd15d7), summonSlot => byte(summonSlot))
+FIRST_SUMMON_ID = 0xd15c0
+LAST_SUMMON_ID = 0xd15d7
+
+SummonSlots = array_map(range(FIRST_SUMMON_ID, LAST_SUMMON_ID), summonSlot => byte(summonSlot))
 
 SYLPH = 0x3b
 ODIN = 0x3c
 LEVIATHAN = 0x3d
 ASURA = 0x3e
 BAHAMUT = 0x3f
+
+FIRST_ITEM_ID = 0xd1440
+LAST_ITEM_ID = 0xd149e
+
+ItemSlots = array_map(range(FIRST_ITEM_ID, LAST_ITEM_ID, 2), itemSlot => byte(itemSlot))
+
+FIRST_BATTLE_ITEM_ID = 0xd561b
+LAST_BATTLE_ITEM_ID = 0xd56d6
+
+BattleItemSlots = array_map(range(FIRST_BATTLE_ITEM_ID, LAST_BATTLE_ITEM_ID, 4), itemSlot => byte(itemSlot))
 
 // -----------------------------------------------------------------------------
 // FUNCTIONS
@@ -168,6 +177,22 @@ addDefeatBossAchievement(0, RUBICANT, 0xac)
 addDefeatBossAchievement(0, EVIL_WALL, 0x157)
 addDefeatBossAchievement(0, FOUR_FIENDS, 0xbc)
 addDefeatBossAchievement(0, CPU, 0xbd)
+
+achievement(
+    id = 0,
+    title = "Zeromus",
+    description = "Defeat Zeromus (all party members must be alive at the end)",
+    points = 10,
+    trigger = isInBattle() && isBattleChallengeOn() && trigger_when(isBattleWon())
+            && SubLocation == 0x172 && EnemyFormation == EnemyFormations[ZEROMUS]
+            && unless(
+                bit7(CHARACTER_POINTER_1) == 1
+                || bit7(CHARACTER_POINTER_2) == 1
+                || bit7(CHARACTER_POINTER_3) == 1
+                || bit7(CHARACTER_POINTER_4) == 1
+                || bit7(CHARACTER_POINTER_5) == 1
+            )
+)
 
 // -----------------------------------------------------------------------------
 // COLLECTION
@@ -775,9 +800,9 @@ addCollectSpecialItemAchievement(0, "Holy Lance", bit6(0xd131b), 0x17a)
 
 function addFindSummonAchievement(id, name, summon) {
     achievement(
-        id = 0,
+        id = id,
         title = name,
-        description = format("Find {0}", name),
+        description = format("Learn {0}", name),
         points = 10,
         trigger = isActiveGame() && any_of(SummonSlots, summonSlot => summonSlot == summon && prev(summonSlot) != summon)
     )
@@ -791,6 +816,47 @@ addFindSummonAchievement(0, "Bahamut", BAHAMUT)
 
 // -----------------------------------------------------------------------------
 // FUN
+
+achievement(
+    id = 0,
+    title = "Master Of Thieves",
+    description = "Steal Dark Matter while fighting Zeromus",
+    points = 10,
+    trigger = isInBattle() && any_of(BattleItemSlots, itemSlot => itemSlot == 0xfb && prev(itemSlot) != 0xfb)
+)
+
+achievement(
+    id = 0,
+    title = "Master of Perversion",
+    description = "Obtain the (adult) magazine from secret Developer's Room",
+    points = 5,
+    trigger = isActiveGame() && any_of(ItemSlots, itemSlot => prev(itemSlot) != 0xe4 && itemSlot == 0xe4)
+)
+
+achievement(
+    id = 0,
+    title = "Master of Exploration",
+    description = "Find Three Step Peninsula (encounter a battle there)",
+    points = 3,
+    trigger = isInBattle() && MainLocation == 0x01
+        && PositionX == 0x0d && __ornext(PositionY == 0x3c || PositionY == 0x3d || PositionY == 0x3e)
+)
+
+achievement(
+    id = 0,
+    title = "Master of Luxurie",
+    description = "Buy a pass to the Court of Kings",
+    points = 3,
+    trigger = isActiveGame() && any_of(ItemSlots, itemSlot => prev(itemSlot) != 0xec && itemSlot == 0xec)
+)
+
+achievement(
+    id = 0,
+    title = "Master of Science",
+    description = "Look at the Moon through a telescope",
+    points = 1,
+    trigger = prev(SubLocation)  == 0x1f && SubLocation == 0x7c
+)
 
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
@@ -1163,6 +1229,8 @@ Characters = {
     20: "Kain",
     21: "Golbez",
 }
+
+rich_presence_conditional_display(SubLocation == 0x7c, "Party observes the moon through a telescope")
 
 rich_presence_conditional_display(MenuIndicator == 0x70 || PositionX + PositionY == 0, "Player is on title screen")
 
