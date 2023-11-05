@@ -100,6 +100,6 @@ https://retroachievements.org/game/17526
 |-----------------------|----------------------------------------------------------|--------|
 | Master Of Thieves     | Steal Dark Matter while fighting Zeromus                 | 10     |
 | Master Of Perversion  | Obtain the (adult) magazine from secret Developer's Room | 5      |
-| Master Of Exploration | Find Three Step Peninsula                                | 3      |
+| Master Of Exploration | Find Three Step Peninsula (encounter a battle there)     | 3      |
 | Master of Luxuries    | Buy a pass to the Court of Kings                         | 3      |
 | Master of Science     | Look at the Moon through a telescope                     | 1      |
