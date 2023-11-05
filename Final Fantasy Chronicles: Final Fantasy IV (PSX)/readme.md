@@ -98,7 +98,7 @@ https://retroachievements.org/game/17526
 ## FOR-FUN ##
 | NAME                 | DESCRIPTION                                              | POINTS |
 |----------------------|----------------------------------------------------------|--------|
-| Dark Matter          | Steal the Dark Matter from Zeromus                       | 10     |
+| Dark Matter          | Steal Dark Matter while fighting Zeromus                 | 10     |
 | The Magazine         | Obtain the (adult) magazine from secret Developer's Room | 5      |
 | Peninsula of Power   | Find Peninsula of Power                                  | 3      |
 | Three Step Peninsula | Find Three Step Peninsula                                | 3      |
