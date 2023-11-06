@@ -117,22 +117,22 @@ function addEventFlagAchievement(id, title, description, flag) {
     )
 }
 
-addEventFlagAchievement(0, "Unwanted Parcel", "Bring a parcel to the Village of Mist", bit6(0xd1281))
-addEventFlagAchievement(0, "Kingdom In Ruins", "Reach the Damcyan Castle to rescue Anna", bit4(0xd1282))
-addEventFlagAchievement(0, "Panacea", "Find the Sand Ruby, the cure for your beloved", bit2(0xd1282))
-addEventFlagAchievement(0, "A Monk Not From Shaolin", "Save the Captain of Fabul from monsters", bit6(0xd1282))
-addEventFlagAchievement(0, "The Dark Knight Departs", "Overcome your fear and become a paladin", bit3(0xd1281))
-addEventFlagAchievement(0, "The False King", "Expose the false king of Baron and escape from Baron", bit6(0xd1280))
-addEventFlagAchievement(0, "Swan Song", "Reclaim the earth crystal with a little help", bit3(0xd1284))
-addEventFlagAchievement(0, "Where Am I?", "Save Rosa in Tower of Zot", bit4(0xd1281))
-addEventFlagAchievement(0, "Thing T. Thing", "Defeat Golbez in Dwarven Castle", bit7(0xd1280))
-addEventFlagAchievement(0, "The Sacrifice", "Escape from the Tower of Babil", bit2(0xd1281))
-addEventFlagAchievement(0, "It Is A Trap", "Defeat Rubicant and try to take crystals", bit7(0xd1286))
-addEventFlagAchievement(0, "Betrayal", "Exit the Sealed Cave with the crystal", bit2(0xd1288))
-addEventFlagAchievement(0, "Fatal Error", "Return to the Moon after destroying the Giant of Babil", bit0(0xd1289))
+addEventFlagAchievement(370684, "Unwanted Parcel", "Bring a parcel to the Village of Mist", bit6(0xd1281))
+addEventFlagAchievement(370685, "Kingdom In Ruins", "Reach the Damcyan Castle to rescue Anna", bit4(0xd1282))
+addEventFlagAchievement(370686, "Panacea", "Find the Sand Ruby, the cure for your beloved", bit2(0xd1282))
+addEventFlagAchievement(370687, "A Monk Not From Shaolin", "Save the Captain of Fabul from monsters", bit6(0xd1282))
+addEventFlagAchievement(370688, "The Dark Knight Departs", "Overcome your fear and become a paladin", bit3(0xd1281))
+addEventFlagAchievement(370689, "The False King", "Expose the false king of Baron and escape from Baron", bit6(0xd1280))
+addEventFlagAchievement(370690, "Swan Song", "Reclaim the earth crystal with a little help", bit3(0xd1284))
+addEventFlagAchievement(370691, "Where Am I?", "Save Rosa in Tower of Zot", bit4(0xd1281))
+addEventFlagAchievement(370692, "Thing T. Thing", "Defeat Golbez in Dwarven Castle", bit7(0xd1280))
+addEventFlagAchievement(370693, "The Sacrifice", "Escape from the Tower of Babil", bit2(0xd1281))
+addEventFlagAchievement(370694, "It Is A Trap", "Defeat Rubicant and try to take crystals", bit7(0xd1286))
+addEventFlagAchievement(370695, "Betrayal", "Exit the Sealed Cave with the crystal", bit2(0xd1288))
+addEventFlagAchievement(370696, "Fatal Error", "Return to the Moon after destroying the Giant of Babil", bit0(0xd1289))
 
 achievement(
-    id = 0,
+    id = 370697,
     title = "Eternal Dream",
     description = "Defeat final boss and beat the game",
     points = 25,
@@ -160,26 +160,26 @@ function addDefeatBossAchievement(id, enemy, location) {
     )
 }
 
-addDefeatBossAchievement(0, MIST_DRAGON, 0x06c)
-addDefeatBossAchievement(0, OCTOMAMM, 0x076)
-addDefeatBossAchievement(0, ANTLION, 0x079)
-addDefeatBossAchievement(0, MOM_BOMB, 0x07f)
-addDefeatBossAchievement(0, MILON, 0x087)
-addDefeatBossAchievement(0, MILON_Z, 0x087)
-addDefeatBossAchievement(0, BAIGAN, 0x02a)
-addDefeatBossAchievement(0, CAGNAZZO, 0x02c)
-addDefeatBossAchievement(0, DARK_ELF, 0x094)
-addDefeatBossAchievement(0, SISTERS, 0x09d)
-addDefeatBossAchievement(0, VALVALIS, 0x09f)
-addDefeatBossAchievement(0, CALBRINA, 0x10d)
-addDefeatBossAchievement(0, LUGABORG, 0x128)
-addDefeatBossAchievement(0, RUBICANT, 0xac)
-addDefeatBossAchievement(0, EVIL_WALL, 0x157)
-addDefeatBossAchievement(0, FOUR_FIENDS, 0xbc)
-addDefeatBossAchievement(0, CPU, 0xbd)
+addDefeatBossAchievement(370698, MIST_DRAGON, 0x06c)
+addDefeatBossAchievement(370699, OCTOMAMM, 0x076)
+addDefeatBossAchievement(370700, ANTLION, 0x079)
+addDefeatBossAchievement(370701, MOM_BOMB, 0x07f)
+addDefeatBossAchievement(370702, MILON, 0x087)
+addDefeatBossAchievement(370703, MILON_Z, 0x087)
+addDefeatBossAchievement(370704, BAIGAN, 0x02a)
+addDefeatBossAchievement(370705, CAGNAZZO, 0x02c)
+addDefeatBossAchievement(370706, DARK_ELF, 0x094)
+addDefeatBossAchievement(370707, SISTERS, 0x09d)
+addDefeatBossAchievement(370708, VALVALIS, 0x09f)
+addDefeatBossAchievement(370709, CALBRINA, 0x10d)
+addDefeatBossAchievement(370710, LUGABORG, 0x128)
+addDefeatBossAchievement(370711, RUBICANT, 0xac)
+addDefeatBossAchievement(370712, EVIL_WALL, 0x157)
+addDefeatBossAchievement(370713, FOUR_FIENDS, 0xbc)
+addDefeatBossAchievement(370714, CPU, 0xbd)
 
 achievement(
-    id = 0,
+    id = 370715,
     title = "Zeromus",
     description = "Defeat Zeromus (all party members must be alive at the end)",
     points = 10,
@@ -215,13 +215,13 @@ MistCaveChests = [
     bit3(0xd12b1),
 ]
 
-addCollectChestsAchievement(0, "Mist Cave", 2, MistCaveChests)
+addCollectChestsAchievement(370716, "Mist Cave", 2, MistCaveChests)
 
 KaipoChests = [
     bit2(0xd12a1),
 ]
 
-addCollectChestsAchievement(0, "Kaipo", 1, KaipoChests)
+addCollectChestsAchievement(370717, "Kaipo", 1, KaipoChests)
 
 WaterCavernChests = [
     bit4(0xd12b1),
@@ -249,7 +249,7 @@ WaterCavernChests = [
     bit4(0xd12b6),
 ]
 
-addCollectChestsAchievement(0, "Water Cavern", 10, WaterCavernChests)
+addCollectChestsAchievement(370718, "Water Cavern", 10, WaterCavernChests)
 
 DamcyanChests = [
     bit7(0xd12a7),
@@ -267,7 +267,7 @@ DamcyanChests = [
     bit3(0xd12a9),
 ]
 
-addCollectChestsAchievement(0, "Damcyan", 5, DamcyanChests)
+addCollectChestsAchievement(370719, "Damcyan", 5, DamcyanChests)
 
 AntlionsCaveChests = [
     bit0(0xd12b4),
@@ -285,7 +285,7 @@ AntlionsCaveChests = [
     bit4(0xd12b5),
 ]
 
-addCollectChestsAchievement(0, "Antlion's Cave", 3, AntlionsCaveChests)
+addCollectChestsAchievement(370720, "Antlion's Cave", 3, AntlionsCaveChests)
 
 MountHobsChests = [
     bit5(0xd12b5),
@@ -295,7 +295,7 @@ MountHobsChests = [
     bit1(0xd12b6),
 ]
 
-addCollectChestsAchievement(0, "Mt Hobs", 2, MountHobsChests)
+addCollectChestsAchievement(370721, "Mt Hobs", 2, MountHobsChests)
 
 FabulChests = [
     bit5(0xd12a9),
@@ -310,7 +310,7 @@ FabulChests = [
     bit6(0xd12aa),
 ]
 
-addCollectChestsAchievement(0, "Fabul", 5, FabulChests)
+addCollectChestsAchievement(370722, "Fabul", 5, FabulChests)
 
 MountOrdealsChests = [
     bit5(0xd12b6),
@@ -319,7 +319,7 @@ MountOrdealsChests = [
     bit0(0xd12b7),
 ]
 
-addCollectChestsAchievement(0, "Mt. Ordeals", 2, MountOrdealsChests)
+addCollectChestsAchievement(370723, "Mt. Ordeals", 2, MountOrdealsChests)
 
 WaterwayChests = [
     bit7(0xd12a6),
@@ -332,7 +332,7 @@ WaterwayChests = [
     bit6(0xd12a7),
 ]
 
-addCollectChestsAchievement(0, "Waterway", 5, WaterwayChests)
+addCollectChestsAchievement(370724, "Waterway", 5, WaterwayChests)
 
 BaronCastleChests = [
     bit2(0xd12a4),
@@ -357,7 +357,7 @@ BaronCastleChests = [
     bit6(0xd12a6),
 ]
 
-addCollectChestsAchievement(0, "Baron Castle", 10, BaronCastleChests)
+addCollectChestsAchievement(370725, "Baron Castle", 10, BaronCastleChests)
 
 BaronChests = [
     bit0(0xd12a0),
@@ -378,7 +378,7 @@ BaronChests = [
     bit4(0xd12a9),
 ]
 
-addCollectChestsAchievement(0, "Baron", 10, BaronChests)
+addCollectChestsAchievement(370726, "Baron", 10, BaronChests)
 
 MistVillageChests = [
     bit7(0xd12a0),
@@ -390,13 +390,13 @@ MistVillageChests = [
     bit6(0xd12a3),
 ]
 
-addCollectChestsAchievement(0, "Mist Village", 10, MistVillageChests)
+addCollectChestsAchievement(370727, "Mist Village", 10, MistVillageChests)
 
 AgartChests = [
     bit2(0xd12a2),
 ]
 
-addCollectChestsAchievement(0, "Agart", 1, AgartChests)
+addCollectChestsAchievement(370728, "Agart", 1, AgartChests)
 
 MythrilChests = [
     bit3(0xd12a1),
@@ -404,7 +404,7 @@ MythrilChests = [
     bit5(0xd12a1),
 ]
 
-addCollectChestsAchievement(0, "Mythril", 3, MythrilChests)
+addCollectChestsAchievement(370729, "Mythril", 3, MythrilChests)
 
 TroiaChests = [
     bit6(0xd12a1),
@@ -413,7 +413,7 @@ TroiaChests = [
     bit1(0xd12a2),
 ]
 
-addCollectChestsAchievement(0, "Troia", 2, TroiaChests)
+addCollectChestsAchievement(370730, "Troia", 2, TroiaChests)
 
 ChocoboForestsChests = [
     bit7(0xd12a3),
@@ -426,7 +426,7 @@ ChocoboForestsChests = [
     bit0(0xd12bf),
 ]
 
-addCollectChestsAchievement(0, "Chocobo Forests", 10, ChocoboForestsChests)
+addCollectChestsAchievement(370731, "Chocobo Forests", 10, ChocoboForestsChests)
 
 MagneticCavernChests = [
     bit1(0xd12b7),
@@ -441,7 +441,7 @@ MagneticCavernChests = [
     bit2(0xd12b8),
 ]
 
-addCollectChestsAchievement(0, "Magnetic Cavern", 5, MagneticCavernChests)
+addCollectChestsAchievement(370732, "Magnetic Cavern", 5, MagneticCavernChests)
 
 EblanCastleChests = [
     bit2(0xd12ae),
@@ -468,7 +468,7 @@ EblanCastleChests = [
     bit7(0xd12b0),
 ]
 
-addCollectChestsAchievement(0, "Eblan Castle", 10, EblanCastleChests)
+addCollectChestsAchievement(370733, "Eblan Castle", 10, EblanCastleChests)
 
 TroiaCastleChests = [
     bit7(0xd12aa),
@@ -500,7 +500,7 @@ TroiaCastleChests = [
     bit1(0xd12ae),
 ]
 
-addCollectChestsAchievement(0, "Troia Castle", 5, TroiaCastleChests)
+addCollectChestsAchievement(370734, "Troia Castle", 5, TroiaCastleChests)
 
 TowerOfZotChests = [
     bit3(0xd12b8),
@@ -511,7 +511,7 @@ TowerOfZotChests = [
     bit0(0xd12b9),
 ]
 
-addCollectChestsAchievement(0, "Tower Of Zot [m]", 5, TowerOfZotChests)
+addCollectChestsAchievement(370735, "Tower Of Zot [m]", 5, TowerOfZotChests)
 
 DwarvenCastleChests = [
     bit2(0xd12c1),
@@ -534,7 +534,7 @@ DwarvenCastleChests = [
     bit7(0xd12c3),
 ]
 
-addCollectChestsAchievement(0, "Dwarven Castle", 5, DwarvenCastleChests)
+addCollectChestsAchievement(370736, "Dwarven Castle", 5, DwarvenCastleChests)
 
 TowerOfBabilOneChests = [
     bit2(0xd12c2),
@@ -555,7 +555,7 @@ TowerOfBabilOneChests = [
     bit7(0xd12c5),
 ]
 
-addCollectChestsAchievement(0, "Tower Of Babil I [m]", 5, TowerOfBabilOneChests)
+addCollectChestsAchievement(370737, "Tower Of Babil I [m]", 5, TowerOfBabilOneChests)
 
 EblanCaveChests = [
     bit6(0xd12bb),
@@ -582,7 +582,7 @@ EblanCaveChests = [
     bit3(0xd12be),
 ]
 
-addCollectChestsAchievement(0, "Eblan Cave", 5, EblanCaveChests)
+addCollectChestsAchievement(370738, "Eblan Cave", 5, EblanCaveChests)
 
 TowerOfBabilTwoChests = [
     bit3(0xd12b9),
@@ -595,7 +595,7 @@ TowerOfBabilTwoChests = [
     bit2(0xd12c4),
 ]
 
-addCollectChestsAchievement(0, "Tower Of Babil II [m]", 5, TowerOfBabilTwoChests)
+addCollectChestsAchievement(370739, "Tower Of Babil II [m]", 5, TowerOfBabilTwoChests)
 
 TomraChests = [
     bit4(0xd12c0),
@@ -606,7 +606,7 @@ TomraChests = [
     bit1(0xd12c1),
 ]
 
-addCollectChestsAchievement(0, "Tomra", 3, TomraChests)
+addCollectChestsAchievement(370740, "Tomra", 3, TomraChests)
 
 KokkolsForgeChests = [
     bit0(0xd12c0),
@@ -615,7 +615,7 @@ KokkolsForgeChests = [
     bit3(0xd12c0),
 ]
 
-addCollectChestsAchievement(0, "Kokkol's Forge", 2, KokkolsForgeChests)
+addCollectChestsAchievement(370741, "Kokkol's Forge", 2, KokkolsForgeChests)
 
 SealedCaveChests = [
     bit0(0xd12cd),
@@ -639,7 +639,7 @@ SealedCaveChests = [
     bit2(0xd12cf),
 ]
 
-addCollectChestsAchievement(0, "Sealed Cave", 5, SealedCaveChests)
+addCollectChestsAchievement(370742, "Sealed Cave", 5, SealedCaveChests)
 
 CaveOfSummonsChests = [
     bit1(0xd12c6),
@@ -655,7 +655,7 @@ CaveOfSummonsChests = [
     bit3(0xd12c7),
 ]
 
-addCollectChestsAchievement(0, "Cave Of Summons", 5, CaveOfSummonsChests)
+addCollectChestsAchievement(370743, "Cave Of Summons", 5, CaveOfSummonsChests)
 
 LandOfSummonsChests = [ 
     bit5(0xd12c7),   
@@ -671,7 +671,7 @@ LandOfSummonsChests = [
     bit7(0xd12c8),
 ]
 
-addCollectChestsAchievement(0, "Land Of Summons", 5, LandOfSummonsChests)
+addCollectChestsAchievement(370744, "Land Of Summons", 5, LandOfSummonsChests)
 
 SylvanCaveChests = [
     bit0(0xd12c9),
@@ -708,7 +708,7 @@ SylvanCaveChests = [
     bit7(0xd12cc),
 ]
 
-addCollectChestsAchievement(0, "Sylvan Cave", 10, SylvanCaveChests)
+addCollectChestsAchievement(370745, "Sylvan Cave", 10, SylvanCaveChests)
 
 LunarPathChests = [
     bit3(0xd12d0),
@@ -716,7 +716,7 @@ LunarPathChests = [
     bit5(0xd12d0),
 ]
 
-addCollectChestsAchievement(0, "Lunar Path", 1, LunarPathChests)
+addCollectChestsAchievement(370746, "Lunar Path", 1, LunarPathChests)
 
 CaveBahamutChests = [
     bit5(0xd12cf),
@@ -725,7 +725,7 @@ CaveBahamutChests = [
     bit0(0xd12d0),
 ]
 
-addCollectChestsAchievement(0, "Cave Bahamut", 2, CaveBahamutChests)
+addCollectChestsAchievement(370747, "Cave Bahamut", 2, CaveBahamutChests)
 
 GiantOfBabilChests = [
     bit6(0xd12ba),
@@ -738,7 +738,7 @@ GiantOfBabilChests = [
     bit5(0xd12bb),
 ]
 
-addCollectChestsAchievement(0, "Giant of Babil [m]", 3, GiantOfBabilChests)
+addCollectChestsAchievement(370748, "Giant of Babil [m]", 3, GiantOfBabilChests)
 
 LunarSubterraneChests = [
     bit6(0xd12d0),
@@ -775,10 +775,10 @@ LunarSubterraneChests = [
     bit1(0xd12d5),
 ]
 
-addCollectChestsAchievement(0, "Lunar Subterrane", 10, LunarSubterraneChests)
+addCollectChestsAchievement(370749, "Lunar Subterrane", 10, LunarSubterraneChests)
 
-addEventFlagAchievement(0, "Excalibur", "Obtain Excalibur", bit4(0xd1289))
-addEventFlagAchievement(0, "Knife [m]", "Obtain Knife (from Yang's wife)", bit7(0xd1289))
+addEventFlagAchievement(370750, "Excalibur", "Obtain Excalibur", bit4(0xd1289))
+addEventFlagAchievement(370751, "Knife [m]", "Obtain Knife (from Yang's wife)", bit7(0xd1289))
 
 function addCollectSpecialItemAchievement(id, name, flag, location) {
     achievement(
@@ -790,10 +790,10 @@ function addCollectSpecialItemAchievement(id, name, flag, location) {
     )
 }
 
-addCollectSpecialItemAchievement(0, "Ragnarok", bit3(0xd131b), 0x16b)
-addCollectSpecialItemAchievement(0, "Masamune", bit4(0xd131b), 0x16e)
-addCollectSpecialItemAchievement(0, "Murasame", bit5(0xd131b), 0x169)
-addCollectSpecialItemAchievement(0, "Holy Lance", bit6(0xd131b), 0x17a)
+addCollectSpecialItemAchievement(370752, "Ragnarok", bit3(0xd131b), 0x16b)
+addCollectSpecialItemAchievement(370753, "Masamune", bit4(0xd131b), 0x16e)
+addCollectSpecialItemAchievement(370754, "Murasame", bit5(0xd131b), 0x169)
+addCollectSpecialItemAchievement(370755, "Holy Lance", bit6(0xd131b), 0x17a)
 
 // -----------------------------------------------------------------------------
 // SIDEQUESTS
@@ -808,17 +808,17 @@ function addFindSummonAchievement(id, name, summon) {
     )
 }
 
-addFindSummonAchievement(0, "Sylph", SYLPH)
-addFindSummonAchievement(0, "Odin", ODIN)
-addFindSummonAchievement(0, "Asura", ASURA)
-addFindSummonAchievement(0, "Leviathan", LEVIATHAN)
-addFindSummonAchievement(0, "Bahamut", BAHAMUT)
+addFindSummonAchievement(370756, "Sylph", SYLPH)
+addFindSummonAchievement(370757, "Odin", ODIN)
+addFindSummonAchievement(370758, "Asura", ASURA)
+addFindSummonAchievement(370759, "Leviathan", LEVIATHAN)
+addFindSummonAchievement(370760, "Bahamut", BAHAMUT)
 
 // -----------------------------------------------------------------------------
 // FUN
 
 achievement(
-    id = 0,
+    id = 370761,
     title = "Master Of Thieves",
     description = "Steal Dark Matter while fighting Zeromus",
     points = 10,
@@ -826,7 +826,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 370762,
     title = "Master of Perversion",
     description = "Obtain the (adult) magazine from secret Developer's Room",
     points = 5,
@@ -834,7 +834,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 370763,
     title = "Master of Exploration",
     description = "Find Three Step Peninsula (encounter a battle there)",
     points = 3,
@@ -843,7 +843,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 370764,
     title = "Master of Luxurie",
     description = "Buy a pass to the Court of Kings",
     points = 3,
@@ -851,7 +851,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 370765,
     title = "Master of Science",
     description = "Look at the Moon through a telescope",
     points = 1,
