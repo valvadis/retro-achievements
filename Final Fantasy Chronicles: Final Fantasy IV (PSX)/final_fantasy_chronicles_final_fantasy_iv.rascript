@@ -827,7 +827,7 @@ achievement(
 
 achievement(
     id = 370762,
-    title = "Master of Perversion",
+    title = "Master Of Perversion",
     description = "Obtain the (adult) magazine from secret Developer's Room",
     points = 5,
     trigger = isActiveGame() && any_of(ItemSlots, itemSlot => prev(itemSlot) != 0xe4 && itemSlot == 0xe4)
@@ -835,7 +835,7 @@ achievement(
 
 achievement(
     id = 370763,
-    title = "Master of Exploration",
+    title = "Master Of Exploration",
     description = "Find Three Step Peninsula (encounter a battle there)",
     points = 3,
     trigger = isInBattle() && MainLocation == 0x01
@@ -844,7 +844,7 @@ achievement(
 
 achievement(
     id = 370764,
-    title = "Master of Luxurie",
+    title = "Master Of Luxurie",
     description = "Buy a pass to the Court of Kings",
     points = 3,
     trigger = isActiveGame() && any_of(ItemSlots, itemSlot => prev(itemSlot) != 0xec && itemSlot == 0xec)
@@ -852,7 +852,7 @@ achievement(
 
 achievement(
     id = 370765,
-    title = "Master of Science",
+    title = "Master Of Science",
     description = "Look at the Moon through a telescope",
     points = 1,
     trigger = prev(SubLocation)  == 0x1f && SubLocation == 0x7c
