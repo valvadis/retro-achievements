@@ -201,10 +201,10 @@ function addCollectChestsAchievement(id, title, points, chests) {
     achievement(
         id = id,
         title = title,
-        description = format("Open every chests in {0}", title),
+        description = format("Open every chest in {0}", title),
         points = points,
         trigger = isActiveGame() && sum_of(chests, chest => prev(chest)) != length(chests) 
-            && sum_of(chests, chest => chest) == length(chests)
+            && measured(sum_of(chests, chest => chest) == length(chests))
     )
 }
 
