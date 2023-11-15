@@ -30,13 +30,13 @@ MILON_Z = "Milon Zombie"
 BAIGAN = "Captain Baigan"
 CAGNAZZO = "Cagnazzo"
 DARK_ELF = "Dark Elf"
-SISTERS = "Magus Sisters"
+SISTERS = "the Magus Sisters"
 VALVALIS = "Valvalis"
 CALBRINA = "Calbrina"
 LUGABORG = "Lugaborg"
 RUBICANT = "Rubicant"
-EVIL_WALL = "Evil Wall"
-FOUR_FIENDS = "Four Fiends"
+EVIL_WALL = "the Evil Wall"
+FOUR_FIENDS = "the Four Fiends"
 CPU = "CPU"
 ZEROMUS = "Zeromus"
 
@@ -66,11 +66,19 @@ LAST_SUMMON_ID = 0xd15d7
 
 SummonSlots = array_map(range(FIRST_SUMMON_ID, LAST_SUMMON_ID), summonSlot => byte(summonSlot))
 
-SYLPH = 0x3b
-ODIN = 0x3c
-LEVIATHAN = 0x3d
-ASURA = 0x3e
-BAHAMUT = 0x3f
+SYLPH = "Sylph"
+ODIN = "Odin"
+LEVIATHAN = "Leviathan"
+ASURA = "Asura"
+BAHAMUT = "Bahamut"
+
+Summons = {
+    SYLPH: 0x3b,
+    ODIN: 0x3c,
+    LEVIATHAN: 0x3d,
+    ASURA: 0x3e,
+    BAHAMUT: 0x3f,
+}
 
 FIRST_ITEM_ID = 0xd1440
 LAST_ITEM_ID = 0xd149e
@@ -117,37 +125,36 @@ function addEventFlagAchievement(id, title, description, flag) {
     )
 }
 
-addEventFlagAchievement(370684, "Unwanted Parcel", "Bring a parcel to the Village of Mist", bit6(0xd1281))
-addEventFlagAchievement(370685, "Kingdom In Ruins", "Reach the Damcyan Castle to rescue Anna", bit4(0xd1282))
+addEventFlagAchievement(370684, "Unwanted Parcel", "Bring a parcel to the village of Mist", bit6(0xd1281))
+addEventFlagAchievement(370685, "Kingdom in Ruins", "Reach the Damcyan Castle to rescue Anna", bit4(0xd1282))
 addEventFlagAchievement(370686, "Panacea", "Find the Sand Ruby, the cure for your beloved", bit2(0xd1282))
-addEventFlagAchievement(370687, "A Monk Not From Shaolin", "Save the Captain of Fabul from monsters", bit6(0xd1282))
-addEventFlagAchievement(370688, "The Dark Knight Departs", "Overcome your fear and become a paladin", bit3(0xd1281))
+addEventFlagAchievement(370687, "A Monk Not from Shaolin", "Save the captain of Fabul from monsters", bit6(0xd1282))
+addEventFlagAchievement(370688, "The Dark Knight Departs", "Overcome your fear and become a Paladin", bit3(0xd1281))
 addEventFlagAchievement(370689, "The False King", "Expose the false king of Baron and escape from Baron", bit6(0xd1280))
-addEventFlagAchievement(370690, "Swan Song", "Reclaim the earth crystal with a little help", bit3(0xd1284))
-addEventFlagAchievement(370691, "Where Am I?", "Save Rosa in Tower of Zot", bit4(0xd1281))
+addEventFlagAchievement(370690, "Swan Song", "Reclaim the Earth Crystal with a little help", bit3(0xd1284))
+addEventFlagAchievement(370691, "Where Am I?", "Save Rosa in the Tower of Zot", bit4(0xd1281))
 addEventFlagAchievement(370692, "Thing T. Thing", "Defeat Golbez in Dwarven Castle", bit7(0xd1280))
 addEventFlagAchievement(370693, "The Sacrifice", "Escape from the Tower of Babil", bit2(0xd1281))
-addEventFlagAchievement(370694, "It Is A Trap", "Defeat Rubicant and try to take crystals", bit7(0xd1286))
-addEventFlagAchievement(370695, "Betrayal", "Exit the Sealed Cave with the crystal", bit2(0xd1288))
+addEventFlagAchievement(370694, "It Is a Trap", "Defeat Rubicant and try to take Crystals", bit7(0xd1286))
+addEventFlagAchievement(370695, "Betrayal", "Exit the Sealed Cave with the Crystal", bit2(0xd1288))
 addEventFlagAchievement(370696, "Fatal Error", "Return to the Moon after destroying the Giant of Babil", bit0(0xd1289))
 
 achievement(
     id = 370697,
     title = "Eternal Dream",
-    description = "Defeat final boss and beat the game",
+    description = "Defeat the final boss and beat the game",
     points = 25,
     trigger = isInBattle() && SubLocation == 0x172 
-    && EnemyFormation == EnemyFormations[ZEROMUS] && trigger_when(isBattleWon())
-             
+    && EnemyFormation == EnemyFormations[ZEROMUS] && isBattleWon()
 )
 
 // -----------------------------------------------------------------------------
 // CHALLENGES
 
-function addDefeatBossAchievement(id, enemy, location) {
+function addDefeatBossAchievement(id, enemy, location, title) {
     achievement(
         id = id,
-        title = format("{0} [m]", enemy),
+        title = format("{0} [m]", title),
         description = format("Defeat {0} (No deaths, Active Mode, Speed 1)", enemy),
         points = 10,
         trigger = isInBattle() && isBattleChallengeOn() && trigger_when(isBattleWon())
@@ -160,30 +167,30 @@ function addDefeatBossAchievement(id, enemy, location) {
     )
 }
 
-addDefeatBossAchievement(370698, MIST_DRAGON, 0x06c)
-addDefeatBossAchievement(370699, OCTOMAMM, 0x076)
-addDefeatBossAchievement(370700, ANTLION, 0x079)
-addDefeatBossAchievement(370701, MOM_BOMB, 0x07f)
-addDefeatBossAchievement(370702, MILON, 0x087)
-addDefeatBossAchievement(370703, MILON_Z, 0x087)
-addDefeatBossAchievement(370704, BAIGAN, 0x02a)
-addDefeatBossAchievement(370705, CAGNAZZO, 0x02c)
-addDefeatBossAchievement(370706, DARK_ELF, 0x094)
-addDefeatBossAchievement(370707, SISTERS, 0x09d)
-addDefeatBossAchievement(370708, VALVALIS, 0x09f)
-addDefeatBossAchievement(370709, CALBRINA, 0x10d)
-addDefeatBossAchievement(370710, LUGABORG, 0x128)
-addDefeatBossAchievement(370711, RUBICANT, 0xac)
-addDefeatBossAchievement(370712, EVIL_WALL, 0x157)
-addDefeatBossAchievement(370713, FOUR_FIENDS, 0xbc)
-addDefeatBossAchievement(370714, CPU, 0xbd)
+addDefeatBossAchievement(370698, MIST_DRAGON, 0x06c, "Mist's Last Stand")
+addDefeatBossAchievement(370699, OCTOMAMM, 0x076, "Eight Times as Dangerous")
+addDefeatBossAchievement(370700, ANTLION, 0x079, "Antidote Secured")
+addDefeatBossAchievement(370701, MOM_BOMB, 0x07f, "The Mother of All Bombs")
+addDefeatBossAchievement(370702, MILON, 0x087, "Blighted Despot")
+addDefeatBossAchievement(370703, MILON_Z, 0x087, "And Now Stay Dead!")
+addDefeatBossAchievement(370704, BAIGAN, 0x02a, "Double Agent")
+addDefeatBossAchievement(370705, CAGNAZZO, 0x02c, "The Drowned King")
+addDefeatBossAchievement(370706, DARK_ELF, 0x094, "Thank You Spoony Bard!")
+addDefeatBossAchievement(370707, SISTERS, 0x09d, "Delta Attack")
+addDefeatBossAchievement(370708, VALVALIS, 0x09f, "Empress of the Winds")
+addDefeatBossAchievement(370709, CALBRINA, 0x10d, "Dangerous Doll")
+addDefeatBossAchievement(370710, LUGABORG, 0x128, "Mad Scientist")
+addDefeatBossAchievement(370711, RUBICANT, 0xac, "Autarch of Flame")
+addDefeatBossAchievement(370712, EVIL_WALL, 0x157, "Wait... Walls Shouldn't Move!")
+addDefeatBossAchievement(370713, FOUR_FIENDS, 0xbc, "Four Fiends of the Elements")
+addDefeatBossAchievement(370714, CPU, 0xbd, "Giant's Weak Point")
 
 achievement(
     id = 370715,
-    title = "Zeromus",
+    title = "Zemus' Unbridled Hate",
     description = "Defeat Zeromus (all party members must be alive at the end)",
     points = 10,
-    trigger = isInBattle() && isBattleChallengeOn() && trigger_when(isBattleWon())
+    trigger = isInBattle() && trigger_when(isBattleWon())
             && SubLocation == 0x172 && EnemyFormation == EnemyFormations[ZEROMUS]
             && unless(
                 bit7(CHARACTER_POINTER_1) == 1
@@ -197,11 +204,17 @@ achievement(
 // -----------------------------------------------------------------------------
 // COLLECTION
 
-function addCollectChestsAchievement(id, title, points, chests) {
+function addCollectChestsAchievement(id, location, points, chests, missable = false) {
+    title = format("Treasures of {0}", location)
+    
+    if (missable == true) {
+        title = title + " [m]"
+    }
+    
     achievement(
         id = id,
         title = title,
-        description = format("Open every chest in {0}", title),
+        description = format("Open every chest in {0}", location),
         points = points,
         trigger = isActiveGame() && sum_of(chests, chest => prev(chest)) != length(chests) 
             && measured(sum_of(chests, chest => chest) == length(chests))
@@ -215,7 +228,7 @@ MistCaveChests = [
     bit3(0xd12b1),
 ]
 
-addCollectChestsAchievement(370716, "Mist Cave", 2, MistCaveChests)
+addCollectChestsAchievement(370716, "the Mist Cave", 2, MistCaveChests)
 
 KaipoChests = [
     bit2(0xd12a1),
@@ -249,7 +262,7 @@ WaterCavernChests = [
     bit4(0xd12b6),
 ]
 
-addCollectChestsAchievement(370718, "Water Cavern", 10, WaterCavernChests)
+addCollectChestsAchievement(370718, "the Water Cavern", 10, WaterCavernChests)
 
 DamcyanChests = [
     bit7(0xd12a7),
@@ -295,7 +308,7 @@ MountHobsChests = [
     bit1(0xd12b6),
 ]
 
-addCollectChestsAchievement(370721, "Mt Hobs", 2, MountHobsChests)
+addCollectChestsAchievement(370721, "Mt. Hobs", 2, MountHobsChests)
 
 FabulChests = [
     bit5(0xd12a9),
@@ -332,7 +345,7 @@ WaterwayChests = [
     bit6(0xd12a7),
 ]
 
-addCollectChestsAchievement(370724, "Waterway", 5, WaterwayChests)
+addCollectChestsAchievement(370724, "the Waterway", 5, WaterwayChests)
 
 BaronCastleChests = [
     bit2(0xd12a4),
@@ -426,7 +439,7 @@ ChocoboForestsChests = [
     bit0(0xd12bf),
 ]
 
-addCollectChestsAchievement(370731, "Chocobo Forests", 10, ChocoboForestsChests)
+addCollectChestsAchievement(370731, "the Chocobo Forests", 10, ChocoboForestsChests)
 
 MagneticCavernChests = [
     bit1(0xd12b7),
@@ -441,7 +454,7 @@ MagneticCavernChests = [
     bit2(0xd12b8),
 ]
 
-addCollectChestsAchievement(370732, "Magnetic Cavern", 5, MagneticCavernChests)
+addCollectChestsAchievement(370732, "the Magnetic Cavern", 5, MagneticCavernChests)
 
 EblanCastleChests = [
     bit2(0xd12ae),
@@ -511,7 +524,7 @@ TowerOfZotChests = [
     bit0(0xd12b9),
 ]
 
-addCollectChestsAchievement(370735, "Tower Of Zot [m]", 5, TowerOfZotChests)
+addCollectChestsAchievement(370735, "the Tower of Zot", 5, TowerOfZotChests, true)
 
 DwarvenCastleChests = [
     bit2(0xd12c1),
@@ -555,7 +568,7 @@ TowerOfBabilOneChests = [
     bit7(0xd12c5),
 ]
 
-addCollectChestsAchievement(370737, "Tower Of Babil I [m]", 5, TowerOfBabilOneChests)
+addCollectChestsAchievement(370737, "the Tower of Babil I", 5, TowerOfBabilOneChests, true)
 
 EblanCaveChests = [
     bit6(0xd12bb),
@@ -595,7 +608,7 @@ TowerOfBabilTwoChests = [
     bit2(0xd12c4),
 ]
 
-addCollectChestsAchievement(370739, "Tower Of Babil II [m]", 5, TowerOfBabilTwoChests)
+addCollectChestsAchievement(370739, "the Tower of Babil II", 5, TowerOfBabilTwoChests, true)
 
 TomraChests = [
     bit4(0xd12c0),
@@ -639,7 +652,7 @@ SealedCaveChests = [
     bit2(0xd12cf),
 ]
 
-addCollectChestsAchievement(370742, "Sealed Cave", 5, SealedCaveChests)
+addCollectChestsAchievement(370742, "the Sealed Cave", 5, SealedCaveChests)
 
 CaveOfSummonsChests = [
     bit1(0xd12c6),
@@ -655,7 +668,7 @@ CaveOfSummonsChests = [
     bit3(0xd12c7),
 ]
 
-addCollectChestsAchievement(370743, "Cave Of Summons", 5, CaveOfSummonsChests)
+addCollectChestsAchievement(370743, "the Cave of Summons", 5, CaveOfSummonsChests)
 
 LandOfSummonsChests = [ 
     bit5(0xd12c7),   
@@ -671,7 +684,7 @@ LandOfSummonsChests = [
     bit7(0xd12c8),
 ]
 
-addCollectChestsAchievement(370744, "Land Of Summons", 5, LandOfSummonsChests)
+addCollectChestsAchievement(370744, "the Land of Summons", 5, LandOfSummonsChests)
 
 SylvanCaveChests = [
     bit0(0xd12c9),
@@ -716,7 +729,7 @@ LunarPathChests = [
     bit5(0xd12d0),
 ]
 
-addCollectChestsAchievement(370746, "Lunar Path", 1, LunarPathChests)
+addCollectChestsAchievement(370746, "the Lunar Path", 1, LunarPathChests)
 
 CaveBahamutChests = [
     bit5(0xd12cf),
@@ -738,7 +751,7 @@ GiantOfBabilChests = [
     bit5(0xd12bb),
 ]
 
-addCollectChestsAchievement(370748, "Giant of Babil [m]", 3, GiantOfBabilChests)
+addCollectChestsAchievement(370748, "the Giant of Babil", 3, GiantOfBabilChests, true)
 
 LunarSubterraneChests = [
     bit6(0xd12d0),
@@ -777,49 +790,50 @@ LunarSubterraneChests = [
 
 addCollectChestsAchievement(370749, "Lunar Subterrane", 10, LunarSubterraneChests)
 
-addEventFlagAchievement(370750, "Excalibur", "Obtain Excalibur", bit4(0xd1289))
-addEventFlagAchievement(370751, "Knife [m]", "Obtain Knife (from Yang's wife)", bit7(0xd1289))
+addEventFlagAchievement(370750, "Sword of Promised Victory", "Obtain Excalibur", bit4(0xd1289))
+addEventFlagAchievement(370751, "The Power of Love [m]", "Obtain the Knife from Yang's wife", bit7(0xd1289))
 
-function addCollectSpecialItemAchievement(id, name, flag, location) {
+function addCollectSpecialItemAchievement(id, title, name, flag, location) {
     achievement(
         id = id,
-        title = name,
+        title = title,
         description = format("Obtain {0}", name),
         points = 10,
         trigger = isInDialog() && prev(flag) == 1 && flag == 0 && SubLocation == location
     )
 }
 
-addCollectSpecialItemAchievement(370752, "Ragnarok", bit3(0xd131b), 0x16b)
-addCollectSpecialItemAchievement(370753, "Masamune", bit4(0xd131b), 0x16e)
-addCollectSpecialItemAchievement(370754, "Murasame", bit5(0xd131b), 0x169)
-addCollectSpecialItemAchievement(370755, "Holy Lance", bit6(0xd131b), 0x17a)
+addCollectSpecialItemAchievement(370752, "Twilight of the Gods", "Ragnarok", bit3(0xd131b), 0x16b)
+addCollectSpecialItemAchievement(370753, "Edge's Best Friend", "Masamune", bit4(0xd131b), 0x16e)
+addCollectSpecialItemAchievement(370754, "Edge's Other Best Friend", "Murasame", bit5(0xd131b), 0x169)
+addCollectSpecialItemAchievement(370755, "Spear of Destiny", "the Holy Lance", bit6(0xd131b), 0x17a)
 
 // -----------------------------------------------------------------------------
 // SIDEQUESTS
 
-function addFindSummonAchievement(id, name, summon) {
+function addFindSummonAchievement(id, title, summon) {
     achievement(
         id = id,
-        title = name,
-        description = format("Learn {0}", name),
+        title = title,
+        description = format("Learn the {0} summon spell", summon),
         points = 10,
-        trigger = isActiveGame() && any_of(SummonSlots, summonSlot => summonSlot == summon && prev(summonSlot) != summon)
+        trigger = isInDialog() 
+            && any_of(SummonSlots, summonSlot => summonSlot == Summons[summon] && prev(summonSlot) != Summons[summon])
     )
 }
 
-addFindSummonAchievement(370756, "Sylph", SYLPH)
-addFindSummonAchievement(370757, "Odin", ODIN)
-addFindSummonAchievement(370758, "Asura", ASURA)
-addFindSummonAchievement(370759, "Leviathan", LEVIATHAN)
-addFindSummonAchievement(370760, "Bahamut", BAHAMUT)
+addFindSummonAchievement(370756, "Air Elemental Sylph", SYLPH)
+addFindSummonAchievement(370757, "Mighty Odin", ODIN)
+addFindSummonAchievement(370758, "Queen Asura", ASURA)
+addFindSummonAchievement(370759, "King Leviathan", LEVIATHAN)
+addFindSummonAchievement(370760, "Dragon God Bahamut", BAHAMUT)
 
 // -----------------------------------------------------------------------------
 // FUN
 
 achievement(
     id = 370761,
-    title = "Master Of Thieves",
+    title = "Master of Thieves",
     description = "Steal Dark Matter while fighting Zeromus",
     points = 10,
     trigger = isInBattle() && any_of(BattleItemSlots, itemSlot => itemSlot == 0xfb && prev(itemSlot) != 0xfb)
@@ -827,7 +841,7 @@ achievement(
 
 achievement(
     id = 370762,
-    title = "Master Of Perversion",
+    title = "Master of Perversion",
     description = "Obtain the (adult) magazine from secret Developer's Room",
     points = 5,
     trigger = isActiveGame() && any_of(ItemSlots, itemSlot => prev(itemSlot) != 0xe4 && itemSlot == 0xe4)
@@ -835,8 +849,8 @@ achievement(
 
 achievement(
     id = 370763,
-    title = "Master Of Exploration",
-    description = "Find Three Step Peninsula (encounter a battle there)",
+    title = "Master of Exploration",
+    description = "Find the Three Step Peninsula and encounter a battle there",
     points = 3,
     trigger = isInBattle() && MainLocation == 0x01
         && PositionX == 0x0d && __ornext(PositionY == 0x3c || PositionY == 0x3d || PositionY == 0x3e)
@@ -844,7 +858,7 @@ achievement(
 
 achievement(
     id = 370764,
-    title = "Master Of Luxurie",
+    title = "Master of Luxury",
     description = "Buy a pass to the Court of Kings",
     points = 3,
     trigger = isActiveGame() && any_of(ItemSlots, itemSlot => prev(itemSlot) != 0xec && itemSlot == 0xec)
@@ -852,7 +866,7 @@ achievement(
 
 achievement(
     id = 370765,
-    title = "Master Of Science",
+    title = "Master of Science",
     description = "Look at the Moon through a telescope",
     points = 1,
     trigger = prev(SubLocation)  == 0x1f && SubLocation == 0x7c
