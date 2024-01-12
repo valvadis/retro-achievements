@@ -81,7 +81,7 @@ SkillSlots = [byte(0x0b71), byte(0x0b72), byte(0x0b73), byte(0x0b74), byte(0x0b7
 
 // [32 bit] Quests are stored in logs between 0x8b0 and 0x988 
 QuestSlots = []
-for questSlot in range(0x8b0, 0x940) {
+for questSlot in range(0x8b0, 0x988) {
     array_push(QuestSlots, dword(questSlot))
 }
 
