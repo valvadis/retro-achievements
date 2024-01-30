@@ -4,7 +4,6 @@
 // -----------------------------------------------------------------------------
 // VARIABLES
 
-TimeInSeconds = dword(0xd16a4)
 PositionX = byte(0xd1706)
 PositionY = byte(0xd1707)
 MainLocation = byte(0xd1700)
@@ -12,6 +11,8 @@ SubLocation = word_be(0xd1701)
 MenuIndicator = byte(0xd0650)
 BattleMode = bit0(0xd16be)
 BattleSpeed = byte(0xd16ac)
+BattleCommand = byte(0xd4ad1)
+BattleAttack = byte(0xd4ad2)
 
 CHARACTER_POINTER_1 = 0xd4483
 CHARACTER_POINTER_2 = 0xd4583
@@ -105,6 +106,10 @@ function isBattleChallengeOn() => BattleMode == 1 && BattleSpeed == 0
 
 function isBattleWon() => prev(bit5(0xd00a8)) == 0 && bit5(0xd00a8) == 1
 
+function pauseWhenItemIsUsed() => disable_when(BattleCommand == 1, isBattleStarted())
+
+function pauseWhenMagicIsUsed() => disable_when(BattleCommand == 2, isBattleStarted())
+
 function pauseWhenCharacterIsFainted(pointer) {
     disable_when(
         byte(pointer + 0x11) > 0 && (bit6(pointer) == 1 || bit7(pointer) == 1),
@@ -151,39 +156,205 @@ achievement(
 // -----------------------------------------------------------------------------
 // CHALLENGES
 
-function addDefeatBossAchievement(id, enemy, location, title) {
-    achievement(
-        id = id,
-        title = format("{0} [m]", title),
-        description = format("Defeat {0} (No deaths, Active Mode, Speed 1)", enemy),
-        points = 10,
-        trigger = isInBattle() && isBattleChallengeOn() && trigger_when(isBattleWon())
-            && SubLocation == location && EnemyFormation == EnemyFormations[enemy]
-            && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
-            && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
-            && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
-            && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
-            && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
-    )
-}
+achievement(
+    id = 370698,
+    title = "Mist's Last Stand [m]",
+    description = "Defeat Dragon Mist (without triggering Cold Mist)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x06c && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[MIST_DRAGON]
+        && disable_when(BattleAttack == 0x74, isBattleStarted()) // COLD MIST
+)
 
-addDefeatBossAchievement(370698, MIST_DRAGON, 0x06c, "Mist's Last Stand")
-addDefeatBossAchievement(370699, OCTOMAMM, 0x076, "Eight Times as Dangerous")
-addDefeatBossAchievement(370700, ANTLION, 0x079, "Antidote Secured")
-addDefeatBossAchievement(370701, MOM_BOMB, 0x07f, "The Mother of All Bombs")
-addDefeatBossAchievement(370702, MILON, 0x087, "Blighted Despot")
-addDefeatBossAchievement(370703, MILON_Z, 0x087, "And Now Stay Dead!")
-addDefeatBossAchievement(370704, BAIGAN, 0x02a, "Double Agent")
-addDefeatBossAchievement(370705, CAGNAZZO, 0x02c, "The Drowned King")
-addDefeatBossAchievement(370706, DARK_ELF, 0x094, "Thank You Spoony Bard!")
-addDefeatBossAchievement(370707, SISTERS, 0x09d, "Delta Attack")
-addDefeatBossAchievement(370708, VALVALIS, 0x09f, "Empress of the Winds")
-addDefeatBossAchievement(370709, CALBRINA, 0x10d, "Dangerous Doll")
-addDefeatBossAchievement(370710, LUGABORG, 0x128, "Mad Scientist")
-addDefeatBossAchievement(370711, RUBICANT, 0xac, "Autarch of Flame")
-addDefeatBossAchievement(370712, EVIL_WALL, 0x157, "Wait... Walls Shouldn't Move!")
-addDefeatBossAchievement(370713, FOUR_FIENDS, 0xbc, "Four Fiends of the Elements")
-addDefeatBossAchievement(370714, CPU, 0xbd, "Giant's Weak Point")
+achievement(
+    id = 370699,
+    title = "Eight Times as Dangerous [m]",
+    description = "Defeat Octomamm (no items)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x076 && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[OCTOMAMM]
+        && pauseWhenItemIsUsed()
+)
+
+achievement(
+    id = 370700,
+    title = "Antidote Secured [m]",
+    description = "Defeat Antlion (no counter attacks)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x079 && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[ANTLION]
+        && disable_when(BattleAttack == 0xa8, isBattleStarted()) // COUNTER
+)
+
+achievement(
+    id = 370701,
+    title = "The Mother of All Bombs [m]",
+    description = "Defeat Mom Bomb (no death)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x07f && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[MOM_BOMB]
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
+)
+
+achievement(
+    id = 370702,
+    title = "Blighted Despot [m]",
+    description = "Defeat Milon (no magic)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x087 && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[MILON]
+        && pauseWhenMagicIsUsed()
+)
+
+achievement(
+    id = 370703,
+    title = "And Now Stay Dead! [m]",
+    description = "Defeat Milon Zombie (no items)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x087 && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[MILON_Z]
+        && pauseWhenItemIsUsed()
+)
+
+achievement(
+    id = 370704,
+    title = "Double Agent [m]",
+    description = "Defeat Captain Baigan (Active Mode, Speed 1)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x02a && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[BAIGAN]
+        && isBattleChallengeOn()
+)
+
+achievement(
+    id = 370705,
+    title = "The Drowned King [m]",
+    description = "Defeat Cagnazzo (no death)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x02c && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[CAGNAZZO]
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
+)
+
+achievement(
+    id = 370706,
+    title = "Thank You Spoony Bard! [m]",
+    description = "Defeat Dark Elf (Active Mode, Speed 1)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x094 && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[DARK_ELF]
+        && isBattleChallengeOn()
+)
+
+
+achievement(
+    id = 370707,
+    title = "Delta Attack [m]",
+    description = "Defeat the Magus Sisters (no magic)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x09d && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[SISTERS]
+        && pauseWhenMagicIsUsed()
+)
+
+achievement(
+    id = 370708,
+    title = "Empress of the Winds [m]",
+    description = "Defeat Valvalis (no death)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x09f && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[VALVALIS]
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
+)
+
+achievement(
+    id = 370709,
+    title = "Dangerous Doll [m]",
+    description = "Defeat Calbrina (no items)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x10d && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[CALBRINA]
+        && pauseWhenItemIsUsed()
+)
+
+achievement(
+    id = 370710,
+    title = "Mad Scientist [m]",
+    description = "Defeat Lugaborg (no death)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0x128 && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[LUGABORG]
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
+)
+
+achievement(
+    id = 370711,
+    title = "Autarch of Flame [m]",
+    description = "Defeat Rubicant (no items)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0xac && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[RUBICANT]
+        && pauseWhenItemIsUsed()
+)
+
+achievement(
+    id = 370712,
+    title = "Wait... Walls Shouldn't Move! [m]",
+    description = "Defeat the Evil Wall (no death, Active Mode, Speed 1)",
+    points = 25,
+    trigger = isInBattle() && SubLocation == 0x157 && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[EVIL_WALL]
+        && isBattleChallengeOn()
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
+)
+
+achievement(
+    id = 370713,
+    title = "Four Fiends of the Elements [m]",
+    description = "Defeat the Four Fiends (no death)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0xbc && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[FOUR_FIENDS]
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
+)
+
+achievement(
+    id = 370714,
+    title = "Giant's Weak Point [m]",
+    description = "Defeat CPU (no death)",
+    points = 10,
+    trigger = isInBattle() && SubLocation == 0xbd && trigger_when(isBattleWon())
+        && EnemyFormation == EnemyFormations[CPU]
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
+        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
+)
 
 achievement(
     id = 370715,
@@ -230,13 +401,8 @@ MistCaveChests = [
 
 addCollectChestsAchievement(370716, "the Mist Cave", 2, MistCaveChests)
 
-KaipoChests = [
-    bit2(0xd12a1),
-]
-
-addCollectChestsAchievement(370717, "Kaipo", 1, KaipoChests)
-
 WaterCavernChests = [
+    bit2(0xd12a1), // KAIPO
     bit4(0xd12b1),
     bit5(0xd12b1),
     bit6(0xd12b1),
@@ -262,7 +428,7 @@ WaterCavernChests = [
     bit4(0xd12b6),
 ]
 
-addCollectChestsAchievement(370718, "the Water Cavern", 10, WaterCavernChests)
+addCollectChestsAchievement(370718, "Kaipo and the Water Cavern", 10, WaterCavernChests)
 
 DamcyanChests = [
     bit7(0xd12a7),
@@ -405,19 +571,14 @@ MistVillageChests = [
 
 addCollectChestsAchievement(370727, "Mist Village", 10, MistVillageChests)
 
-AgartChests = [
-    bit2(0xd12a2),
-]
-
-addCollectChestsAchievement(370728, "Agart", 1, AgartChests)
-
-MythrilChests = [
+AgartAndMythrilChests = [
+    bit2(0xd12a2), // AGART
     bit3(0xd12a1),
     bit4(0xd12a1),
     bit5(0xd12a1),
 ]
 
-addCollectChestsAchievement(370729, "Mythril", 3, MythrilChests)
+addCollectChestsAchievement(370729, "Agart and Mythril", 4, AgartAndMythrilChests)
 
 TroiaChests = [
     bit6(0xd12a1),
@@ -817,7 +978,7 @@ function addFindSummonAchievement(id, title, summon) {
         title = title,
         description = format("Learn the {0} summon spell", summon),
         points = 10,
-        trigger = isInDialog() 
+        trigger = isInDialog()
             && any_of(SummonSlots, summonSlot => summonSlot == Summons[summon] && prev(summonSlot) != Summons[summon])
     )
 }
@@ -1220,36 +1381,41 @@ SubLocations = {
 }
 
 Characters = {
-    0: "_ _ _",
-    1: "Cecil",
-    2: "Kain",
-    3: "Rydia",
-    4: "Tellah",
-    5: "Edward",
-    6: "Rosa",
-    7: "Yang",
-    8: "Palom",
-    9: "Porom",
-    10: "Tellah",
-    11: "Cecil",
-    12: "Tellah",
-    13: "Yang",
-    14: "Cid",
-    15: "Kain",
-    16: "Rosa",
-    17: "Rydia",
-    18: "Edge",
-    19: "FuSoYa",
-    20: "Kain",
-    21: "Golbez",
+    0: "",
+    1: "• Cecil ",
+    2: "• Kain ",
+    3: "• Rydia ",
+    4: "• Tellah ",
+    5: "• Edward ",
+    6: "• Rosa ",
+    7: "• Yang ",
+    8: "• Palom ",
+    9: "• Porom ",
+    10: "• Tellah ",
+    11: "• Cecil ",
+    12: "• Tellah ",
+    13: "• Yang ",
+    14: "• Cid ",
+    15: "• Kain ",
+    16: "• Rosa ",
+    17: "• Rydia ",
+    18: "• Edge ",
+    19: "• FuSoYa ",
+    20: "• Kain ",
+    21: "• Golbez ",
 }
+
+// -----------------------------------------------------------------------------
+// RICH PRESENCE
+
+TimeInSeconds = dword(0xd16a4)
 
 rich_presence_conditional_display(SubLocation == 0x7c, "Party observes the moon through a telescope")
 
 rich_presence_conditional_display(MenuIndicator == 0x70 || PositionX + PositionY == 0, "Player is on title screen")
 
 rich_presence_conditional_display(MainLocation == 0x03,
-    "Party of {0} • {1} • {2} • {3} • {4} is exploring {5} | {6}",
+    "Party of {0}{1}{2}{3}{4}• is exploring {5} | {6}",
     rich_presence_lookup("Character1 ID", Character1ID, Characters),
     rich_presence_lookup("Character2 ID", Character2ID, Characters),
     rich_presence_lookup("Character3 ID", Character3ID, Characters),
@@ -1260,7 +1426,7 @@ rich_presence_conditional_display(MainLocation == 0x03,
 )
 
 rich_presence_display(
-    "Party of {0} • {1} • {2} • {3} • {4} is exploring {5} | {6}",
+    "Party of {0}{1}{2}{3}{4}• is exploring {5} | {6}",
     rich_presence_lookup("Character1 ID", Character1ID, Characters),
     rich_presence_lookup("Character2 ID", Character2ID, Characters),
     rich_presence_lookup("Character3 ID", Character3ID, Characters),
@@ -1268,4 +1434,36 @@ rich_presence_display(
     rich_presence_lookup("Character5 ID", Character5ID, Characters),
     rich_presence_lookup("MainLocation", MainLocation, MainLocations),
     rich_presence_value("Time", TimeInSeconds, "SECS_AS_MINS")
+)
+
+// -----------------------------------------------------------------------------
+// LEADERBOARDS
+
+leaderboard(
+    title = "Speed Run",
+    description = "Finish the game as quickly as possible",
+    start = isInBattle() && SubLocation == 0x172 && EnemyFormation == EnemyFormations[ZEROMUS],
+    cancel = bit7(0xd00a8) == 1,
+    submit = isBattleWon(),
+    value = TimeInSeconds,
+    format= "SECS_AS_MINS",
+    lower_is_better = true
+)
+
+CHARACTER_LEVEL_1 = byte(0xd1042)
+CHARACTER_LEVEL_2 = byte(0xd10c2)
+CHARACTER_LEVEL_3 = byte(0xd1002)
+CHARACTER_LEVEL_4 = byte(0xd1102)
+CHARACTER_LEVEL_5 = byte(0xd1082)
+
+leaderboard(
+    title = "Level Run",
+    description = "Finish the game with the lowest level",
+    start = isInBattle() && SubLocation == 0x172 && EnemyFormation == EnemyFormations[ZEROMUS],
+    cancel = bit7(0xd00a8) == 1,
+    submit = isBattleWon(),
+    value = CHARACTER_LEVEL_1  + CHARACTER_LEVEL_2 + CHARACTER_LEVEL_3 
+                + CHARACTER_LEVEL_4 + CHARACTER_LEVEL_5,
+    format= "VALUE",
+    lower_is_better = true
 )
