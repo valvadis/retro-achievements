@@ -1401,7 +1401,7 @@ Characters = {
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
 
-TimeInSeconds = dword(0xd16a4)
+TimeInSeconds = tword(0xd16a4)
 
 rich_presence_conditional_display(SubLocation == 0x7c, "Party observes the moon through a telescope")
 
