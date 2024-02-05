@@ -110,6 +110,12 @@ function pauseWhenItemIsUsed() => disable_when(BattleCommand == 1, isBattleStart
 
 function pauseWhenMagicIsUsed() => disable_when(BattleCommand == 2, isBattleStarted())
 
+function pauseWhenAttackIsUsed(attack) {
+    disable_when(
+        BattleAttack == attack,
+        isBattleStarted())   
+} 
+
 function pauseWhenCharacterIsFainted(pointer) {
     disable_when(
         byte(pointer + 0x11) > 0 && (bit6(pointer) == 1 || bit7(pointer) == 1),
@@ -163,7 +169,7 @@ achievement(
     points = 10,
     trigger = isInBattle() && SubLocation == 0x06c && trigger_when(isBattleWon())
         && EnemyFormation == EnemyFormations[MIST_DRAGON]
-        && disable_when(BattleAttack == 0x74, isBattleStarted()) // COLD MIST
+        && pauseWhenAttackIsUsed(0x74) // COLD MIST
 )
 
 achievement(
@@ -183,7 +189,7 @@ achievement(
     points = 10,
     trigger = isInBattle() && SubLocation == 0x079 && trigger_when(isBattleWon())
         && EnemyFormation == EnemyFormations[ANTLION]
-        && disable_when(BattleAttack == 0xa8, isBattleStarted()) // COUNTER
+        && pauseWhenAttackIsUsed(0xa8) // COUNTER
 )
 
 achievement(
@@ -233,15 +239,11 @@ achievement(
 achievement(
     id = 370705,
     title = "The Drowned King [m]",
-    description = "Defeat Cagnazzo (no death)",
+    description = "Defeat Cagnazzo (without triggering Wave)",
     points = 10,
     trigger = isInBattle() && SubLocation == 0x02c && trigger_when(isBattleWon())
         && EnemyFormation == EnemyFormations[CAGNAZZO]
-        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
-        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
-        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
-        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
-        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
+        && pauseWhenAttackIsUsed(0x9d) // WAVE
 )
 
 achievement(
@@ -345,15 +347,11 @@ achievement(
 achievement(
     id = 370714,
     title = "Giant's Weak Point [m]",
-    description = "Defeat CPU (no death)",
+    description = "Defeat CPU (without triggering Re-form)",
     points = 10,
     trigger = isInBattle() && SubLocation == 0xbd && trigger_when(isBattleWon())
         && EnemyFormation == EnemyFormations[CPU]
-        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_1)
-        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_2)
-        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_3)
-        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_4)
-        && pauseWhenCharacterIsFainted(CHARACTER_POINTER_5)
+        && pauseWhenAttackIsUsed(0xab)
 )
 
 achievement(
@@ -884,22 +882,17 @@ SylvanCaveChests = [
 
 addCollectChestsAchievement(370745, "Sylvan Cave", 10, SylvanCaveChests)
 
-LunarPathChests = [
+CaveBahamutAndLunarPathChests = [
     bit3(0xd12d0),
     bit4(0xd12d0),
     bit5(0xd12d0),
-]
-
-addCollectChestsAchievement(370746, "the Lunar Path", 1, LunarPathChests)
-
-CaveBahamutChests = [
     bit5(0xd12cf),
     bit6(0xd12cf),
     bit7(0xd12cf),
     bit0(0xd12d0),
 ]
 
-addCollectChestsAchievement(370747, "Cave Bahamut", 2, CaveBahamutChests)
+addCollectChestsAchievement(370747, "the Lunar Path and Bahamut Cave", 5, CaveBahamutAndLunarPathChests)
 
 GiantOfBabilChests = [
     bit6(0xd12ba),
