@@ -1401,7 +1401,7 @@ Characters = {
 // -----------------------------------------------------------------------------
 // RICH PRESENCE
 
-TimeInSeconds = tword(0xd16a4)
+TimeInSeconds = tbyte(0xd16a4)
 
 rich_presence_conditional_display(SubLocation == 0x7c, "Party observes the moon through a telescope")
 
@@ -1439,7 +1439,7 @@ leaderboard(
     cancel = bit7(0xd00a8) == 1,
     submit = isBattleWon(),
     value = TimeInSeconds,
-    format= "SECS_AS_MINS",
+    format= "FRAMES",
     lower_is_better = true
 )
 
