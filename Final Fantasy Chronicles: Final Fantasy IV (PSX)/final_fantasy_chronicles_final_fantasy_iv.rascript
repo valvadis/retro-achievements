@@ -261,7 +261,7 @@ achievement(
     id = 370707,
     title = "Delta Attack [m]",
     description = "Defeat the Magus Sisters (no magic)",
-    points = 10,
+    points = 25,
     trigger = isInBattle() && SubLocation == 0x09d && trigger_when(isBattleWon())
         && EnemyFormation == EnemyFormations[SISTERS]
         && pauseWhenMagicIsUsed()
