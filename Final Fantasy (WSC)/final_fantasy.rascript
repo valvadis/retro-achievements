@@ -7,7 +7,15 @@
 BattleMode = byte(0x4cf0)
 ScreenID = byte(0x0984)
 StepsTaken = dword(0x0741)
-LeftMiddleEnemyStatus = byte(0xc8d3)
+PuzzleWinsCounter = byte(0xc096)
+PuzzleCurrentSeconds = byte(0xc08b)
+PuzzleCurrentMinutes = byte(0xc08c)
+PuzzleActive = byte(0x1016)
+FirstEnemyStatus = bit0(0xc8d3)
+FirstEnemyCurrentHP = word(0xc8da)
+FirstEnemyMaxHP = word(0xc8dc)
+SecondEnemyStatus = bit0(0xc943)
+EnhancedGameMode = bit7(0x3743)
 
 PartyLocation = byte(0x0602)
 Locations = {
@@ -150,30 +158,51 @@ Jobs = {
 
 EnemyFormation = byte(0x099f)
 EnemyFormations = {
+    "F-LICH": 0x73,
+    "F-KARY": 0x74,
+    "F-KRAKEN": 0x75,
+    "F-TIAMAT": 0x76,
+    "TIAMAT": 0x77,
+    "KRAKEN": 0x78,
+    "KARY": 0x79,
+    "LICH": 0x7a,
     "CHAOS": 0x7b,
+    "VAMPIRE": 0x7c,
+    "ASTOS": 0x7d,
+    "PIRATES": 0x7e,
+    "GARLAND": 0x7f,
     "WARMECH": 0x56,
-    "TYRO": 0xbd,
+    "REX": 0x3e,
+    "GOLEM": 0xff,
 }
 
 Character1 = {
     "JOB": byte(0x075b),
     "DEATH": bit0(0xc613),
-    "SPELLS": array_map(range(0x078b, 0x7a2), slot => byte(slot))
+    "POISON": bit2(0xc613),
+    "LEVEL": byte(0x075e),
+    "SPELLS": array_map(range(0x0776, 0x77d), slot => byte(slot))
 }
 Character2 = {
     "JOB": byte(0x07b3),
     "DEATH": bit0(0xc6c3),
-    "SPELLS": array_map(range(0x07e3, 0x7fa), slot => byte(slot))
+    "POISON": bit2(0xc6c3),
+    "LEVEL": byte(0x07b6),
+    "SPELLS": array_map(range(0x07ce, 0x7d5), slot => byte(slot))
 }
 Character3 = {
     "JOB": byte(0x080b),
     "DEATH": bit0(0xc773),
-    "SPELLS": array_map(range(0x083b, 0x852), slot => byte(slot))
+    "POISON": bit2(0xc773),
+    "LEVEL": byte(0x080e),
+    "SPELLS": array_map(range(0x0826, 0x82d), slot => byte(slot))
 }
 Character4 = {
     "JOB": byte(0x0863),
     "DEATH": bit0(0xc823),
-    "SPELLS": array_map(range(0x0893, 0x8aa), slot => byte(slot))
+    "POISON": bit2(0xc823),
+    "LEVEL": byte(0x0866),
+    "SPELLS": array_map(range(0x087e, 0x885), slot => byte(slot))
 }
 
 // -----------------------------------------------------------------------------
@@ -183,7 +212,11 @@ function isMainMenu() => ScreenID == 0x03 || ScreenID == 0x04
 
 function isGameActive() => !isMainMenu() && StepsTaken > 0
 
-function isInBattle() => BattleMode == 0 && isGameActive()
+function isInBattle() => ScreenID == 0x8
+
+function getCurrentPuzzleTime() => PuzzleCurrentMinutes * 60 + PuzzleCurrentSeconds
+
+function piratesAreDefeated() => all_of([0xc8d3, 0xc943, 0xc9b3, 0xca23, 0xca93, 0xcb03, 0xcb73, 0xcbe3, 0xcc53], pirate => bit0(pirate) == 1)
 
 function partyIsDefeated() => Character1["DEATH"] == 1
                                 && Character2["DEATH"] == 1
@@ -191,7 +224,7 @@ function partyIsDefeated() => Character1["DEATH"] == 1
                                 && Character4["DEATH"] == 1
 
 // -----------------------------------------------------------------------------
-// PROGRESSION
+// PROGRESS
 
 function addEventFlagAchievement(id, title, description, points, progress, location, flag) {
     type = ""
@@ -220,7 +253,143 @@ addEventFlagAchievement(0, "The Water Crystal", "Purify the Water Crystal", 5, t
 addEventFlagAchievement(0, "The Lefeinians Language", "Learn the language of the Lefeinians", 5, true, 0x6a, bit6(0x62f))
 addEventFlagAchievement(0, "The Wind Crystal", "Purify the Wind Crystal", 5, true, 0x60, bit2(0x63))
 addEventFlagAchievement(0, "The Chaos Temple", "Find the Chaos Temple", 5, true, 0x1f, bit4(0x63))
-// Add Defeat Chaos cheevo (25)
+
+achievement(
+    id = 0,
+    title = "The Chaos",
+    description = "Defeat Chaos and complete the game",
+    points = 25,
+    trigger = EnemyFormation == EnemyFormations["CHAOS"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1,
+    type = "win_condition"
+)
+
+// -----------------------------------------------------------------------------
+// CHALLENGE
+
+achievement(
+    id = 0,
+    title = "The Pirates Challenge",
+    description = "Defeat Pirates with original mode enabled",
+    points = 10,
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["PIRATES"] && EnhancedGameMode == 0 && piratesAreDefeated()
+)
+
+achievement(
+    id = 0,
+    title = "The Astos Challenge",
+    description = "Defeat Astos without dying",
+    points = 10,
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["ASTOS"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+        &&  disable_when(Character1["DEATH"] == 1, !isInBattle())
+        &&  disable_when(Character2["DEATH"] == 1, !isInBattle())
+        &&  disable_when(Character3["DEATH"] == 1, !isInBattle())
+        &&  disable_when(Character4["DEATH"] == 1, !isInBattle())
+)
+
+achievement(
+    id = 0,
+    title = "The Vampire Challenge",
+    description = "Defeat Vampire with all party poisoned",
+    points = 10,
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["VAMPIRE"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+        &&  Character1["POISON"] == 1
+        &&  Character2["POISON"] == 1
+        &&  Character3["POISON"] == 1
+        &&  Character4["POISON"] == 1
+)
+
+achievement(
+    id = 0,
+    title = "The Lich Challenge",
+    description = "Defeat Lich without using magic",
+    points = 10,
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["LICH"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+        && disable_when(
+            any_of(Character1["SPELLS"], spell => prev(spell) != spell) ||
+            any_of(Character2["SPELLS"], spell => prev(spell) != spell) ||
+            any_of(Character3["SPELLS"], spell => prev(spell) != spell) ||
+            any_of(Character4["SPELLS"], spell => prev(spell) != spell),
+            !isInBattle()
+        )
+)
+
+achievement(
+    id = 0,
+    title = "The Kary Challenge",
+    description = "Defeat Kary without using magic",
+    points = 10,
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["KARY"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+        && disable_when(
+            any_of(Character1["SPELLS"], spell => prev(spell) != spell) ||
+            any_of(Character2["SPELLS"], spell => prev(spell) != spell) ||
+            any_of(Character3["SPELLS"], spell => prev(spell) != spell) ||
+            any_of(Character4["SPELLS"], spell => prev(spell) != spell),
+            !isInBattle()
+        )
+)
+
+achievement(
+    id = 0,
+    title = "The Kraken Challenge",
+    description = "Defeat Kraken without a class upgrade",
+    points = 10,
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["KRAKEN"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+        && bit0(0x62f) == 0
+)
+
+achievement(
+    id = 0,
+    title = "The Tiamat Challenge",
+    description = "Defeat Tiamat with only one blow",
+    points = 10,
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["TIAMAT"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+        && prev(FirstEnemyCurrentHP) == FirstEnemyMaxHP
+)
+
+achievement(
+    id = 0,
+    title = "The Temple Lich Challenge",
+    description = "Defeat Lich in the Temple of Fiends three times",
+    points = 5,
+    trigger = repeated(3, isInBattle() && EnemyFormation == EnemyFormations["F-LICH"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        && never(partyIsDefeated() || isMainMenu())
+)
+
+achievement(
+    id = 0,
+    title = "The Temple Kary Challenge",
+    description = "Defeat Kary in the Temple of Fiends three times",
+    points = 5,
+    trigger = repeated(3, isInBattle() && EnemyFormation == EnemyFormations["F-KARY"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        && never(partyIsDefeated() || isMainMenu())
+)
+
+achievement(
+    id = 0,
+    title = "The Temple Kraken Challenge",
+    description = "Defeat Kraken in the Temple of Fiends three times",
+    points = 5,
+    trigger = repeated(3, isInBattle() && EnemyFormation == EnemyFormations["F-KRAKEN"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        && never(partyIsDefeated() || isMainMenu())
+)
+
+achievement(
+    id = 0,
+    title = "The Temple Tiamat Challenge",
+    description = "Defeat Tiamat in the Temple of Fiends three times",
+    points = 5,
+    trigger = repeated(3, isInBattle() && EnemyFormation == EnemyFormations["F-TIAMAT"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        && never(partyIsDefeated() || isMainMenu())
+)
+
+achievement(
+    id = 0,
+    title = "The Chaos Challenge",
+    description = "Defeat Chaos when all party members are alive",
+    points = 25,
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["CHAOS"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+        && Character1["DEATH"] == 0 && Character2["DEATH"] == 0 && Character3["DEATH"] == 0 && Character4["DEATH"] == 0
+)
 
 // -----------------------------------------------------------------------------
 // COLLECTION
@@ -360,7 +529,7 @@ TempleOfFiendsAreaChests = [
 addCollectChestsAchievement(0, "Temple of Fiends", TempleOfFiendsAreaChests)
 
 // -----------------------------------------------------------------------------
-// SIDEQUESTS
+// SIDEQUEST
 
 addEventFlagAchievement(0, "Class Promotion", "Obtain the class upgrade from King Bahamut", 10, false, 0x54, bit0(0x62f))
 
@@ -376,34 +545,68 @@ achievement(
 
 achievement(
     id = 0,
-    title = "The Sage",
-    description = "Fill all spell slots for at least one character",
-    points = 10,
-    trigger = isGameActive() && (
-        none_of(Character1["SPELLS"], spell => spell == 0) ||
-        none_of(Character2["SPELLS"], spell => spell == 0) ||
-        none_of(Character3["SPELLS"], spell => spell == 0) ||
-        none_of(Character4["SPELLS"], spell => spell == 0)
-    )
-)
-
-
-achievement(
-    id = 0,
     title = "Warmech",
     description = "Defeat Warmech",
     points = 10,
-    trigger = prev(bit0(LeftMiddleEnemyStatus)) == 0 && bit0(LeftMiddleEnemyStatus) == 1 
-        && EnemyFormation == EnemyFormations["WARMECH"]
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["WARMECH"]
+        && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1 
+        
 )
 
 achievement(
     id = 0,
-    title = "Tyrannosaur",
-    description = "Defeat Tyrannosaur",
+    title = "T-Rex",
+    description = "Defeat T-Rex",
     points = 10,
-    trigger = prev(bit0(LeftMiddleEnemyStatus)) == 0 && bit0(LeftMiddleEnemyStatus) == 1 
-        && EnemyFormation == EnemyFormations["TYRO"]
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["REX"]
+        && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1 
+)
+
+achievement(
+    id = 0,
+    title = "Iron Golem",
+    description = "Defeat Iron Golem",
+    points = 10,
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["GOLEM"] && (
+        prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1 || prev(SecondEnemyStatus) == 0 && SecondEnemyStatus == 1
+    )
+)
+
+achievement(
+    id = 0,
+    title = "Beginner",
+    description = "Complete a 15 Puzzle in 6 minutes or less",
+    points = 3,
+    trigger = PartyLocation == 0x00 && prev(PuzzleWinsCounter) + 1 == PuzzleWinsCounter
+        && getCurrentPuzzleTime() <= 360 && PuzzleActive == 0x01
+)
+
+achievement(
+    id = 0,
+    title = "Intermediate",
+    description = "Complete a 15 Puzzle in 4 minutes or less",
+    points = 5,
+    trigger = PartyLocation == 0x00 && prev(PuzzleWinsCounter) + 1 == PuzzleWinsCounter
+        && getCurrentPuzzleTime() <= 240 && PuzzleActive == 0x01
+)
+
+achievement(
+    id = 0,
+    title = "Advanced",
+    description = "Complete a 15 Puzzle in 2 minutes or less",
+    points = 10,
+    trigger = PartyLocation == 0x00 && prev(PuzzleWinsCounter) + 1 == PuzzleWinsCounter
+        && getCurrentPuzzleTime() <= 120 && PuzzleActive == 0x01
+)
+
+achievement(
+    id = 0,
+    title = "Dream Team",
+    description = "Get level 50 of each character",
+    points = 25,
+    trigger = isInBattle()
+        && Character1["LEVEL"] + Character2["LEVEL"] + Character3["LEVEL"] + Character4["LEVEL"] == 200
+        && prev(Character1["LEVEL"]) + prev(Character2["LEVEL"]) + prev(Character3["LEVEL"]) + prev(Character4["LEVEL"]) > 180
 )
 
 
@@ -430,7 +633,7 @@ leaderboard(
     description = "Finish the game by taking as few steps as possible",
     start = isInBattle() && PartyLocation == 0x27 && EnemyFormation == EnemyFormations["CHAOS"],
     cancel = partyIsDefeated(),
-    submit = LeftMiddleEnemyStatus == 0x01,
+    submit = FirstEnemyStatus == 1,
     value = StepsTaken,
     format= "VALUE",
     lower_is_better = true
@@ -442,7 +645,7 @@ leaderboard(
     start = StepsTaken > 0 && PartyLocation == 0x60,
     cancel = partyIsDefeated(),
     submit = PartyLocation != 0x60,
-    value = measured(tally(0, prev(bit0(LeftMiddleEnemyStatus)) == 0 && bit0(LeftMiddleEnemyStatus) == 1 && EnemyFormation == EnemyFormations["WARMECH"])),
+    value = measured(tally(0, prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1 && EnemyFormation == EnemyFormations["WARMECH"])),
     format= "VALUE",
     lower_is_better = false
 )
