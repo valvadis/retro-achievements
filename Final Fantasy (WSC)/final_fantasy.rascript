@@ -16,6 +16,8 @@ FirstEnemyCurrentHP = word(0xc8da)
 FirstEnemyMaxHP = word(0xc8dc)
 SecondEnemyStatus = bit0(0xc943)
 EnhancedGameMode = bit7(0x3743)
+PartyXCoordinate = byte(0x0604)
+PartyYCoordinate = byte(0x0605)
 
 PartyLocation = byte(0x0602)
 Locations = {
@@ -249,9 +251,9 @@ addEventFlagAchievement(0, "The Earth Crystal", "Purify the Earth Crystal", 10, 
 addEventFlagAchievement(0, "A Canoe", "Obtain a canoe", 5, true, 0x2f, bit2(0x62e))
 addEventFlagAchievement(0, "The Fire Crystal", "Purify the Fire Crystal", 10, true, 0x2e, bit3(0x62e))
 addEventFlagAchievement(0, "An Airship", "Find an airship", 5, true, 0x79, bit5(0x62e))
-addEventFlagAchievement(0, "The Water Crystal", "Purify the Water Crystal", 5, true, 0x17, bit5(0x62f))
+addEventFlagAchievement(0, "The Water Crystal", "Purify the Water Crystal", 10, true, 0x17, bit5(0x62f))
 addEventFlagAchievement(0, "The Lefeinians Language", "Learn the language of the Lefeinians", 5, true, 0x6a, bit6(0x62f))
-addEventFlagAchievement(0, "The Wind Crystal", "Purify the Wind Crystal", 5, true, 0x60, bit2(0x63))
+addEventFlagAchievement(0, "The Wind Crystal", "Purify the Wind Crystal", 10, true, 0x60, bit2(0x63))
 addEventFlagAchievement(0, "The Chaos Temple", "Find the Chaos Temple", 5, true, 0x1f, bit4(0x63))
 
 achievement(
@@ -279,7 +281,7 @@ achievement(
     title = "The Astos Challenge",
     description = "Defeat Astos without dying",
     points = 10,
-    trigger = isInBattle() && EnemyFormation == EnemyFormations["ASTOS"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+    trigger = EnemyFormation == EnemyFormations["ASTOS"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
         &&  disable_when(Character1["DEATH"] == 1, !isInBattle())
         &&  disable_when(Character2["DEATH"] == 1, !isInBattle())
         &&  disable_when(Character3["DEATH"] == 1, !isInBattle())
@@ -303,7 +305,7 @@ achievement(
     title = "The Lich Challenge",
     description = "Defeat Lich without using magic",
     points = 10,
-    trigger = isInBattle() && EnemyFormation == EnemyFormations["LICH"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+    trigger = EnemyFormation == EnemyFormations["LICH"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
         && disable_when(
             any_of(Character1["SPELLS"], spell => prev(spell) != spell) ||
             any_of(Character2["SPELLS"], spell => prev(spell) != spell) ||
@@ -318,7 +320,7 @@ achievement(
     title = "The Kary Challenge",
     description = "Defeat Kary without using magic",
     points = 10,
-    trigger = isInBattle() && EnemyFormation == EnemyFormations["KARY"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+    trigger = EnemyFormation == EnemyFormations["KARY"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
         && disable_when(
             any_of(Character1["SPELLS"], spell => prev(spell) != spell) ||
             any_of(Character2["SPELLS"], spell => prev(spell) != spell) ||
@@ -530,6 +532,15 @@ addCollectChestsAchievement(0, "Temple of Fiends", TempleOfFiendsAreaChests)
 
 // -----------------------------------------------------------------------------
 // SIDEQUEST
+
+achievement(
+    id = 0,
+    title = "Peninsula of Power",
+    description = "Find the Peninsula of Power",
+    points = 5,
+    trigger = isInBattle() && PartyLocation == 0x00 && (PartyXCoordinate == 223 || PartyXCoordinate == 224) 
+        && (PartyYCoordinate == 121 || PartyYCoordinate == 120 || PartyYCoordinate == 119)
+)
 
 addEventFlagAchievement(0, "Class Promotion", "Obtain the class upgrade from King Bahamut", 10, false, 0x54, bit0(0x62f))
 
