@@ -322,7 +322,7 @@ achievement(
 )
 
 achievement(
-    id = 454524,
+    id = 454523,
     title = "The Kary Challenge",
     description = "Defeat Kary without using magic",
     points = 10,
