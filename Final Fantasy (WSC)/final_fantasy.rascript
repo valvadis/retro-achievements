@@ -7,18 +7,20 @@
 BattleMode = byte(0x4cf0)
 ScreenID = byte(0x0984)
 StepsTaken = dword(0x0741)
+EnhancedGameMode = bit7(0x064c)
+
 PuzzleWinsCounter = byte(0xc096)
 PuzzleCurrentSeconds = byte(0xc08b)
 PuzzleCurrentMinutes = byte(0xc08c)
 PuzzleActive = byte(0x1016)
+
 FirstEnemyStatus = bit0(0xc8d3)
 FirstEnemyCurrentHP = word(0xc8da)
 FirstEnemyMaxHP = word(0xc8dc)
 SecondEnemyStatus = bit0(0xc943)
-EnhancedGameMode = bit7(0x3743)
+
 PartyXCoordinate = byte(0x0604)
 PartyYCoordinate = byte(0x0605)
-
 PartyLocation = byte(0x0602)
 Locations = {
     0x00: "Overworld",
@@ -244,20 +246,20 @@ function addEventFlagAchievement(id, title, description, points, progress, locat
     )
 }
 
-addEventFlagAchievement(0, "The Princess Sara", "Rescue Princess Sara and rebuild the bridge", 2, true, 0x39, bit3(0x62c))
-addEventFlagAchievement(0, "A Ship", "Obtain a ship", 5, true, 0x62, bit5(0x62c))
-addEventFlagAchievement(0, "The Mystic Key", "Find the mystic key", 3, true, 0x6, bit1(0x62d))
-addEventFlagAchievement(0, "The Earth Crystal", "Purify the Earth Crystal", 10, true, 0x5, bit1(0x62e))
-addEventFlagAchievement(0, "A Canoe", "Obtain a canoe", 5, true, 0x2f, bit2(0x62e))
-addEventFlagAchievement(0, "The Fire Crystal", "Purify the Fire Crystal", 10, true, 0x2e, bit3(0x62e))
-addEventFlagAchievement(0, "An Airship", "Find an airship", 5, true, 0x79, bit5(0x62e))
-addEventFlagAchievement(0, "The Water Crystal", "Purify the Water Crystal", 10, true, 0x17, bit5(0x62f))
-addEventFlagAchievement(0, "The Lefeinians Language", "Learn the language of the Lefeinians", 5, true, 0x6a, bit6(0x62f))
-addEventFlagAchievement(0, "The Wind Crystal", "Purify the Wind Crystal", 10, true, 0x60, bit2(0x63))
-addEventFlagAchievement(0, "The Chaos Temple", "Find the Chaos Temple", 5, true, 0x1f, bit4(0x63))
+addEventFlagAchievement(454504, "The Princess Sara", "Rescue Princess Sara and rebuild the bridge", 2, true, 0x39, bit2(0x62c))
+addEventFlagAchievement(454505, "A Ship", "Obtain a ship", 5, true, 0x62, bit5(0x62c))
+addEventFlagAchievement(454506, "The Mystic Key", "Find the mystic key", 3, true, 0x6, bit1(0x62d))
+addEventFlagAchievement(454507, "The Earth Crystal", "Purify the Earth Crystal", 10, true, 0x5, bit1(0x62e))
+addEventFlagAchievement(454508, "A Canoe", "Obtain a canoe", 5, true, 0x2f, bit2(0x62e))
+addEventFlagAchievement(454509, "The Fire Crystal", "Purify the Fire Crystal", 10, true, 0x2e, bit3(0x62e))
+addEventFlagAchievement(454510, "An Airship", "Find an airship", 5, true, 0x79, bit5(0x62e))
+addEventFlagAchievement(454511, "The Water Crystal", "Purify the Water Crystal", 10, true, 0x17, bit5(0x62f))
+addEventFlagAchievement(454512, "The Lefeinians Language", "Learn the language of the Lefeinians", 5, true, 0x6a, bit6(0x62f))
+addEventFlagAchievement(454513, "The Wind Crystal", "Purify the Wind Crystal", 10, true, 0x60, bit2(0x630))
+addEventFlagAchievement(454514, "The Chaos Temple", "Find the Chaos Temple", 5, true, 0x1f, bit4(0x630))
 
 achievement(
-    id = 0,
+    id = 454537,
     title = "The Chaos",
     description = "Defeat Chaos and complete the game",
     points = 25,
@@ -269,7 +271,7 @@ achievement(
 // CHALLENGE
 
 achievement(
-    id = 0,
+    id = 454538,
     title = "The Pirates Challenge",
     description = "Defeat Pirates with original mode enabled",
     points = 10,
@@ -277,7 +279,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454539,
     title = "The Astos Challenge",
     description = "Defeat Astos without dying",
     points = 10,
@@ -289,7 +291,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454522,
     title = "The Vampire Challenge",
     description = "Defeat Vampire with all party poisoned",
     points = 10,
@@ -301,7 +303,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454545,
     title = "The Lich Challenge",
     description = "Defeat Lich without using magic",
     points = 10,
@@ -316,7 +318,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454524,
     title = "The Kary Challenge",
     description = "Defeat Kary without using magic",
     points = 10,
@@ -331,7 +333,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454540,
     title = "The Kraken Challenge",
     description = "Defeat Kraken without a class upgrade",
     points = 10,
@@ -340,7 +342,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454541,
     title = "The Tiamat Challenge",
     description = "Defeat Tiamat with only one blow",
     points = 10,
@@ -349,7 +351,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454542,
     title = "The Temple Lich Challenge",
     description = "Defeat Lich in the Temple of Fiends three times",
     points = 5,
@@ -358,7 +360,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454524,
     title = "The Temple Kary Challenge",
     description = "Defeat Kary in the Temple of Fiends three times",
     points = 5,
@@ -367,7 +369,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454543,
     title = "The Temple Kraken Challenge",
     description = "Defeat Kraken in the Temple of Fiends three times",
     points = 5,
@@ -376,7 +378,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454544,
     title = "The Temple Tiamat Challenge",
     description = "Defeat Tiamat in the Temple of Fiends three times",
     points = 5,
@@ -385,7 +387,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454521,
     title = "The Chaos Challenge",
     description = "Defeat Chaos when all party members are alive",
     points = 25,
@@ -420,7 +422,7 @@ ConeriaAreaChests = [
     bit5(0x061b), bit6(0x061b),
 ]
 
-addCollectChestsAchievement(0, "Coneria", ConeriaAreaChests)
+addCollectChestsAchievement(454515, "Coneria", ConeriaAreaChests)
 
 ElflandAreaChests = [
     // Elf Castle
@@ -434,7 +436,7 @@ ElflandAreaChests = [
     bit0(0x061e),
 ]
 
-addCollectChestsAchievement(0, "Elfland", ElflandAreaChests)
+addCollectChestsAchievement(454525, "Elfland", ElflandAreaChests)
 
 MelmondAreaChests = [
     // Titan Cave
@@ -448,7 +450,7 @@ MelmondAreaChests = [
     bit1(0x0612), bit3(0x0612), bit4(0x0612), bit5(0x0612),
 ]
 
-addCollectChestsAchievement(0, "Melmond", MelmondAreaChests)
+addCollectChestsAchievement(454526, "Melmond", MelmondAreaChests)
 
 CrescentLakeAreaChests = [
     // Gurgu Volcano
@@ -469,7 +471,7 @@ CrescentLakeAreaChests = [
     
 ]
 
-addCollectChestsAchievement(0, "Crescent Lake", CrescentLakeAreaChests)
+addCollectChestsAchievement(454516, "Crescent Lake", CrescentLakeAreaChests)
 
 CardiaIslandAreaChests = [
     // Cardia Island
@@ -482,7 +484,7 @@ CardiaIslandAreaChests = [
     bit7(0x060e), bit1(0x060f), bit2(0x060f), bit3(0x060f),
 ]
 
-addCollectChestsAchievement(0, "Cardia Island", CardiaIslandAreaChests)
+addCollectChestsAchievement(454527, "Cardia Island", CardiaIslandAreaChests)
 
 LufeniaAreaChests = [
     // Mirage Tower
@@ -503,7 +505,7 @@ LufeniaAreaChests = [
     bit0(0x062a),
 ]
 
-addCollectChestsAchievement(0, "Lufenia", LufeniaAreaChests)
+addCollectChestsAchievement(454528, "Lufenia", LufeniaAreaChests)
 
 OnracAreaChests = [
     // The Waterfall
@@ -520,7 +522,7 @@ OnracAreaChests = [
     bit5(0x0616), bit4(0x062a),
 ]
 
-addCollectChestsAchievement(0, "Onrac", OnracAreaChests)
+addCollectChestsAchievement(454517, "Onrac", OnracAreaChests)
 
 TempleOfFiendsAreaChests = [
     // The Temple of Fiends
@@ -528,13 +530,13 @@ TempleOfFiendsAreaChests = [
     bit1(0x062b), bit2(0x062b), bit3(0x062b),
 ]
 
-addCollectChestsAchievement(0, "Temple of Fiends", TempleOfFiendsAreaChests)
+addCollectChestsAchievement(454529, "Temple of Fiends", TempleOfFiendsAreaChests)
 
 // -----------------------------------------------------------------------------
 // SIDEQUEST
 
 achievement(
-    id = 0,
+    id = 454546,
     title = "Peninsula of Power",
     description = "Find the Peninsula of Power",
     points = 5,
@@ -542,12 +544,12 @@ achievement(
         && (PartyYCoordinate == 121 || PartyYCoordinate == 120 || PartyYCoordinate == 119)
 )
 
-addEventFlagAchievement(0, "Class Promotion", "Obtain the class upgrade from King Bahamut", 10, false, 0x54, bit0(0x62f))
+addEventFlagAchievement(454530, "Class Promotion", "Obtain the class upgrade from King Bahamut", 10, false, 0x54, bit0(0x62f))
 
-addEventFlagAchievement(0, "Excalibur", "Obtain the Excalibur", 10, false, 0x57, bit3(0x630))
+addEventFlagAchievement(454531, "Excalibur", "Obtain the Excalibur", 10, false, 0x57, bit3(0x630))
 
 achievement(
-    id = 0,
+    id = 454518,
     title = "Ultimate Spells",
     description = "Find secret shop with ultimate spells",
     points = 5,
@@ -555,7 +557,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454532,
     title = "Warmech",
     description = "Defeat Warmech",
     points = 10,
@@ -565,7 +567,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454520,
     title = "T-Rex",
     description = "Defeat T-Rex",
     points = 10,
@@ -574,7 +576,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454536,
     title = "Iron Golem",
     description = "Defeat Iron Golem",
     points = 10,
@@ -584,7 +586,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454533,
     title = "Beginner",
     description = "Complete a 15 Puzzle in 6 minutes or less",
     points = 3,
@@ -593,7 +595,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454519,
     title = "Intermediate",
     description = "Complete a 15 Puzzle in 4 minutes or less",
     points = 5,
@@ -602,7 +604,7 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454534,
     title = "Advanced",
     description = "Complete a 15 Puzzle in 2 minutes or less",
     points = 10,
@@ -611,13 +613,13 @@ achievement(
 )
 
 achievement(
-    id = 0,
+    id = 454535,
     title = "Dream Team",
     description = "Get level 50 of each character",
     points = 25,
     trigger = isInBattle()
         && Character1["LEVEL"] + Character2["LEVEL"] + Character3["LEVEL"] + Character4["LEVEL"] == 200
-        && prev(Character1["LEVEL"]) + prev(Character2["LEVEL"]) + prev(Character3["LEVEL"]) + prev(Character4["LEVEL"]) > 180
+        && prev(Character1["LEVEL"]) + prev(Character2["LEVEL"]) + prev(Character3["LEVEL"]) + prev(Character4["LEVEL"]) < 200
 )
 
 
