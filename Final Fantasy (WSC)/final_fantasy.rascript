@@ -275,6 +275,7 @@ achievement(
     title = "The Pirates Challenge",
     description = "Defeat Pirates with original mode enabled",
     points = 10,
+    type = "missable",
     trigger = isInBattle() && EnemyFormation == EnemyFormations["PIRATES"] && EnhancedGameMode == 0 && piratesAreDefeated()
 )
 
@@ -283,6 +284,7 @@ achievement(
     title = "The Astos Challenge",
     description = "Defeat Astos without dying",
     points = 10,
+    type = "missable",
     trigger = EnemyFormation == EnemyFormations["ASTOS"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
         &&  disable_when(Character1["DEATH"] == 1, !isInBattle())
         &&  disable_when(Character2["DEATH"] == 1, !isInBattle())
@@ -295,6 +297,7 @@ achievement(
     title = "The Vampire Challenge",
     description = "Defeat Vampire with all party poisoned",
     points = 10,
+    type = "missable",
     trigger = isInBattle() && EnemyFormation == EnemyFormations["VAMPIRE"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
         &&  Character1["POISON"] == 1
         &&  Character2["POISON"] == 1
@@ -307,6 +310,7 @@ achievement(
     title = "The Lich Challenge",
     description = "Defeat Lich without using magic",
     points = 10,
+    type = "missable",
     trigger = EnemyFormation == EnemyFormations["LICH"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
         && disable_when(
             any_of(Character1["SPELLS"], spell => prev(spell) != spell) ||
@@ -322,6 +326,7 @@ achievement(
     title = "The Kary Challenge",
     description = "Defeat Kary without using magic",
     points = 10,
+    type = "missable",
     trigger = EnemyFormation == EnemyFormations["KARY"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
         && disable_when(
             any_of(Character1["SPELLS"], spell => prev(spell) != spell) ||
@@ -337,6 +342,7 @@ achievement(
     title = "The Kraken Challenge",
     description = "Defeat Kraken without a class upgrade",
     points = 10,
+    type = "missable",
     trigger = isInBattle() && EnemyFormation == EnemyFormations["KRAKEN"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
         && bit0(0x62f) == 0
 )
@@ -346,6 +352,7 @@ achievement(
     title = "The Tiamat Challenge",
     description = "Defeat Tiamat with only one blow",
     points = 10,
+    type = "missable",
     trigger = isInBattle() && EnemyFormation == EnemyFormations["TIAMAT"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
         && prev(FirstEnemyCurrentHP) == FirstEnemyMaxHP
 )
