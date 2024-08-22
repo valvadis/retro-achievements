@@ -1439,7 +1439,7 @@ leaderboard(
     cancel = bit7(0xd00a8) == 1,
     submit = isBattleWon(),
     value = TimeInSeconds,
-    format= "FRAMES",
+    format= "SECS_AS_MINS",
     lower_is_better = true
 )
 
