@@ -547,8 +547,8 @@ achievement(
     title = "Peninsula of Power",
     description = "Find the Peninsula of Power",
     points = 5,
-    trigger = isInBattle() && PartyLocation == 0x00 && (PartyXCoordinate == 223 || PartyXCoordinate == 224) 
-        && (PartyYCoordinate == 121 || PartyYCoordinate == 120 || PartyYCoordinate == 119)
+    trigger = isInBattle() && PartyLocation == 0x00 && __ornext(PartyXCoordinate == 223 || PartyXCoordinate == 224) 
+        && __ornext(PartyYCoordinate == 120 || PartyYCoordinate == 119)
 )
 
 addEventFlagAchievement(454530, "Class Promotion", "Obtain the class upgrade from King Bahamut", 10, false, 0x54, bit0(0x62f))
