@@ -276,7 +276,8 @@ achievement(
     description = "Defeat Pirates with original mode enabled",
     points = 10,
     type = "missable",
-    trigger = isInBattle() && EnemyFormation == EnemyFormations["PIRATES"] && EnhancedGameMode == 0 && piratesAreDefeated()
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["PIRATES"] && EnhancedGameMode == 0
+        && trigger_when(piratesAreDefeated())
 )
 
 achievement(
@@ -285,11 +286,12 @@ achievement(
     description = "Defeat Astos without dying",
     points = 10,
     type = "missable",
-    trigger = EnemyFormation == EnemyFormations["ASTOS"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
-        &&  disable_when(Character1["DEATH"] == 1, !isInBattle())
-        &&  disable_when(Character2["DEATH"] == 1, !isInBattle())
-        &&  disable_when(Character3["DEATH"] == 1, !isInBattle())
-        &&  disable_when(Character4["DEATH"] == 1, !isInBattle())
+    trigger = EnemyFormation == EnemyFormations["ASTOS"] 
+        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        && disable_when(Character1["DEATH"] == 1, !isInBattle())
+        && disable_when(Character2["DEATH"] == 1, !isInBattle())
+        && disable_when(Character3["DEATH"] == 1, !isInBattle())
+        && disable_when(Character4["DEATH"] == 1, !isInBattle())
 )
 
 achievement(
@@ -298,11 +300,12 @@ achievement(
     description = "Defeat Vampire with all party poisoned",
     points = 10,
     type = "missable",
-    trigger = isInBattle() && EnemyFormation == EnemyFormations["VAMPIRE"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
-        &&  Character1["POISON"] == 1
-        &&  Character2["POISON"] == 1
-        &&  Character3["POISON"] == 1
-        &&  Character4["POISON"] == 1
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["VAMPIRE"] 
+        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        && Character1["POISON"] == 1
+        && Character2["POISON"] == 1
+        && Character3["POISON"] == 1
+        && Character4["POISON"] == 1
 )
 
 achievement(
@@ -311,7 +314,8 @@ achievement(
     description = "Defeat Lich without using magic",
     points = 10,
     type = "missable",
-    trigger = EnemyFormation == EnemyFormations["LICH"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+    trigger = EnemyFormation == EnemyFormations["LICH"] 
+        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
         && disable_when(
             any_of(Character1["SPELLS"], spell => prev(spell) != spell) ||
             any_of(Character2["SPELLS"], spell => prev(spell) != spell) ||
@@ -327,7 +331,8 @@ achievement(
     description = "Defeat Kary without using magic",
     points = 10,
     type = "missable",
-    trigger = EnemyFormation == EnemyFormations["KARY"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+    trigger = EnemyFormation == EnemyFormations["KARY"] 
+        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
         && disable_when(
             any_of(Character1["SPELLS"], spell => prev(spell) != spell) ||
             any_of(Character2["SPELLS"], spell => prev(spell) != spell) ||
@@ -343,7 +348,8 @@ achievement(
     description = "Defeat Kraken without a class upgrade",
     points = 10,
     type = "missable",
-    trigger = isInBattle() && EnemyFormation == EnemyFormations["KRAKEN"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["KRAKEN"] 
+        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
         && bit0(0x62f) == 0
 )
 
@@ -353,7 +359,8 @@ achievement(
     description = "Defeat Tiamat with only one blow",
     points = 10,
     type = "missable",
-    trigger = isInBattle() && EnemyFormation == EnemyFormations["TIAMAT"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["TIAMAT"] 
+        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
         && prev(FirstEnemyCurrentHP) == FirstEnemyMaxHP
 )
 
@@ -362,8 +369,9 @@ achievement(
     title = "The Temple Lich Challenge",
     description = "Defeat Lich in the Temple of Fiends three times",
     points = 5,
-    trigger = repeated(3, isInBattle() && EnemyFormation == EnemyFormations["F-LICH"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
-        && never(partyIsDefeated() || isMainMenu())
+    trigger = measured(repeated(3, 
+            isInBattle() && EnemyFormation == EnemyFormations["F-LICH"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        ) && never(partyIsDefeated() || isMainMenu())
 )
 
 achievement(
@@ -371,8 +379,9 @@ achievement(
     title = "The Temple Kary Challenge",
     description = "Defeat Kary in the Temple of Fiends three times",
     points = 5,
-    trigger = repeated(3, isInBattle() && EnemyFormation == EnemyFormations["F-KARY"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
-        && never(partyIsDefeated() || isMainMenu())
+    trigger = measured(repeated(3,
+            isInBattle() && EnemyFormation == EnemyFormations["F-KARY"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        ) && never(partyIsDefeated() || isMainMenu())
 )
 
 achievement(
@@ -380,8 +389,9 @@ achievement(
     title = "The Temple Kraken Challenge",
     description = "Defeat Kraken in the Temple of Fiends three times",
     points = 5,
-    trigger = repeated(3, isInBattle() && EnemyFormation == EnemyFormations["F-KRAKEN"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
-        && never(partyIsDefeated() || isMainMenu())
+    trigger = measured(repeated(3,
+            isInBattle() && EnemyFormation == EnemyFormations["F-KRAKEN"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        ) && never(partyIsDefeated() || isMainMenu())
 )
 
 achievement(
@@ -389,8 +399,9 @@ achievement(
     title = "The Temple Tiamat Challenge",
     description = "Defeat Tiamat in the Temple of Fiends three times",
     points = 5,
-    trigger = repeated(3, isInBattle() && EnemyFormation == EnemyFormations["F-TIAMAT"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
-        && never(partyIsDefeated() || isMainMenu())
+    trigger = measured(repeated(3,
+            isInBattle() && EnemyFormation == EnemyFormations["F-TIAMAT"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        ) && never(partyIsDefeated() || isMainMenu())
 )
 
 achievement(
@@ -398,8 +409,12 @@ achievement(
     title = "The Chaos Challenge",
     description = "Defeat Chaos when all party members are alive",
     points = 25,
-    trigger = isInBattle() && EnemyFormation == EnemyFormations["CHAOS"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1
-        && Character1["DEATH"] == 0 && Character2["DEATH"] == 0 && Character3["DEATH"] == 0 && Character4["DEATH"] == 0
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["CHAOS"]
+        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+        && Character1["DEATH"] == 0
+        && Character2["DEATH"] == 0
+        && Character3["DEATH"] == 0
+        && Character4["DEATH"] == 0
 )
 
 // -----------------------------------------------------------------------------
@@ -569,7 +584,7 @@ achievement(
     description = "Defeat Warmech",
     points = 10,
     trigger = isInBattle() && EnemyFormation == EnemyFormations["WARMECH"]
-        && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1 
+        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
         
 )
 
@@ -579,7 +594,7 @@ achievement(
     description = "Defeat T-Rex",
     points = 10,
     trigger = isInBattle() && EnemyFormation == EnemyFormations["REX"]
-        && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1 
+        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
 )
 
 achievement(
@@ -588,7 +603,7 @@ achievement(
     description = "Defeat Iron Golem",
     points = 10,
     trigger = isInBattle() && EnemyFormation == EnemyFormations["GOLEM"] && (
-        prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1 || prev(SecondEnemyStatus) == 0 && SecondEnemyStatus == 1
+        trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1 || prev(SecondEnemyStatus) == 0 && SecondEnemyStatus == 1)
     )
 )
 
