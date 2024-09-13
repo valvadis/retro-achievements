@@ -246,21 +246,21 @@ function addEventFlagAchievement(id, title, description, points, progress, locat
     )
 }
 
-addEventFlagAchievement(454504, "The Princess Sara", "Rescue Princess Sara and rebuild the bridge", 2, true, 0x39, bit2(0x62c))
-addEventFlagAchievement(454505, "A Ship", "Obtain a ship", 5, true, 0x62, bit5(0x62c))
-addEventFlagAchievement(454506, "The Mystic Key", "Find the mystic key", 3, true, 0x6, bit1(0x62d))
-addEventFlagAchievement(454507, "The Earth Crystal", "Purify the Earth Crystal", 10, true, 0x5, bit1(0x62e))
-addEventFlagAchievement(454508, "A Canoe", "Obtain a canoe", 5, true, 0x2f, bit2(0x62e))
-addEventFlagAchievement(454509, "The Fire Crystal", "Purify the Fire Crystal", 10, true, 0x2e, bit3(0x62e))
-addEventFlagAchievement(454510, "An Airship", "Find an airship", 5, true, 0x79, bit5(0x62e))
-addEventFlagAchievement(454511, "The Water Crystal", "Purify the Water Crystal", 10, true, 0x17, bit5(0x62f))
-addEventFlagAchievement(454512, "The Lefeinians Language", "Learn the language of the Lefeinians", 5, true, 0x6a, bit6(0x62f))
-addEventFlagAchievement(454513, "The Wind Crystal", "Purify the Wind Crystal", 10, true, 0x60, bit2(0x630))
-addEventFlagAchievement(454514, "The Chaos Temple", "Find the Chaos Temple", 5, true, 0x1f, bit4(0x630))
+addEventFlagAchievement(454504, "The Princess Is Not in Another Castle!", "Rescue Princess Sara and rebuild the bridge", 2, true, 0x39, bit2(0x62c))
+addEventFlagAchievement(454505, "Heading Out to Fantasea", "Obtain the ship", 5, true, 0x62, bit5(0x62c))
+addEventFlagAchievement(454506, "Commence the Treasure Hunt!", "Obtain the Mystic Key", 3, true, 0x6, bit1(0x62d))
+addEventFlagAchievement(454507, "The Power of Earth", "Purify the Earth Crystal", 10, true, 0x5, bit1(0x62e))
+addEventFlagAchievement(454508, "Waka Laka", "Obtain the canoe", 5, true, 0x2f, bit2(0x62e))
+addEventFlagAchievement(454509, "The Warmth of Fire", "Purify the Fire Crystal", 10, true, 0x2e, bit3(0x62e))
+addEventFlagAchievement(454510, "Fly High through the Sky", "Find the airship", 5, true, 0x79, bit5(0x62e))
+addEventFlagAchievement(454511, "The Essence of Water", "Purify the Water Crystal", 10, true, 0x17, bit5(0x62f))
+addEventFlagAchievement(454512, "Dictionary of the Sky People", "Learn the language of the Lefeinians", 5, true, 0x6a, bit6(0x62f))
+addEventFlagAchievement(454513, "The Gale of Wind", "Purify the Wind Crystal", 10, true, 0x60, bit2(0x630))
+addEventFlagAchievement(454514, "Blast to the Past", "Find the Chaos Temple", 5, true, 0x1f, bit4(0x630))
 
 achievement(
     id = 454537,
-    title = "The Chaos",
+    title = "An End to the Cycle",
     description = "Defeat Chaos and complete the game",
     points = 25,
     trigger = EnemyFormation == EnemyFormations["CHAOS"] && prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1,
