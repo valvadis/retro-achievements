@@ -272,8 +272,8 @@ achievement(
 
 achievement(
     id = 454538,
-    title = "The Pirates Challenge",
-    description = "Defeat Pirates with original mode enabled",
+    title = "Yarr, Off the Plank with Ye",
+    description = "Defeat the pirates with Original mode enabled",
     points = 10,
     type = "missable",
     trigger = isInBattle() && EnemyFormation == EnemyFormations["PIRATES"] && EnhancedGameMode == 0
@@ -282,8 +282,8 @@ achievement(
 
 achievement(
     id = 454539,
-    title = "The Astos Challenge",
-    description = "Defeat Astos without dying",
+    title = "The False King Takes No Lives",
+    description = "Defeat Astos without any party member dying",
     points = 10,
     type = "missable",
     trigger = EnemyFormation == EnemyFormations["ASTOS"] 
@@ -296,8 +296,8 @@ achievement(
 
 achievement(
     id = 454522,
-    title = "The Vampire Challenge",
-    description = "Defeat Vampire with all party poisoned",
+    title = "Poisoned Blood Will Do No Good",
+    description = "Defeat Vampire with all party members poisoned",
     points = 10,
     type = "missable",
     trigger = isInBattle() && EnemyFormation == EnemyFormations["VAMPIRE"] 
@@ -310,7 +310,7 @@ achievement(
 
 achievement(
     id = 454545,
-    title = "The Lich Challenge",
+    title = "Bone Crusher",
     description = "Defeat Lich without using magic",
     points = 10,
     type = "missable",
@@ -327,7 +327,7 @@ achievement(
 
 achievement(
     id = 454523,
-    title = "The Kary Challenge",
+    title = "Doused the Flame",
     description = "Defeat Kary without using magic",
     points = 10,
     type = "missable",
@@ -344,8 +344,8 @@ achievement(
 
 achievement(
     id = 454540,
-    title = "The Kraken Challenge",
-    description = "Defeat Kraken without a class upgrade",
+    title = "Defeated with One Percent of My Potential",
+    description = "Defeat Kraken without having upgraded any class",
     points = 10,
     type = "missable",
     trigger = isInBattle() && EnemyFormation == EnemyFormations["KRAKEN"] 
@@ -355,7 +355,7 @@ achievement(
 
 achievement(
     id = 454541,
-    title = "The Tiamat Challenge",
+    title = "I Do Not Know What It's Like to Hit Twice",
     description = "Defeat Tiamat with only one blow",
     points = 10,
     type = "missable",
@@ -366,7 +366,7 @@ achievement(
 
 achievement(
     id = 454542,
-    title = "The Temple Lich Challenge",
+    title = "Let the Undead Stay Dead",
     description = "Defeat Lich in the Temple of Fiends three times",
     points = 5,
     trigger = measured(repeated(3, 
@@ -376,7 +376,7 @@ achievement(
 
 achievement(
     id = 454524,
-    title = "The Temple Kary Challenge",
+    title = "Burned in Hellfire",
     description = "Defeat Kary in the Temple of Fiends three times",
     points = 5,
     trigger = measured(repeated(3,
@@ -386,7 +386,7 @@ achievement(
 
 achievement(
     id = 454543,
-    title = "The Temple Kraken Challenge",
+    title = "Drowning the Drowner",
     description = "Defeat Kraken in the Temple of Fiends three times",
     points = 5,
     trigger = measured(repeated(3,
@@ -396,7 +396,7 @@ achievement(
 
 achievement(
     id = 454544,
-    title = "The Temple Tiamat Challenge",
+    title = "Eighteen Times Beheaded",
     description = "Defeat Tiamat in the Temple of Fiends three times",
     points = 5,
     trigger = measured(repeated(3,
@@ -406,8 +406,8 @@ achievement(
 
 achievement(
     id = 454521,
-    title = "The Chaos Challenge",
-    description = "Defeat Chaos when all party members are alive",
+    title = "No Bad End for Us",
+    description = "Defeat Chaos with all party members alive",
     points = 25,
     trigger = isInBattle() && EnemyFormation == EnemyFormations["CHAOS"]
         && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
@@ -423,8 +423,8 @@ achievement(
 function addCollectChestsAchievement(id, location, chests) {   
     achievement(
         id = id,
-        title = format("Treasures of the {0} Area", location),
-        description = format("Open every chest in the {0} Area", location),
+        title = format("Final Treasury: {0}", location),
+        description = format("Open every chest in the {0} area", location),
         points = 10,
         trigger = isGameActive() 
             && sum_of(chests, chest => prev(chest)) + 1 == length(chests)
@@ -559,28 +559,28 @@ addCollectChestsAchievement(454529, "Temple of Fiends", TempleOfFiendsAreaChests
 
 achievement(
     id = 454546,
-    title = "Peninsula of Power",
+    title = "Let the Grind Begin!",
     description = "Find the Peninsula of Power",
     points = 5,
     trigger = isInBattle() && PartyLocation == 0x00 && __ornext(PartyXCoordinate == 223 || PartyXCoordinate == 224) 
         && __ornext(PartyYCoordinate == 120 || PartyYCoordinate == 119)
 )
 
-addEventFlagAchievement(454530, "Class Promotion", "Obtain the class upgrade from King Bahamut", 10, false, 0x54, bit0(0x62f))
+addEventFlagAchievement(454530, "Titles Befitting of Valor", "Obtain the class upgrades from King Bahamut", 10, false, 0x54, bit0(0x62f))
 
-addEventFlagAchievement(454531, "Excalibur", "Obtain the Excalibur", 10, false, 0x57, bit3(0x630))
+addEventFlagAchievement(454531, "Sword of Kings", "Obtain the Excalibur", 10, false, 0x57, bit3(0x630))
 
 achievement(
     id = 454518,
-    title = "Ultimate Spells",
-    description = "Find secret shop with ultimate spells",
+    title = "Guaranteed Disappearing Trick on My Enemies",
+    description = "Find the secret shop that sells the ultimate spells",
     points = 5,
     trigger = isGameActive() && PartyLocation == 0x71
 )
 
 achievement(
     id = 454532,
-    title = "Warmech",
+    title = "Futuristic Fantasy",
     description = "Defeat Warmech",
     points = 10,
     trigger = isInBattle() && EnemyFormation == EnemyFormations["WARMECH"]
@@ -589,17 +589,8 @@ achievement(
 )
 
 achievement(
-    id = 454520,
-    title = "T-Rex",
-    description = "Defeat T-Rex",
-    points = 10,
-    trigger = isInBattle() && EnemyFormation == EnemyFormations["REX"]
-        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
-)
-
-achievement(
     id = 454536,
-    title = "Iron Golem",
+    title = "Medieval Fantasy",
     description = "Defeat Iron Golem",
     points = 10,
     trigger = isInBattle() && EnemyFormation == EnemyFormations["GOLEM"] && (
@@ -608,9 +599,18 @@ achievement(
 )
 
 achievement(
+    id = 454520,
+    title = "T-Rex",
+    description = "Prehistoric Fantasy",
+    points = 10,
+    trigger = isInBattle() && EnemyFormation == EnemyFormations["REX"]
+        && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
+)
+
+achievement(
     id = 454533,
-    title = "Beginner",
-    description = "Complete a 15 Puzzle in 6 minutes or less",
+    title = "Beginning Slider",
+    description = "Complete a "15 Puzzle" in 6 minutes or less",
     points = 3,
     trigger = PartyLocation == 0x00 && prev(PuzzleWinsCounter) + 1 == PuzzleWinsCounter
         && getCurrentPuzzleTime() <= 360 && PuzzleActive == 0x01
@@ -618,8 +618,8 @@ achievement(
 
 achievement(
     id = 454519,
-    title = "Intermediate",
-    description = "Complete a 15 Puzzle in 4 minutes or less",
+    title = "Experienced Slider",
+    description = "Complete a "15 Puzzle" in 4 minutes or less",
     points = 5,
     trigger = PartyLocation == 0x00 && prev(PuzzleWinsCounter) + 1 == PuzzleWinsCounter
         && getCurrentPuzzleTime() <= 240 && PuzzleActive == 0x01
@@ -627,8 +627,8 @@ achievement(
 
 achievement(
     id = 454534,
-    title = "Advanced",
-    description = "Complete a 15 Puzzle in 2 minutes or less",
+    title = "Master Slider",
+    description = "Complete a "15 Puzzle" in 2 minutes or less",
     points = 10,
     trigger = PartyLocation == 0x00 && prev(PuzzleWinsCounter) + 1 == PuzzleWinsCounter
         && getCurrentPuzzleTime() <= 120 && PuzzleActive == 0x01
@@ -637,7 +637,7 @@ achievement(
 achievement(
     id = 454535,
     title = "Dream Team",
-    description = "Get level 50 of each character",
+    description = "Reach level 50 as every party member",
     points = 25,
     trigger = isInBattle()
         && Character1["LEVEL"] + Character2["LEVEL"] + Character3["LEVEL"] + Character4["LEVEL"] == 200
