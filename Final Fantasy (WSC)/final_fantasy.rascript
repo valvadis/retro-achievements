@@ -506,6 +506,23 @@ CrescentLakeAreaChests = [
 
 addCollectChestsAchievement(454516, 4, "Crescent Lake", CrescentLakeAreaChests)
 
+OnracAreaChests = [
+    // The Waterfall
+    bit1(0x061e), bit2(0x061e), bit3(0x061e), bit4(0x061e),
+    bit5(0x061e), bit6(0x061e),
+    // The Sunken Temple
+    bit0(0x0613), bit1(0x0613), bit2(0x0613), bit3(0x0613),
+    bit4(0x0613), bit5(0x0613), bit6(0x0613), bit7(0x0613),
+    bit0(0x0614), bit1(0x0614), bit2(0x0614), bit3(0x0614),
+    bit4(0x0614), bit5(0x0614), bit6(0x0614), bit7(0x0614),
+    bit7(0x0612), bit0(0x0615), bit1(0x0615), bit2(0x0615),
+    bit3(0x0615), bit4(0x0615), bit5(0x0615), bit0(0x0616),
+    bit1(0x0616), bit2(0x0616), bit3(0x0616), bit4(0x0616),
+    bit5(0x0616), bit4(0x062a),
+]
+
+addCollectChestsAchievement(454517, 5, "Onrac", OnracAreaChests)
+
 CardiaIslandAreaChests = [
     // Cardia Island
     bit0(0x0619), bit1(0x0619), bit2(0x0619), bit3(0x0619),
@@ -517,7 +534,7 @@ CardiaIslandAreaChests = [
     bit7(0x060e), bit1(0x060f), bit2(0x060f), bit3(0x060f),
 ]
 
-addCollectChestsAchievement(454527, 5, "Cardia Island", CardiaIslandAreaChests)
+addCollectChestsAchievement(454527, 6, "Cardia Island", CardiaIslandAreaChests)
 
 LufeniaAreaChests = [
     // Mirage Tower
@@ -538,24 +555,7 @@ LufeniaAreaChests = [
     bit0(0x062a),
 ]
 
-addCollectChestsAchievement(454528, 6, "Lufenia", LufeniaAreaChests)
-
-OnracAreaChests = [
-    // The Waterfall
-    bit1(0x061e), bit2(0x061e), bit3(0x061e), bit4(0x061e),
-    bit5(0x061e), bit6(0x061e),
-    // The Sunken Temple
-    bit0(0x0613), bit1(0x0613), bit2(0x0613), bit3(0x0613),
-    bit4(0x0613), bit5(0x0613), bit6(0x0613), bit7(0x0613),
-    bit0(0x0614), bit1(0x0614), bit2(0x0614), bit3(0x0614),
-    bit4(0x0614), bit5(0x0614), bit6(0x0614), bit7(0x0614),
-    bit7(0x0612), bit0(0x0615), bit1(0x0615), bit2(0x0615),
-    bit3(0x0615), bit4(0x0615), bit5(0x0615), bit0(0x0616),
-    bit1(0x0616), bit2(0x0616), bit3(0x0616), bit4(0x0616),
-    bit5(0x0616), bit4(0x062a),
-]
-
-addCollectChestsAchievement(454517, 7, "Onrac", OnracAreaChests)
+addCollectChestsAchievement(454528, 7, "Lufenia", LufeniaAreaChests)
 
 TempleOfFiendsAreaChests = [
     // The Temple of Fiends
