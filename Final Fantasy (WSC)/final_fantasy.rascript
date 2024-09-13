@@ -209,6 +209,17 @@ Character4 = {
     "SPELLS": array_map(range(0x087e, 0x885), slot => byte(slot))
 }
 
+RomanNumerals = {
+    1: "I",
+    2: "II",
+    3: "III",
+    4: "IV",
+    5: "V",
+    6: "VI",
+    7: "VII",
+    8: "VIII",
+}
+
 // -----------------------------------------------------------------------------
 // FUNCTIONS
 
@@ -420,10 +431,10 @@ achievement(
 // -----------------------------------------------------------------------------
 // COLLECTION
 
-function addCollectChestsAchievement(id, location, chests) {   
+function addCollectChestsAchievement(id, order, location, chests) {   
     achievement(
         id = id,
-        title = format("Final Treasury: {0}", location),
+        title = format("Final Treasury {0}: {1}", RomanNumerals[order], location),
         description = format("Open every chest in the {0} area", location),
         points = 10,
         trigger = isGameActive() 
@@ -444,7 +455,7 @@ ConeriaAreaChests = [
     bit5(0x061b), bit6(0x061b),
 ]
 
-addCollectChestsAchievement(454515, "Coneria", ConeriaAreaChests)
+addCollectChestsAchievement(454515, 1, "Coneria", ConeriaAreaChests)
 
 ElflandAreaChests = [
     // Elf Castle
@@ -458,7 +469,7 @@ ElflandAreaChests = [
     bit0(0x061e),
 ]
 
-addCollectChestsAchievement(454525, "Elfland", ElflandAreaChests)
+addCollectChestsAchievement(454525, 2, "Elfland", ElflandAreaChests)
 
 MelmondAreaChests = [
     // Titan Cave
@@ -472,7 +483,7 @@ MelmondAreaChests = [
     bit1(0x0612), bit3(0x0612), bit4(0x0612), bit5(0x0612),
 ]
 
-addCollectChestsAchievement(454526, "Melmond", MelmondAreaChests)
+addCollectChestsAchievement(454526, 3, "Melmond", MelmondAreaChests)
 
 CrescentLakeAreaChests = [
     // Gurgu Volcano
@@ -493,7 +504,7 @@ CrescentLakeAreaChests = [
     
 ]
 
-addCollectChestsAchievement(454516, "Crescent Lake", CrescentLakeAreaChests)
+addCollectChestsAchievement(454516, 4, "Crescent Lake", CrescentLakeAreaChests)
 
 CardiaIslandAreaChests = [
     // Cardia Island
@@ -506,7 +517,7 @@ CardiaIslandAreaChests = [
     bit7(0x060e), bit1(0x060f), bit2(0x060f), bit3(0x060f),
 ]
 
-addCollectChestsAchievement(454527, "Cardia Island", CardiaIslandAreaChests)
+addCollectChestsAchievement(454527, 5, "Cardia Island", CardiaIslandAreaChests)
 
 LufeniaAreaChests = [
     // Mirage Tower
@@ -527,7 +538,7 @@ LufeniaAreaChests = [
     bit0(0x062a),
 ]
 
-addCollectChestsAchievement(454528, "Lufenia", LufeniaAreaChests)
+addCollectChestsAchievement(454528, 6, "Lufenia", LufeniaAreaChests)
 
 OnracAreaChests = [
     // The Waterfall
@@ -544,7 +555,7 @@ OnracAreaChests = [
     bit5(0x0616), bit4(0x062a),
 ]
 
-addCollectChestsAchievement(454517, "Onrac", OnracAreaChests)
+addCollectChestsAchievement(454517, 7, "Onrac", OnracAreaChests)
 
 TempleOfFiendsAreaChests = [
     // The Temple of Fiends
@@ -552,7 +563,7 @@ TempleOfFiendsAreaChests = [
     bit1(0x062b), bit2(0x062b), bit3(0x062b),
 ]
 
-addCollectChestsAchievement(454529, "Temple of Fiends", TempleOfFiendsAreaChests)
+addCollectChestsAchievement(454529, 8, "Temple of Fiends", TempleOfFiendsAreaChests)
 
 // -----------------------------------------------------------------------------
 // SIDEQUEST
@@ -600,8 +611,8 @@ achievement(
 
 achievement(
     id = 454520,
-    title = "T-Rex",
-    description = "Prehistoric Fantasy",
+    title = "Prehistoric Fantasy",
+    description = "Defeat T-Rex",
     points = 10,
     trigger = isInBattle() && EnemyFormation == EnemyFormations["REX"]
         && trigger_when(prev(FirstEnemyStatus) == 0 && FirstEnemyStatus == 1)
@@ -610,7 +621,7 @@ achievement(
 achievement(
     id = 454533,
     title = "Beginning Slider",
-    description = "Complete a "15 Puzzle" in 6 minutes or less",
+    description = "Complete a \"15 Puzzle\" in 6 minutes or less",
     points = 3,
     trigger = PartyLocation == 0x00 && prev(PuzzleWinsCounter) + 1 == PuzzleWinsCounter
         && getCurrentPuzzleTime() <= 360 && PuzzleActive == 0x01
@@ -619,7 +630,7 @@ achievement(
 achievement(
     id = 454519,
     title = "Experienced Slider",
-    description = "Complete a "15 Puzzle" in 4 minutes or less",
+    description = "Complete a \"15 Puzzle\" in 4 minutes or less",
     points = 5,
     trigger = PartyLocation == 0x00 && prev(PuzzleWinsCounter) + 1 == PuzzleWinsCounter
         && getCurrentPuzzleTime() <= 240 && PuzzleActive == 0x01
@@ -628,7 +639,7 @@ achievement(
 achievement(
     id = 454534,
     title = "Master Slider",
-    description = "Complete a "15 Puzzle" in 2 minutes or less",
+    description = "Complete a \"15 Puzzle\" in 2 minutes or less",
     points = 10,
     trigger = PartyLocation == 0x00 && prev(PuzzleWinsCounter) + 1 == PuzzleWinsCounter
         && getCurrentPuzzleTime() <= 120 && PuzzleActive == 0x01
